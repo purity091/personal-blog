@@ -13,7 +13,7 @@ import {
 export default function App() {
   return (
     <ThemeProvider>
-      <div className="min-h-screen selection:bg-purple-500 selection:text-white bg-[var(--bg-primary)] transition-colors duration-300">
+      <div className="min-h-screen bg-[var(--bg-primary)] transition-colors duration-300">
         <Navbar />
         <Hero />
         <AITermsExplorer />

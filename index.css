@@ -247,11 +247,17 @@ p { font-size: clamp(0.875rem, 1.5vw, 1.125rem); }
 }
 
 /* ============================================
-   Selection Styling
+   Selection Styling - Radical Contrast Fix
    ============================================ */
 ::selection {
-  background-color: var(--accent-purple);
-  color: var(--text-primary);
+  background-color: var(--accent-purple) !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+::-moz-selection {
+  background-color: var(--accent-purple) !important;
+  color: #ffffff !important;
 }
 
 /* ============================================
