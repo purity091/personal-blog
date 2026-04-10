@@ -7,8 +7,6 @@ import {
   MyBookSlider,
   SocialBentoGrid,
   DeepLearningTensors,
-  LLMEcosystem,
-  NewsletterReflect,
   FooterReflect
 } from './components';
 
@@ -22,8 +20,6 @@ export default function App() {
         <MyBookSlider />
         <SocialBentoGrid />
         <DeepLearningTensors />
-        <LLMEcosystem />
-        <NewsletterReflect />
         <FooterReflect />
       </div>
     </ThemeProvider>

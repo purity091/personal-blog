@@ -17,7 +17,7 @@ const HeroVisualDecorations = () => {
       <motion.div
         animate={{ y: [0, -20, 0], opacity: [0.1, 0.2, 0.1] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[15%] left-[5%] text-[var(--accent-blue)] font-mono text-[80px] font-black opacity-5 hidden lg:block"
+        className="absolute top-[15%] start-[5%] text-[var(--accent-blue)] font-mono text-[80px] font-black opacity-5 hidden lg:block"
       >
         ∑
       </motion.div>
@@ -25,7 +25,7 @@ const HeroVisualDecorations = () => {
       <motion.div
         animate={{ y: [0, 30, 0], opacity: [0.1, 0.2, 0.1] }}
         transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        className="absolute top-[40%] right-[5%] text-[var(--accent-purple)] font-mono text-[100px] font-black opacity-5 hidden lg:block"
+        className="absolute top-[40%] end-[5%] text-[var(--accent-purple)] font-mono text-[100px] font-black opacity-5 hidden lg:block"
       >
         λ
       </motion.div>
@@ -33,7 +33,7 @@ const HeroVisualDecorations = () => {
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
-        className="absolute -top-40 -right-40 w-[600px] h-[600px] border border-[var(--accent-purple)]/5 rounded-full"
+        className="absolute -top-40 -end-40 w-[600px] h-[600px] border border-[var(--accent-purple)]/5 rounded-full"
       />
 
       {[...Array(10)].map((_, i) => (
@@ -51,7 +51,7 @@ const HeroVisualDecorations = () => {
           className="absolute w-px h-24 bg-gradient-to-b from-transparent via-[var(--accent-blue)] to-transparent"
           style={{
             top: `${Math.random() * 100}%`,
-            left: `${Math.random() * 100}%`,
+            insetInlineStart: `${Math.random() * 100}%`,
             transform: `rotate(${Math.random() * 45}deg)`
           }}
         />
@@ -99,7 +99,7 @@ const Hero = () => {
 
       {/* Dynamic Glows */}
       <motion.div
-        style={{ x: mouseX, y: mouseY, top: '5%', left: '25%', filter: 'blur(140px)' }}
+        style={{ x: mouseX, y: mouseY, top: '5%', insetInlineStart: '25%', filter: 'blur(140px)' }}
         className="bg-glow opacity-[0.5] dark:opacity-30 !bg-[var(--accent-purple)]"
       />
       <motion.div
@@ -107,7 +107,7 @@ const Hero = () => {
           x: useTransform(mouseX, (v) => -v),
           y: useTransform(mouseY, (v) => -v),
           bottom: '15%',
-          right: '25%',
+          insetInlineEnd: '25%',
           filter: 'blur(120px)'
         }}
         className="bg-glow !bg-[var(--accent-blue)] opacity-[0.4] dark:opacity-20"
