@@ -119,34 +119,20 @@ const Hero = () => {
         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
         className="max-w-6xl relative z-10 text-center"
       >
-      
 
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
-          {[
-            { icon: <Binary size={14} />, label: "المنطق الثنائي" },
-            { icon: <Variable size={14} />, label: "الجبر الخطي" },
-            { icon: <FunctionSquare size={14} />, label: "الخوارزميات" },
-            { icon: <Sigma size={14} />, label: "الإحصاء" }
-          ].map((token, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.4 + i * 0.1 }}
-              className="flex items-center gap-2 px-5 py-2 rounded-full bg-[var(--glass-bg)] border border-[var(--border-subtle)] text-[10px] font-mono text-[var(--accent-blue)] dark:text-blue-400/80 shadow-sm backdrop-blur-md hover:border-[var(--accent-blue)]/50 transition-colors"
-            >
-              {token.icon}
-              <span className="font-bold">{token.label}</span>
-            </motion.div>
-          ))}
+
+
+
+        <div className="mb-6 inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full bg-[var(--accent-purple)]/10 border border-[var(--accent-purple)]/20 text-[var(--accent-purple)] font-bold text-sm md:text-base shadow-sm">
+          👋 أهلاً، أنا محمد لحلح
         </div>
 
-        <h1 className="text-3xl md:text-8xl font-black mb-10 hero-gradient leading-[1.05] tracking-tighter filter drop-shadow-sm">
-          نفكّك شفرة <br className="hidden md:block" /> الذكاء الاصطناعي
+        <h1 className="text-3xl md:text-6xl lg:text-7xl font-black mb-6 hero-gradient leading-[1.1] tracking-tighter filter drop-shadow-sm">
+          أساعدك على فهم الذكاء الاصطناعي <br className="hidden md:block" /> لاستكشاف آفاق المستقبل.
         </h1>
 
-        <p className="text-xl md:text-3xl text-[var(--text-secondary)] max-w-4xl mx-auto mb-16 leading-relaxed font-medium">
-          رحلة بصرية في أعماق الشبكات العصبية، نترجم فيها تعقيد الرياضيات إلى شروحات برمجية بسيطة تفتح لك آفاق المستقبل.
+        <p className="text-lg md:text-xl text-[var(--text-secondary)] max-w-3xl mx-auto mb-12 leading-relaxed font-medium">
+          أنا مهندس تقني وصانع محتوى. أشارك رحلتي في تفكيك الخوارزميات المعقدة، وأحوّلها إلى شروحات مرئية بسيطة تساعدك على تعلم التكنولوجيا، وتطبيقها في حياتك المهنية لبناء مشاريع حقيقية.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-8 mb-24">
