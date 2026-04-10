@@ -16,10 +16,10 @@ export default function App() {
       <div className="min-h-screen bg-[var(--bg-primary)] transition-colors duration-300">
         <Navbar />
         <Hero />
+        <DeepLearningTensors />
         <AITermsExplorer />
         <MyBookSlider />
         <SocialBentoGrid />
-        <DeepLearningTensors />
         <FooterReflect />
       </div>
     </ThemeProvider>

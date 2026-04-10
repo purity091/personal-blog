@@ -1,12 +1,12 @@
 import React from 'react';
-import { 
-  Mail, 
-  ArrowLeft, 
-  ShieldCheck, 
-  Twitter, 
-  Youtube, 
-  Linkedin, 
-  Github, 
+import {
+  Mail,
+  ArrowLeft,
+  ShieldCheck,
+  Twitter,
+  Youtube,
+  Linkedin,
+  Github,
   ExternalLink,
   MessageCircle
 } from 'lucide-react';
@@ -14,7 +14,7 @@ import { motion } from 'framer-motion';
 
 const FooterReflect = () => {
   const currentYear = new Date().getFullYear();
-  
+
   const socialLinks = [
     { icon: <Twitter size={18} />, href: "#", label: "Twitter", color: "hover:text-blue-400" },
     { icon: <Youtube size={18} />, href: "#", label: "Youtube", color: "hover:text-red-500" },
@@ -38,39 +38,8 @@ const FooterReflect = () => {
     <footer className="pt-20 pb-10 px-6 bg-[var(--bg-primary)] border-t border-[var(--border-subtle)] relative overflow-hidden transition-colors duration-500">
       {/* Background Decoration */}
       <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-[var(--accent-purple)]/5 to-transparent pointer-events-none" />
-      
-      <div className="max-w-6xl mx-auto relative z-10">
-        {/* Newsletter Call to Action */}
-        <div className="glass-card rounded-[2.5rem] p-8 md:p-12 mb-20 border-[var(--border-subtle)] shadow-2xl overflow-hidden relative group">
-          <div className="absolute inset-0 bg-gradient-to-br from-[var(--accent-purple)]/5 to-[var(--accent-blue)]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-          
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-            <div className="text-right">
-               <h3 className="text-2xl md:text-4xl font-black mb-4 hero-gradient tracking-tight">كن جزءاً من المستقبل التقني</h3>
-               <p className="text-[var(--text-secondary)] text-sm md:text-base font-medium leading-relaxed max-w-md ml-auto">
-                 انضم إلى النخبة المهتمة بتقنيات الجيل القادم، واحصل على فكرة واحدة معمقة كل يوم سبت.
-               </p>
-            </div>
-            
-            <div className="w-full">
-              <div className="relative flex flex-col md:flex-row gap-2 bg-[var(--bg-primary)] p-1.5 rounded-2xl md:rounded-full border border-[var(--border-medium)] shadow-inner focus-within:border-[var(--accent-purple)] transition-all">
-                <input
-                  type="email"
-                  placeholder="عنوان بريدك الإلكتروني"
-                  className="flex-1 bg-transparent px-6 py-3.5 focus:outline-none text-[var(--text-primary)] text-right placeholder:text-[var(--text-muted)] text-sm font-medium"
-                />
-                <button className="bg-[var(--text-primary)] text-[var(--bg-primary)] font-black px-8 py-3.5 rounded-xl md:rounded-full hover:bg-[var(--accent-purple)] hover:text-white transition-all shadow-lg flex items-center justify-center gap-2 text-sm">
-                   اشترك الآن <ArrowLeft size={16} />
-                </button>
-              </div>
-              <div className="flex justify-end gap-4 mt-4 opacity-50">
-                <span className="text-[10px] font-bold flex items-center gap-1 text-[var(--text-muted)]"><ShieldCheck size={10} /> رسائل هادفة</span>
-                <span className="text-[10px] font-bold flex items-center gap-1 text-[var(--text-muted)]"><ShieldCheck size={10} /> خصوصية تامة</span>
-              </div>
-            </div>
-          </div>
-        </div>
 
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Main Footer Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 text-right pb-16">
           {/* Brand Column */}
@@ -84,7 +53,7 @@ const FooterReflect = () => {
             </p>
             <div className="flex gap-3 justify-end">
               {socialLinks.map((social, i) => (
-                <motion.a 
+                <motion.a
                   key={i}
                   href={social.href}
                   whileHover={{ y: -3 }}
