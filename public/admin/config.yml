@@ -2,28 +2,14 @@ backend:
   name: github
   repo: purity091/personal-blog
   branch: main
-  base_url: https://mlahlah.vercel.app
-  auth_endpoint: /auth/github
-  commit_messages:
-    create: "feat(content): إنشاء مقال جديد '{{slug}}'"
-    update: "feat(content): تحديث مقال '{{slug}}'"
-    delete: "chore(content): حذف مقال '{{slug}}'"
-    uploadMedia: "feat(media): رفع ملف {{path}}"
-    deleteMedia: "chore(media): حذف ملف {{path}}"
 
-# Media and public folders
 media_folder: "public/blog"
 public_folder: "/blog"
 
-# Site URL (change to your domain)
 site_url: https://mlahlah.vercel.app
-
-# Display URL
 display_url: https://mlahlah.vercel.app
 
-# Collections
 collections:
-  # Blog Posts Collection
   - name: "blog"
     label: "📝 المقالات"
     label_singular: "مقال جديد"
@@ -33,21 +19,18 @@ collections:
     editor:
       preview: true
     fields:
-      # Title
       - label: "العنوان *"
         name: "title"
         widget: "string"
         required: true
         hint: "عنوان جذاب للمقال (أقل من 100 حرف)"
-        
-      # Description
+
       - label: "الوصف المختصر *"
         name: "description"
         widget: "string"
         required: true
         hint: "وصف مختصر للـ SEO (أقل من 200 حرف)"
-        
-      # Date
+
       - label: "تاريخ النشر *"
         name: "date"
         widget: "datetime"
@@ -55,9 +38,7 @@ collections:
         format: "YYYY-MM-DD"
         date_format: "YYYY-MM-DD"
         time_format: false
-        hint: "متى سيتم نشر المقال"
-        
-      # Updated Date (optional)
+
       - label: "تاريخ آخر تحديث"
         name: "updatedDate"
         widget: "datetime"
@@ -65,8 +46,7 @@ collections:
         format: "YYYY-MM-DD"
         date_format: "YYYY-MM-DD"
         time_format: false
-        
-      # Featured Image
+
       - label: "الصورة البارزة"
         name: "image"
         widget: "object"
@@ -77,27 +57,22 @@ collections:
             name: "src"
             widget: "image"
             required: true
-            hint: "ارفع صورة أو أدخل المسار"
           - label: "الوصف البديل (Alt)"
             name: "alt"
             widget: "string"
             required: false
             default: "صورة المقال"
-            hint: "وصف الصورة لـ SEO"
-            
-      # Tags
+
       - label: "الوسوم"
         name: "tags"
         widget: "list"
         required: false
         default: []
-        hint: "وسوم للمقال (اضغط Enter لإضافة وسم)"
         field:
           label: "وسم"
           name: "tag"
           widget: "string"
-          
-      # Category
+
       - label: "التصنيف *"
         name: "category"
         widget: "select"
@@ -124,8 +99,7 @@ collections:
             value: "أدوات وتقنيات"
           - label: "🚀 مشاريع عملية"
             value: "مشاريع عملية"
-            
-      # Reading Time
+
       - label: "وقت القراءة (بالدقائق)"
         name: "readingTime"
         widget: "number"
@@ -133,45 +107,19 @@ collections:
         value_type: "int"
         min: 1
         max: 60
-        hint: "كم دقيقة يستغرق قراءة المقال؟"
-        
-      # Featured
+
       - label: "⭐ مقال مميز"
         name: "featured"
         widget: "boolean"
         default: false
-        hint: "هل تريد إبراز هذا المقال في الصفحة الرئيسية؟"
-        
-      # Draft
+
       - label: "📝 مسودة"
         name: "draft"
         widget: "boolean"
         default: true
         hint: "اتركه مفعلاً حتى تنشر المقال. ألغِ التفعيل للنشر!"
-        
-      # Content (Markdown body)
+
       - label: "محتوى المقال *"
         name: "body"
         widget: "markdown"
         required: true
-        hint: "اكتب مقالك هنا باستخدام Markdown"
-        modes:
-          - "rich_text"
-          - "raw"
-        editor_components:
-          - "code-block"
-          - "image"
-
-  # Media Collection (for managing uploaded images)
-  - name: "media"
-    label: "🖼️ الوسائط"
-    folder: "public/blog"
-    create: false
-    delete: true
-    fields:
-      - label: "Title"
-        name: "title"
-        widget: "string"
-      - label: "Image"
-        name: "image"
-        widget: "image"
