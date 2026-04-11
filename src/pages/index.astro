@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.tsx';
+import Hero from '../components/Hero.tsx';
+import FeaturedArticles from '../components/FeaturedArticles.tsx';
+import AITermsExplorer from '../components/AITermsExplorer.tsx';
+import MyBookSlider from '../components/MyBookSlider.tsx';
+import SocialBentoGrid from '../components/SocialBentoGrid.tsx';
+import DeepLearningTensors from '../components/DeepLearningTensors.tsx';
+import LLMEcosystem from '../components/LLMEcosystem.tsx';
+import FooterReflect from '../components/FooterReflect.tsx';
+---
+
+<BaseLayout title="محمد لحلح | خبير الذكاء الاصطناعي - تعلم AI والشبكات العصبية">
+  <main>
+    <Navbar client:load />
+    <Hero client:load />
+    <FeaturedArticles client:load />
+    <DeepLearningTensors client:load />
+    <AITermsExplorer client:load />
+    <MyBookSlider client:load />
+    <SocialBentoGrid client:load />
+    <LLMEcosystem client:load />
+    <FooterReflect client:load />
+  </main>
+</BaseLayout>

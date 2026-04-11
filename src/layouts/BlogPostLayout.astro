@@ -1,0 +1,154 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  author?: string;
+  image?: { src: string; alt: string };
+  tags?: string[];
+  readingTime?: number;
+}
+
+const { 
+  title, 
+  description, 
+  date, 
+  author = 'محمد لحلح',
+  image,
+  tags = [],
+  readingTime 
+} = Astro.props;
+
+const formattedDate = new Intl.DateTimeFormat('ar', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+}).format(date);
+---
+
+<BaseLayout title={`${title} | محمد لحلح`} description={description}>
+  <article class="min-h-screen bg-[var(--bg-primary)] transition-colors duration-300">
+    <!-- Article Header -->
+    <header class="relative overflow-hidden border-b border-[var(--border-subtle)]">
+      <div class="max-w-4xl mx-auto px-6 py-16 md:py-24">
+        <!-- Back Button -->
+        <a 
+          href="/blog" 
+          class="inline-flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--accent-purple)] transition-colors mb-8"
+          aria-label="العودة إلى قائمة المقالات"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          العودة إلى المقالات
+        </a>
+
+        <!-- Category Badge -->
+        <div class="mb-6">
+          <slot name="category" />
+        </div>
+
+        <!-- Title -->
+        <h1 class="text-3xl md:text-5xl lg:text-6xl font-black mb-6 hero-gradient leading-[1.1] tracking-tighter">
+          {title}
+        </h1>
+
+        <!-- Description -->
+        <p class="text-lg md:text-xl text-[var(--text-secondary)] mb-8 leading-relaxed font-medium max-w-3xl">
+          {description}
+        </p>
+
+        <!-- Meta Information -->
+        <div class="flex flex-wrap items-center gap-6 text-sm text-[var(--text-muted)]">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center font-bold text-white text-xs">
+              م
+            </div>
+            <span class="text-[var(--text-secondary)] font-bold">{author}</span>
+          </div>
+          
+          <time datetime={date.toISOString()}>
+            {formattedDate}
+          </time>
+          
+          {readingTime && (
+            <div class="flex items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+              <span>{readingTime} دقيقة قراءة</span>
+            </div>
+          )}
+        </div>
+
+        <!-- Tags -->
+        {tags.length > 0 && (
+          <div class="flex flex-wrap gap-2 mt-6">
+            {tags.map((tag) => (
+              <span class="px-3 py-1 rounded-full bg-[var(--bg-tertiary)] border border-[var(--border-subtle)] text-xs font-bold text-[var(--text-muted)]">
+                #{tag}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <!-- Featured Image -->
+      {image && (
+        <div class="max-w-4xl mx-auto px-6 pb-12">
+          <img 
+            src={image.src} 
+            alt={image.alt}
+            class="w-full rounded-2xl shadow-2xl"
+            loading="lazy"
+          />
+        </div>
+      )}
+    </header>
+
+    <!-- Article Content -->
+    <div class="max-w-4xl mx-auto px-6 py-16">
+      <div class="prose prose-lg">
+        <slot />
+      </div>
+    </div>
+
+    <!-- Article Footer -->
+    <footer class="border-t border-[var(--border-subtle)] bg-[var(--bg-secondary)]">
+      <div class="max-w-4xl mx-auto px-6 py-12">
+        <div class="text-center">
+          <h3 class="text-2xl font-bold mb-4 text-[var(--text-primary)]">
+            شارك المقال
+          </h3>
+          <div class="flex justify-center gap-4">
+            <a 
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(Astro.url.href)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-10 h-10 rounded-full bg-[var(--bg-tertiary)] border border-[var(--border-subtle)] flex items-center justify-center text-[var(--text-secondary)] hover:bg-blue-400 hover:text-white transition-all"
+              aria-label="شارك على تويتر"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
+            <a 
+              href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(Astro.url.href)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-10 h-10 rounded-full bg-[var(--bg-tertiary)] border border-[var(--border-subtle)] flex items-center justify-center text-[var(--text-secondary)] hover:bg-blue-600 hover:text-white transition-all"
+              aria-label="شارك على لينكدإن"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </article>
+</BaseLayout>

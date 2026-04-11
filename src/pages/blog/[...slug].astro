@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
+
+export async function getStaticPaths() {
+  const blogPosts = await getCollection('blog');
+  
+  return blogPosts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<BlogPostLayout
+  title={post.data.title}
+  description={post.data.description}
+  date={post.data.date}
+  image={post.data.image}
+  tags={post.data.tags}
+  readingTime={post.data.readingTime}
+>
+  <Fragment slot="category">
+    <span class="inline-block px-3 py-1 rounded-full bg-[var(--accent-purple)]/10 text-[var(--accent-purple)] text-xs font-bold border border-[var(--accent-purple)]/20">
+      {post.data.category}
+    </span>
+  </Fragment>
+  
+  <Content />
+</BlogPostLayout>
