@@ -7,11 +7,7 @@
   <title>لوحة التحكم | محمد لحلح</title>
   <link rel="icon" href="/favicon.ico" type="image/x-icon" />
 
-  <!-- Decap CMS -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-
   <style>
-    /* Loading indicator */
     #loading {
       display: flex;
       justify-content: center;
@@ -26,6 +22,10 @@
 
 <body>
   <div id="loading">⏳ جاري تحميل لوحة التحكم...</div>
+
+  <!-- ⚠️ MUST be inside <body>, NOT in <head> -->
+  <!-- Decap CMS calls document.body.appendChild() on load -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
 
 </html>
