@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 export type Theme = 'light' | 'dark' | 'system';
 
@@ -19,56 +19,53 @@ export const useTheme = () => {
 };
 
 const getSystemTheme = (): 'light' | 'dark' => {
-  if (typeof window !== 'undefined') {
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  }
-  return 'dark';
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+};
+
+// Read the theme class that the inline script already set on <html>
+// This ensures server and client hydration are in sync
+const getInitialActualTheme = (): 'light' | 'dark' => {
+  if (typeof document === 'undefined') return 'light';
+  if (document.documentElement.classList.contains('dark')) return 'dark';
+  return 'light';
+};
+
+const getInitialStoredTheme = (): Theme => {
+  if (typeof window === 'undefined') return 'light';
+  return (localStorage.getItem('theme') as Theme) || 'light';
 };
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [theme, setTheme] = useState<Theme>('system');
-  const [actualTheme, setActualTheme] = useState<'light' | 'dark'>('light');
-  const [mounted, setMounted] = useState(false);
+  const [theme, setThemeState] = useState<Theme>(getInitialStoredTheme);
+  const [actualTheme, setActualTheme] = useState<'light' | 'dark'>(getInitialActualTheme);
 
+  // Sync on mount: re-read from localStorage in case SSR had stale data
   useEffect(() => {
-    setMounted(true);
-    const storedTheme = (localStorage.getItem('theme') as Theme) || 'system';
-    setTheme(storedTheme);
-    
-    if (storedTheme === 'system') {
-      setActualTheme(getSystemTheme());
-    } else {
-      setActualTheme(storedTheme as 'light' | 'dark');
-    }
+    const stored = (localStorage.getItem('theme') as Theme) || 'light';
+    setThemeState(stored);
+    setActualTheme(stored === 'system' ? getSystemTheme() : stored);
   }, []);
 
+  // Listen for system theme changes
   useEffect(() => {
-    if (!mounted) return;
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-
     const handleChange = () => {
       if (theme === 'system') {
         setActualTheme(getSystemTheme());
       }
     };
-
     mediaQuery.addEventListener('change', handleChange);
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, [theme]);
 
-  useEffect(() => {
-    if (!mounted) return;
-    localStorage.setItem('theme', theme);
+  const setTheme = (newTheme: Theme) => {
+    localStorage.setItem('theme', newTheme);
+    setThemeState(newTheme);
+    setActualTheme(newTheme === 'system' ? getSystemTheme() : newTheme);
+  };
 
-    if (theme === 'system') {
-      setActualTheme(getSystemTheme());
-    } else {
-      setActualTheme(theme as 'light' | 'dark');
-    }
-  }, [theme]);
-
+  // Apply theme class to <html>
   useEffect(() => {
-    if (!mounted) return;
     const root = document.documentElement;
     root.classList.remove('light', 'dark');
     root.classList.add(actualTheme);
