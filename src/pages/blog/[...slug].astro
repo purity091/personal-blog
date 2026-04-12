@@ -1,6 +1,6 @@
 ---
 import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
-import { client, postBySlugQuery, postsQuery, portableTextToHtml } from '../../lib/sanity';
+import { client, postBySlugQuery, postsQuery, markdownToHtml } from '../../lib/sanity';
 
 interface SanityPost {
   _id: string;
@@ -13,7 +13,7 @@ interface SanityPost {
   tags?: string[];
   readingTime?: number;
   featured?: boolean;
-  content?: any[];
+  content?: any;
 }
 
 export async function getStaticPaths() {
@@ -27,7 +27,9 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props as { post: SanityPost };
 const fullPost = await client.fetch(postBySlugQuery, { slug: post.slug.current });
-const contentHtml = fullPost.content ? portableTextToHtml(fullPost.content) : '';
+const contentHtml = typeof fullPost.content === 'string' 
+  ? await markdownToHtml(fullPost.content) 
+  : '';
 ---
 
 <BlogPostLayout

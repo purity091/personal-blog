@@ -54,6 +54,16 @@ export const featuredPostsQuery = `
   }
 `
 
+import { marked } from 'marked';
+
+/**
+ * Convert Markdown string to HTML string
+ */
+export async function markdownToHtml(markdown: string): Promise<string> {
+  if (!markdown) return '';
+  return marked.parse(markdown);
+}
+
 /**
  * Convert Sanity Portable Text (blocks array) to HTML string
  */
