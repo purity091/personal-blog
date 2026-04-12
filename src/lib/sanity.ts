@@ -3,23 +3,10 @@ import { createClient } from '@sanity/client'
 // Hardcoded values — these are PUBLIC identifiers (not secrets)
 // They are visible in browser dev tools anyway
 // For local override, use .env.local
-const projectId = (() => {
-  if (typeof process !== 'undefined' && process.env.SANITY_STUDIO_PROJECT_ID) {
-    return process.env.SANITY_STUDIO_PROJECT_ID
-  }
-  return 'uih0wtzn'
-})()
-
-const dataset = (() => {
-  if (typeof process !== 'undefined' && process.env.SANITY_STUDIO_DATASET) {
-    return process.env.SANITY_STUDIO_DATASET
-  }
-  return 'production'
-})()
 
 export const client = createClient({
-  projectId,
-  dataset,
+  projectId: import.meta.env.PUBLIC_SANITY_PROJECT_ID || 'uih0wtzn',
+  dataset: import.meta.env.PUBLIC_SANITY_DATASET || 'production',
   apiVersion: '2024-01-01',
   useCdn: true,
 })

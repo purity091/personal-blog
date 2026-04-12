@@ -20,7 +20,12 @@ interface SanityPost {
 }
 
 // Fetch all published posts from Sanity CMS
-const publishedPosts: SanityPost[] = await client.fetch(postsQuery);
+let publishedPosts: SanityPost[] = [];
+try {
+  publishedPosts = await client.fetch(postsQuery);
+} catch (err) {
+  console.error('Failed to fetch posts from Sanity:', err);
+}
 ---
 
 <BaseLayout title="المدونة | محمد لحلح - مقالات الذكاء الاصطناعي" description="مقالات متعمقة حول الذكاء الاصطناعي، التعلم العميق، والشبكات العصبية">
