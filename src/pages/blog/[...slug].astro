@@ -10,26 +10,29 @@ if (import.meta.env.SSR) {
 }
 
 let fullPost;
+let contentHtml = '';
+
 try {
   fullPost = await client.fetch(postBySlugQuery, { slug });
-  if (import.meta.env.SSR) {
-    if (fullPost) {
-       console.log('Successfully fetched post:', fullPost.title);
-    } else {
-       console.warn('No post found for slug:', slug);
-    }
+  
+  if (fullPost) {
+    if (import.meta.env.SSR) console.log('Successfully fetched post:', fullPost.title);
+    contentHtml = typeof fullPost.content === 'string'
+      ? await markdownToHtml(fullPost.content)
+      : '';
+  } else {
+    if (import.meta.env.SSR) console.warn('No post found for slug:', slug);
+    return Astro.redirect('/404');
   }
 } catch (err) {
-  console.error('Failed to fetch post from Sanity:', err);
+  console.error('CRITICAL ERROR in blog post page:', err);
+  // Fallback instead of crashing
+  fullPost = {
+    title: 'خطأ في تحميل المقال',
+    description: 'عذراً، حدث خطأ أثناء جلب محتوى المقال. يرجى المحاولة لاحقاً.',
+    publishDate: new Date().toISOString()
+  };
 }
-
-if (!fullPost) {
-  return Astro.redirect('/404');
-}
-
-const contentHtml = typeof fullPost.content === 'string'
-  ? await markdownToHtml(fullPost.content)
-  : '';
 ---
 
 <BlogPostLayout

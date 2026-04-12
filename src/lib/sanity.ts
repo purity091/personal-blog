@@ -62,8 +62,7 @@ export const featuredPostsQuery = `
     featured
   }
 `
-import { Marked } from 'marked';
-const marked = new Marked();
+import { marked } from 'marked';
 
 /**
  * Convert Markdown string to HTML string
@@ -71,10 +70,14 @@ const marked = new Marked();
 export async function markdownToHtml(markdown: string): Promise<string> {
   if (!markdown) return '';
   try {
-    return marked.parse(markdown);
+    // Handling both possible ESM/CJS import structures
+    const html = typeof marked.parse === 'function' 
+      ? await marked.parse(markdown)
+      : await (marked as any)(markdown);
+    return html;
   } catch (err) {
     console.error('Error parsing markdown:', err);
-    return markdown; // Return raw markdown as fallback
+    return markdown;
   }
 }
 
