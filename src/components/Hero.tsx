@@ -8,7 +8,7 @@ import {
 const HeroVisualDecorations = () => {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none select-none">
-      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] dark:opacity-20 mix-blend-overlay"></div>
+      <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-[0.03] dark:opacity-20 mix-blend-overlay"></div>
 
       <motion.div
         animate={{ y: [0, -20, 0], opacity: [0.1, 0.2, 0.1] }}

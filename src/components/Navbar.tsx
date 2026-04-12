@@ -1,10 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const navLinks = [
     { label: 'الرئيسية', href: '/#home' },
@@ -16,7 +21,7 @@ const Navbar = () => {
 
   // Helper to handle links dynamically
   const getHref = (href: string) => {
-    if (typeof window !== 'undefined' && window.location.pathname === '/' && href.startsWith('/#')) {
+    if (mounted && typeof window !== 'undefined' && window.location.pathname === '/' && href.startsWith('/#')) {
       return href.substring(1);
     }
     return href;

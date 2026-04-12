@@ -13,7 +13,7 @@ const MyBookSlider = () => {
       tags: ["أساسيات", "متقدم", "تطبيقات عملية"],
       features: ["شروحات مرئية مبتكرة", "أمثلة حقيقية من السوق", "تحديثات مستمرة أونلاين"],
       color: "from-purple-600 to-blue-600",
-      image: "/book-mock.png"
+      image: "/image/AI-ML-Full-cover.png"
     },
     {
       title: "سيمياء البيانات: استخراج الذهب من الأرقام",
@@ -22,7 +22,7 @@ const MyBookSlider = () => {
       tags: ["Data Science", "Analytics", "Big Data"],
       features: ["دراسات حالة واقعية", "أدوات التحليل الحديثة", "منهجية علمية مبسطة"],
       color: "from-emerald-600 to-teal-600",
-      image: "/book-mock-2.png"
+      image: "/image/10-Artificial-Intelligence-Projects-Cover.png"
     }
   ];
 

@@ -5,12 +5,15 @@ import { Sun, Moon, Monitor } from 'lucide-react';
 type Theme = 'light' | 'dark' | 'system';
 
 const ThemeToggle = () => {
-  const [theme, setThemeState] = useState<Theme>(() => {
-    if (typeof window !== 'undefined') {
-      return (localStorage.getItem('theme') as Theme) || 'light';
-    }
-    return 'light';
-  });
+  const [mounted, setMounted] = useState(false);
+  const [theme, setThemeState] = useState<Theme>('light');
+
+  useEffect(() => {
+    setMounted(true);
+    const stored = localStorage.getItem('theme') as Theme;
+    if (stored) setThemeState(stored);
+  }, []);
+
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -66,7 +69,7 @@ const ThemeToggle = () => {
         className="w-10 h-10 rounded-full bg-[var(--glass-bg)] border border-[var(--border-subtle)] flex items-center justify-center text-[var(--text-primary)] hover:bg-[var(--glass-bg-hover)] hover:border-purple-500/30 transition-all"
         aria-label="تبديل الثيم"
       >
-        {getIcon()}
+        {mounted ? getIcon() : <div className="w-[18px] h-[18px]" />}
       </motion.button>
 
       <AnimatePresence>
