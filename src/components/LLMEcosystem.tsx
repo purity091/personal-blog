@@ -9,10 +9,19 @@ import {
   Zap,
   Workflow
 } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 const LLMEcosystem = () => {
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-  const radius = isMobile ? 140 : 220;
+  const [radius, setRadius] = useState(220); // Default for server/initial render
+
+  useEffect(() => {
+    const updateRadius = () => {
+      setRadius(window.innerWidth < 768 ? 140 : 220);
+    };
+    updateRadius();
+    window.addEventListener('resize', updateRadius);
+    return () => window.removeEventListener('resize', updateRadius);
+  }, []);
 
   return (
     <section id="ecosystem" className="py-20 md:py-40 px-6 bg-gradient-to-b from-[var(--bg-primary)] to-[var(--bg-tertiary)] overflow-hidden transition-colors duration-300">

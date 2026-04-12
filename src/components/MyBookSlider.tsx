@@ -1,9 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronRight, ChevronLeft, CheckCircle2 } from 'lucide-react';
 
 const MyBookSlider = () => {
   const [index, setIndex] = useState(0);
+  const [offsetBase, setOffsetBase] = useState(50); // Default for server/initial render
+
+  useEffect(() => {
+    const updateOffset = () => {
+      setOffsetBase(window.innerWidth < 768 ? 85 : 50);
+    };
+    updateOffset();
+    window.addEventListener('resize', updateOffset);
+    return () => window.removeEventListener('resize', updateOffset);
+  }, []);
 
   const books = [
     {
@@ -33,8 +43,8 @@ const MyBookSlider = () => {
     <section id="book" className="py-20 md:py-40 px-6 relative overflow-hidden bg-[var(--bg-primary)] transition-colors duration-300">
       <div className="max-w-6xl mx-auto mb-10 md:mb-16 flex flex-col md:flex-row items-center md:items-end justify-between gap-6">
         <div className="text-center md:text-right">
-          <span className="text-[var(--accent-purple)] font-bold text-[10px] md:text-xs tracking-widest uppercase mb-2 md:mb-4 block">المؤلفات التقنية</span>
-          <h2 className="text-3xl md:text-5xl font-bold text-[var(--text-primary)] leading-tight">اقرأ المستقبل، <br className="md:hidden"/> صفحة بصفحة</h2>
+           <span className="text-[var(--accent-purple)] font-bold text-[10px] md:text-xs tracking-widest uppercase mb-2 md:mb-4 block">المؤلفات التقنية</span>
+           <h2 className="text-3xl md:text-5xl font-bold text-[var(--text-primary)] leading-tight">اقرأ المستقبل، <br className="md:hidden"/> صفحة بصفحة</h2>
         </div>
         <div className="flex gap-4">
           <button onClick={prev} className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-[var(--border-medium)] flex items-center justify-center hover:bg-[var(--glass-bg-hover)] transition-all text-[var(--text-primary)] shadow-sm">
@@ -48,7 +58,7 @@ const MyBookSlider = () => {
 
       <div className="relative max-w-4xl mx-auto overflow-hidden">
         <motion.div
-          animate={{ x: `-${index * (typeof window !== 'undefined' && window.innerWidth < 768 ? 85 : 50)}%` }}
+          animate={{ x: `-${index * offsetBase}%` }}
           transition={{ type: "spring", stiffness: 100, damping: 20 }}
           className="flex gap-4 md:gap-6 w-max"
         >
