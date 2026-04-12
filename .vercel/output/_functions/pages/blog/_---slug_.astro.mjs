@@ -1,7 +1,7 @@
 /* empty css                                    */
 import { e as createAstro, f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead, n as renderSlot, h as addAttribute, u as unescapeHTML, o as Fragment } from '../../chunks/astro/server_C4rLuex4.mjs';
 import 'piccolore';
-import { $ as $$BaseLayout, N as Navbar, F as FooterReflect, c as client, a as postBySlugQuery, m as markdownToHtml } from '../../chunks/sanity_J_sSaBN-.mjs';
+import { $ as $$BaseLayout, N as Navbar, F as FooterReflect, c as client, a as postBySlugQuery, m as markdownToHtml } from '../../chunks/sanity_BUQpNkBZ.mjs';
 export { renderers } from '../../renderers.mjs';
 
 const $$Astro$1 = createAstro("https://lahlah.ai");
@@ -38,7 +38,12 @@ const $$ = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$;
   const { slug } = Astro2.params;
-  const fullPost = await client.fetch(postBySlugQuery, { slug });
+  let fullPost;
+  try {
+    fullPost = await client.fetch(postBySlugQuery, { slug });
+  } catch (err) {
+    console.error("Failed to fetch post from Sanity:", err);
+  }
   if (!fullPost) {
     return Astro2.redirect("/404");
   }

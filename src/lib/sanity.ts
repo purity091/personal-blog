@@ -1,10 +1,24 @@
 import { createClient } from '@sanity/client'
 
+// Support both Astro (import.meta.env) and Node.js/Vercel (process.env)
+const getEnv = (key: string): string | undefined => {
+  if (typeof import.meta !== 'undefined' && import.meta.env) {
+    return import.meta.env[key] as string | undefined
+  }
+  if (typeof process !== 'undefined' && process.env) {
+    return process.env[key]
+  }
+  return undefined
+}
+
+const projectId = getEnv('PUBLIC_SANITY_PROJECT_ID') || getEnv('SANITY_STUDIO_PROJECT_ID') || 'uih0wtzn'
+const dataset = getEnv('PUBLIC_SANITY_DATASET') || getEnv('SANITY_STUDIO_DATASET') || 'production'
+
 export const client = createClient({
-  projectId: import.meta.env.PUBLIC_SANITY_PROJECT_ID || 'uih0wtzn',
-  dataset: import.meta.env.PUBLIC_SANITY_DATASET || 'production',
+  projectId,
+  dataset,
   apiVersion: '2024-01-01',
-  useCdn: false,
+  useCdn: true,
 })
 
 // GROQ queries

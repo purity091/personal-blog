@@ -4,14 +4,20 @@ import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
 import { client, postBySlugQuery, markdownToHtml } from '../../lib/sanity';
 
 const { slug } = Astro.params;
-const fullPost = await client.fetch(postBySlugQuery, { slug });
+
+let fullPost;
+try {
+  fullPost = await client.fetch(postBySlugQuery, { slug });
+} catch (err) {
+  console.error('Failed to fetch post from Sanity:', err);
+}
 
 if (!fullPost) {
   return Astro.redirect('/404');
 }
 
-const contentHtml = typeof fullPost.content === 'string' 
-  ? await markdownToHtml(fullPost.content) 
+const contentHtml = typeof fullPost.content === 'string'
+  ? await markdownToHtml(fullPost.content)
   : '';
 ---
 
