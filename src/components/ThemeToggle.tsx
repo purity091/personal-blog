@@ -7,9 +7,9 @@ type Theme = 'light' | 'dark' | 'system';
 const ThemeToggle = () => {
   const [theme, setThemeState] = useState<Theme>(() => {
     if (typeof window !== 'undefined') {
-      return (localStorage.getItem('theme') as Theme) || 'dark';
+      return (localStorage.getItem('theme') as Theme) || 'light';
     }
-    return 'dark';
+    return 'light';
   });
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);

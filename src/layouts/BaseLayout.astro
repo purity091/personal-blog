@@ -61,8 +61,24 @@ const siteUrl = 'https://lahlah.ai';
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <!-- Theme Initialization -->
+    <script is:inline>
+      (function() {
+        const theme = localStorage.getItem('theme') || 'light';
+        const root = document.documentElement;
+        if (theme === 'system') {
+          const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          root.classList.toggle('dark', dark);
+          root.classList.toggle('light', !dark);
+        } else {
+          root.classList.toggle('dark', theme === 'dark');
+          root.classList.toggle('light', theme === 'light');
+        }
+      })();
+    </script>
   </head>
-  <body class="dark">
+  <body>
     <slot />
   </body>
 </html>
