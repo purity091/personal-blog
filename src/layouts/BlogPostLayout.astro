@@ -23,11 +23,13 @@ const {
   readingTime 
 } = Astro.props;
 
-const formattedDate = new Intl.DateTimeFormat('ar-EG', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-}).format(date);
+const formattedDate = date instanceof Date && !isNaN(date.getTime())
+  ? new Intl.DateTimeFormat('ar-EG', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }).format(date)
+  : 'تاريخ غير معروف';
 ---
 
 <BaseLayout title={`${title} | محمد لحلح`} description={description}>

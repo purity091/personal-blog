@@ -22,12 +22,12 @@ const contentHtml = typeof fullPost.content === 'string'
 ---
 
 <BlogPostLayout
-  title={fullPost.title}
-  description={fullPost.description}
-  date={new Date(fullPost.publishDate)}
+  title={fullPost.title || 'بدون عنوان'}
+  description={fullPost.description || ''}
+  date={fullPost.publishDate ? new Date(fullPost.publishDate) : new Date()}
   image={fullPost.imageUrl}
   tags={fullPost.tags || []}
-  readingTime={fullPost.readingTime}
+  readingTime={fullPost.readingTime || 5}
 >
   <Fragment slot="category">
     <span class="inline-block px-3 py-1 rounded-full bg-[var(--accent-purple)]/10 text-[var(--accent-purple)] text-xs font-bold border border-[var(--accent-purple)]/20">

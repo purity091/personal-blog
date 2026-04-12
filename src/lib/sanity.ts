@@ -13,7 +13,7 @@ export const client = createClient({
 
 // GROQ queries
 export const postsQuery = `
-  *[_type == "blogPost" && !(_id in path("drafts.**"))] | order(publishDate desc) {
+  *[_type == "blogPost" && !(_id in path("drafts.**")) && draft == false] | order(publishDate desc) {
     _id,
     title,
     slug,
@@ -44,7 +44,7 @@ export const postBySlugQuery = `
 `
 
 export const featuredPostsQuery = `
-  *[_type == "blogPost" && !(_id in path("drafts.**"))] | order(publishDate desc)[0...3] {
+  *[_type == "blogPost" && !(_id in path("drafts.**")) && draft == false] | order(publishDate desc)[0...3] {
     _id,
     title,
     slug,
