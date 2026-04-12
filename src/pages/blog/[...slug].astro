@@ -5,9 +5,20 @@ import { client, postBySlugQuery, markdownToHtml } from '../../lib/sanity';
 
 const { slug } = Astro.params;
 
+if (import.meta.env.SSR) {
+  console.log('Attempting to fetch blog post with slug:', slug);
+}
+
 let fullPost;
 try {
   fullPost = await client.fetch(postBySlugQuery, { slug });
+  if (import.meta.env.SSR) {
+    if (fullPost) {
+       console.log('Successfully fetched post:', fullPost.title);
+    } else {
+       console.warn('No post found for slug:', slug);
+    }
+  }
 } catch (err) {
   console.error('Failed to fetch post from Sanity:', err);
 }

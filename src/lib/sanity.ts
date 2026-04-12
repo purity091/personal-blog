@@ -8,8 +8,13 @@ export const client = createClient({
   projectId: import.meta.env.PUBLIC_SANITY_PROJECT_ID || 'uih0wtzn',
   dataset: import.meta.env.PUBLIC_SANITY_DATASET || 'production',
   apiVersion: '2024-01-01',
-  useCdn: true,
+  useCdn: false, // Set to false for fresh data on SSR
 })
+
+// Diagnostic: Log projectId on server startup (only in SSR mode)
+if (import.meta.env.SSR) {
+  console.log('Sanity Client Initialized with Project ID:', import.meta.env.PUBLIC_SANITY_PROJECT_ID || 'uih0wtzn (fallback)');
+}
 
 // GROQ queries
 export const postsQuery = `
@@ -57,15 +62,20 @@ export const featuredPostsQuery = `
     featured
   }
 `
-
-import { marked } from 'marked';
+import { Marked } from 'marked';
+const marked = new Marked();
 
 /**
  * Convert Markdown string to HTML string
  */
 export async function markdownToHtml(markdown: string): Promise<string> {
   if (!markdown) return '';
-  return marked.parse(markdown);
+  try {
+    return marked.parse(markdown);
+  } catch (err) {
+    console.error('Error parsing markdown:', err);
+    return markdown; // Return raw markdown as fallback
+  }
 }
 
 /**
