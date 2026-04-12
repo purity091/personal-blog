@@ -1,5 +1,4 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navbar from '../components/Navbar.tsx';
 import Hero from '../components/Hero.tsx';
@@ -10,15 +9,10 @@ import SocialBentoGrid from '../components/SocialBentoGrid.tsx';
 import DeepLearningTensors from '../components/DeepLearningTensors.tsx';
 import LLMEcosystem from '../components/LLMEcosystem.tsx';
 import FooterReflect from '../components/FooterReflect.tsx';
+import { client, featuredPostsQuery } from '../lib/sanity';
 
-const allPosts = await getCollection('blog', ({ data }) => {
-  return data.draft !== true;
-});
-
-// Sort by date and take the featured or latest 3
-const featuredPosts = allPosts
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 3);
+// Fetch featured posts from Sanity CMS
+const featuredPosts = await client.fetch(featuredPostsQuery);
 ---
 
 <BaseLayout title="محمد لحلح | خبير الذكاء الاصطناعي - تعلم AI والشبكات العصبية">

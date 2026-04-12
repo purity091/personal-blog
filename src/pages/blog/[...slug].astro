@@ -1,33 +1,48 @@
 ---
-import { getCollection } from 'astro:content';
 import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
+import { client, postBySlugQuery, postsQuery, portableTextToHtml } from '../../lib/sanity';
+
+interface SanityPost {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  description: string;
+  publishDate: string;
+  imageUrl?: string;
+  category: string;
+  tags?: string[];
+  readingTime?: number;
+  featured?: boolean;
+  content?: any[];
+}
 
 export async function getStaticPaths() {
-  const blogPosts = await getCollection('blog');
-  
-  return blogPosts.map((post) => ({
-    params: { slug: post.slug },
+  const allPosts: SanityPost[] = await client.fetch(postsQuery);
+
+  return allPosts.map((post: SanityPost) => ({
+    params: { slug: post.slug.current },
     props: { post },
   }));
 }
 
-const { post } = Astro.props;
-const { Content } = await post.render();
+const { post } = Astro.props as { post: SanityPost };
+const fullPost = await client.fetch(postBySlugQuery, { slug: post.slug.current });
+const contentHtml = fullPost.content ? portableTextToHtml(fullPost.content) : '';
 ---
 
 <BlogPostLayout
-  title={post.data.title}
-  description={post.data.description}
-  date={post.data.date}
-  image={post.data.image}
-  tags={post.data.tags}
-  readingTime={post.data.readingTime}
+  title={fullPost.title}
+  description={fullPost.description}
+  date={new Date(fullPost.publishDate)}
+  image={fullPost.imageUrl}
+  tags={fullPost.tags || []}
+  readingTime={fullPost.readingTime}
 >
   <Fragment slot="category">
     <span class="inline-block px-3 py-1 rounded-full bg-[var(--accent-purple)]/10 text-[var(--accent-purple)] text-xs font-bold border border-[var(--accent-purple)]/20">
-      {post.data.category}
+      {fullPost.category}
     </span>
   </Fragment>
-  
-  <Content />
+
+  <div class="prose prose-lg max-w-none" set:html={contentHtml} />
 </BlogPostLayout>
