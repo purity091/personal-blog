@@ -26,6 +26,11 @@
   --glow-color: rgba(168, 85, 247, 0.15);
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
 /* ============================================
    CSS Variables - Light Theme
    ============================================ */

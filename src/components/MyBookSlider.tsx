@@ -84,9 +84,9 @@ const MyBookSlider = () => {
                     <CheckCircle2 size={10} className="text-[var(--accent-purple)]" /> أمثلة برمجية حية
                   </div>
                 </div>
-                <button className="w-full bg-[var(--text-primary)] text-[var(--bg-primary)] px-4 py-2 rounded-full text-[9px] md:text-[10px] font-bold hover:bg-[var(--accent-purple)] hover:text-white transition-all shadow-md">
+                <a href="/#social" className="inline-block w-full bg-[var(--text-primary)] text-[var(--bg-primary)] px-4 py-2 rounded-full text-[9px] md:text-[10px] font-bold hover:bg-[var(--accent-purple)] hover:text-white transition-all shadow-md text-center">
                   اكتشف المزيد
-                </button>
+                </a>
               </div>
             </motion.div>
           ))}

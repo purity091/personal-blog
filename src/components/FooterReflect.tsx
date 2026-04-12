@@ -15,10 +15,10 @@ const FooterReflect = () => {
   ];
 
   const quickLinks = [
-    { name: "الرئيسية", href: "#home" },
-    { name: "أحدث الكتب", href: "#book" },
-    { name: "تجارب AI", href: "#ecosystem" },
-    { name: "قناة اليوتيوب", href: "#youtube" },
+    { name: "الرئيسية", href: "/#home" },
+    { name: "أحدث الكتب", href: "/#book" },
+    { name: "تجارب AI", href: "/#ecosystem" },
+    { name: "قناة اليوتيوب", href: "/#youtube" },
   ];
 
   const legalLinks = [

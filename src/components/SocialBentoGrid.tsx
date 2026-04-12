@@ -69,6 +69,7 @@ const SocialBentoGrid = () => {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
           {/* YouTube - Main Platform Card */}
           <motion.div
+            id="youtube"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
@@ -107,10 +108,10 @@ const SocialBentoGrid = () => {
                   ))}
                 </div>
 
-                <button className="group/btn bg-gradient-to-r from-red-600 to-red-700 text-white px-8 py-4 rounded-full font-black text-sm flex items-center gap-3 hover:shadow-xl hover:shadow-red-600/20 transition-all hover:scale-105 active:scale-95">
+                <a href="https://www.youtube.com/@MohLahlah" target="_blank" rel="noopener noreferrer" className="group/btn bg-gradient-to-r from-red-600 to-red-700 text-white px-8 py-4 rounded-full font-black text-sm flex items-center justify-center gap-3 hover:shadow-xl hover:shadow-red-600/20 transition-all hover:scale-105 active:scale-95 w-fit">
                   استكشف القناة
                   <Play size={16} fill="currentColor" className="group-hover/btn:scale-110 transition-transform" />
-                </button>
+                </a>
               </div>
             </div>
           </motion.div>
@@ -149,10 +150,10 @@ const SocialBentoGrid = () => {
               </div>
             </div>
 
-            <button className="group/btn w-full bg-[var(--bg-tertiary)] border border-[var(--border-medium)] text-[var(--text-primary)] py-3.5 rounded-xl font-bold text-sm hover:bg-blue-400 hover:text-white hover:border-blue-400 transition-all flex items-center justify-center gap-2">
+            <a href="https://twitter.com/MohLahlah" target="_blank" rel="noopener noreferrer" className="group/btn w-full bg-[var(--bg-tertiary)] border border-[var(--border-medium)] text-[var(--text-primary)] py-3.5 rounded-xl font-bold text-sm hover:bg-blue-400 hover:text-white hover:border-blue-400 transition-all flex items-center justify-center gap-2">
               تابع @MohLahlah
               <ArrowUpLeft size={12} className="group-hover/btn:-translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
-            </button>
+            </a>
           </motion.div>
 
           {/* LinkedIn Card - Professional Network */}
@@ -185,10 +186,10 @@ const SocialBentoGrid = () => {
               </div>
             </div>
 
-            <button className="w-full md:w-auto bg-gradient-to-r from-blue-600 to-blue-700 text-white px-10 py-4 rounded-full font-black text-sm hover:shadow-xl hover:shadow-blue-600/20 transition-all active:scale-95 shrink-0 flex items-center justify-center gap-3 relative z-10 hover:scale-105">
+            <a href="https://www.linkedin.com/in/MohLahlah" target="_blank" rel="noopener noreferrer" className="w-full md:w-auto bg-gradient-to-r from-blue-600 to-blue-700 text-white px-10 py-4 rounded-full font-black text-sm hover:shadow-xl hover:shadow-blue-600/20 transition-all active:scale-95 shrink-0 flex items-center justify-center gap-3 relative z-10 hover:scale-105">
               تواصل للتعاون
               <ExternalLink size={16} />
-            </button>
+            </a>
           </motion.div>
         </div>
 

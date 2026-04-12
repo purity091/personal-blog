@@ -130,16 +130,17 @@ const Hero = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-8 mb-24">
-          <motion.button
+          <motion.a
             whileHover={{ scale: 1.05, boxShadow: "0 25px 50px -12px rgba(124, 58, 237, 0.5)" }}
             whileTap={{ scale: 0.95 }}
+            href="/#deep-learning"
             className="group relative w-full sm:w-auto overflow-hidden bg-[var(--accent-purple)] text-white px-14 py-6 rounded-[2rem] font-black transition-all flex items-center justify-center gap-4 shadow-2xl text-lg"
             aria-label="ابدأ رحلة التعلم - انتقل إلى المحتوى التعليمي"
           >
             <div className="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-[200%] transition-transform duration-[1.5s]" />
             ابدأ رحلة التعلم
             <ArrowUpRight size={24} />
-          </motion.button>
+          </motion.a>
 
           <a href="#book" className="w-full sm:w-auto group flex items-center justify-center gap-5 text-[var(--text-primary)] hover:text-[var(--accent-purple)] transition-all py-5 px-10 border border-[var(--border-medium)] hover:border-[var(--accent-purple)] rounded-[2rem] bg-[var(--card-bg)] shadow-md hover:shadow-xl text-lg" aria-label="استكشف كتاب عقل الآلة">
             <BookIcon size={24} className="group-hover:rotate-12 transition-transform" />
