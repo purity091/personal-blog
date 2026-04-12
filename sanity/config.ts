@@ -11,6 +11,7 @@ const dataset = import.meta.env.PUBLIC_SANITY_DATASET || 'production'
 export default defineConfig({
   name: 'default',
   title: 'Lahlah AI CMS',
+  basePath: '/admin',
 
   projectId,
   dataset,
