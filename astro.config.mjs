@@ -3,7 +3,7 @@ import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
-import vercel from '@astrojs/vercel/serverless';
+import vercel from '@astrojs/vercel';
 
 export default defineConfig({
   site: 'https://lahlah.ai',
@@ -13,7 +13,7 @@ export default defineConfig({
     tailwind(),
     sitemap(),
   ],
-  output: 'hybrid',
+  output: 'server',
   adapter: vercel(),
   markdown: {
     shikiConfig: {
