@@ -1,14 +1,10 @@
-import React from 'react';
 import {
   Mail,
-  ArrowLeft,
-  ShieldCheck,
   Twitter,
   Youtube,
   Linkedin,
   Github,
-  ExternalLink,
-  MessageCircle
+  ExternalLink
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 

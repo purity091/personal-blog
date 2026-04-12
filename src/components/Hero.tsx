@@ -1,10 +1,8 @@
-import React from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+
+import type { MouseEvent } from .react.;
+import { motion, useTransform, useSpring } from 'framer-motion';
+import type { MouseEvent } from .react.;
 import {
-  Binary,
-  Variable,
-  FunctionSquare,
-  Sigma,
   ArrowUpRight,
   Book as BookIcon
 } from 'lucide-react';
@@ -80,7 +78,7 @@ const Hero = () => {
   const mouseX = useSpring(0, { stiffness: 500, damping: 50 });
   const mouseY = useSpring(0, { stiffness: 500, damping: 50 });
 
-  const handleMouseMove = (e: React.MouseEvent) => {
+  const handleMouseMove = (e: MouseEvent) => {
     const { clientX, clientY } = e;
     const moveX = (clientX - window.innerWidth / 2) / 30;
     const moveY = (clientY - window.innerHeight / 2) / 30;

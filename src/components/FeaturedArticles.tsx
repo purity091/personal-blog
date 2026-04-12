@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { motion } from 'framer-motion';
 import { ArrowUpLeft, Calendar, Clock, BookOpen, ChevronLeft } from 'lucide-react';
 

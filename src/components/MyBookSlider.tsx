@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from .react.;
 import { motion } from 'framer-motion';
-import { Brain, Network, Code, ChevronRight, ChevronLeft, CheckCircle2 } from 'lucide-react';
+import { Brain, Network, ChevronRight, ChevronLeft, CheckCircle2 } from 'lucide-react';
 
 const MyBookSlider = () => {
   const [index, setIndex] = useState(0);

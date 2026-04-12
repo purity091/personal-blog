@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { motion } from 'framer-motion';
 import { Youtube, Twitter, Linkedin, Play, ExternalLink, ArrowUpLeft, BookOpen, Users, TrendingUp, Target } from 'lucide-react';
 
