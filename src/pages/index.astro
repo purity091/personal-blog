@@ -16,8 +16,8 @@ const featuredPosts = await client.fetch(featuredPostsQuery);
 ---
 
 <BaseLayout title="محمد لحلح | خبير الذكاء الاصطناعي - تعلم AI والشبكات العصبية">
+  <Navbar client:load />
   <main>
-    <Navbar client:load />
     <Hero client:load />
     <FeaturedArticles client:load articles={featuredPosts} />
     <DeepLearningTensors client:load />
@@ -25,7 +25,7 @@ const featuredPosts = await client.fetch(featuredPostsQuery);
     <MyBookSlider client:load />
     <SocialBentoGrid client:load />
     <LLMEcosystem client:load />
-    <FooterReflect client:load />
   </main>
+  <FooterReflect client:load />
 </BaseLayout>
 
