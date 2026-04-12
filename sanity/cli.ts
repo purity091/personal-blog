@@ -1,6 +1,6 @@
 const config = {
   api: {
-    projectId: process.env.SANITY_STUDIO_PROJECT_ID || 'YOUR_PROJECT_ID',
+    projectId: 'uih0wtzn',
     dataset: 'production',
   },
 }
