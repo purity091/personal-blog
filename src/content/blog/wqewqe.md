@@ -9,6 +9,6 @@ image:
 tags: []
 category: الذكاء الاصطناعي
 featured: false
-draft: true
+draft: false
 ---
 deqweqwe
