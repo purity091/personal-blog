@@ -77,6 +77,29 @@ const siteUrl = 'https://lahlah.ai';
         }
       })();
     </script>
+
+    <!-- Smart Smooth Scroll -->
+    <script is:inline>
+      document.addEventListener('click', (e) => {
+        const target = e.target.closest('a');
+        if (!target) return;
+        
+        const url = new URL(target.href, window.location.origin);
+        if (url.origin !== window.location.origin) return;
+        
+        const isHomePage = window.location.pathname === '/';
+        const targetIsHomeHash = url.pathname === '/' && url.hash;
+        
+        if (isHomePage && targetIsHomeHash) {
+          const element = document.querySelector(url.hash);
+          if (element) {
+            e.preventDefault();
+            element.scrollIntoView({ behavior: 'smooth' });
+            history.pushState(null, '', url.hash);
+          }
+        }
+      });
+    </script>
   </head>
   <body>
     <slot />

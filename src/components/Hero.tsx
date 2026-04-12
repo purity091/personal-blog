@@ -142,7 +142,7 @@ const Hero = () => {
             <ArrowUpRight size={24} />
           </motion.a>
 
-          <a href="#book" className="w-full sm:w-auto group flex items-center justify-center gap-5 text-[var(--text-primary)] hover:text-[var(--accent-purple)] transition-all py-5 px-10 border border-[var(--border-medium)] hover:border-[var(--accent-purple)] rounded-[2rem] bg-[var(--card-bg)] shadow-md hover:shadow-xl text-lg" aria-label="استكشف كتاب عقل الآلة">
+          <a href="/#book" className="w-full sm:w-auto group flex items-center justify-center gap-5 text-[var(--text-primary)] hover:text-[var(--accent-purple)] transition-all py-5 px-10 border border-[var(--border-medium)] hover:border-[var(--accent-purple)] rounded-[2rem] bg-[var(--card-bg)] shadow-md hover:shadow-xl text-lg" aria-label="استكشف كتاب عقل الآلة">
             <BookIcon size={24} className="group-hover:rotate-12 transition-transform" />
             <span className="font-bold">كتاب عقل الآلة</span>
           </a>
