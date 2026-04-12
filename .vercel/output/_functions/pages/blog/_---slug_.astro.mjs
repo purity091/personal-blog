@@ -1,7 +1,7 @@
 /* empty css                                    */
 import { e as createAstro, f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead, n as renderSlot, h as addAttribute, u as unescapeHTML, o as Fragment } from '../../chunks/astro/server_C4rLuex4.mjs';
 import 'piccolore';
-import { $ as $$BaseLayout, N as Navbar, F as FooterReflect, c as client, a as postBySlugQuery, m as markdownToHtml } from '../../chunks/sanity_BUQpNkBZ.mjs';
+import { $ as $$BaseLayout, N as Navbar, F as FooterReflect, c as client, a as postBySlugQuery, m as markdownToHtml } from '../../chunks/sanity_CjR0Lk4I.mjs';
 export { renderers } from '../../renderers.mjs';
 
 const $$Astro$1 = createAstro("https://lahlah.ai");

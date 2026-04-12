@@ -291,18 +291,18 @@ const FooterReflect = () => {
   ] });
 };
 
-const __vite_import_meta_env__ = {"ASSETS_PREFIX": undefined, "BASE_URL": "/", "DEV": false, "MODE": "production", "PROD": true, "PUBLIC_SANITY_DATASET": "production", "PUBLIC_SANITY_PROJECT_ID": "uih0wtzn", "SITE": "https://lahlah.ai", "SSR": true};
-const getEnv = (key) => {
-  if (typeof import.meta !== "undefined" && Object.assign(__vite_import_meta_env__, { SANITY_STUDIO_PROJECT_ID: "uih0wtzn", SANITY_STUDIO_DATASET: "production", PUBLIC: process.env.PUBLIC })) {
-    return Object.assign(__vite_import_meta_env__, { SANITY_STUDIO_PROJECT_ID: "uih0wtzn", SANITY_STUDIO_DATASET: "production", PUBLIC: process.env.PUBLIC })[key];
+const projectId = (() => {
+  if (typeof process !== "undefined" && process.env.SANITY_STUDIO_PROJECT_ID) {
+    return process.env.SANITY_STUDIO_PROJECT_ID;
   }
-  if (typeof process !== "undefined" && process.env) {
-    return process.env[key];
+  return "uih0wtzn";
+})();
+const dataset = (() => {
+  if (typeof process !== "undefined" && process.env.SANITY_STUDIO_DATASET) {
+    return process.env.SANITY_STUDIO_DATASET;
   }
-  return void 0;
-};
-const projectId = getEnv("PUBLIC_SANITY_PROJECT_ID") || getEnv("SANITY_STUDIO_PROJECT_ID") || "uih0wtzn";
-const dataset = getEnv("PUBLIC_SANITY_DATASET") || getEnv("SANITY_STUDIO_DATASET") || "production";
+  return "production";
+})();
 const client = createClient({
   projectId,
   dataset,

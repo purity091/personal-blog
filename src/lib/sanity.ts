@@ -1,18 +1,21 @@
 import { createClient } from '@sanity/client'
 
-// Support both Astro (import.meta.env) and Node.js/Vercel (process.env)
-const getEnv = (key: string): string | undefined => {
-  if (typeof import.meta !== 'undefined' && import.meta.env) {
-    return import.meta.env[key] as string | undefined
+// Hardcoded values — these are PUBLIC identifiers (not secrets)
+// They are visible in browser dev tools anyway
+// For local override, use .env.local
+const projectId = (() => {
+  if (typeof process !== 'undefined' && process.env.SANITY_STUDIO_PROJECT_ID) {
+    return process.env.SANITY_STUDIO_PROJECT_ID
   }
-  if (typeof process !== 'undefined' && process.env) {
-    return process.env[key]
-  }
-  return undefined
-}
+  return 'uih0wtzn'
+})()
 
-const projectId = getEnv('PUBLIC_SANITY_PROJECT_ID') || getEnv('SANITY_STUDIO_PROJECT_ID') || 'uih0wtzn'
-const dataset = getEnv('PUBLIC_SANITY_DATASET') || getEnv('SANITY_STUDIO_DATASET') || 'production'
+const dataset = (() => {
+  if (typeof process !== 'undefined' && process.env.SANITY_STUDIO_DATASET) {
+    return process.env.SANITY_STUDIO_DATASET
+  }
+  return 'production'
+})()
 
 export const client = createClient({
   projectId,

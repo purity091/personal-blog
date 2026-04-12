@@ -1,7 +1,7 @@
 /* empty css                                 */
 import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead, h as addAttribute } from '../chunks/astro/server_C4rLuex4.mjs';
 import 'piccolore';
-import { c as client, p as postsQuery, $ as $$BaseLayout, N as Navbar, F as FooterReflect } from '../chunks/sanity_BUQpNkBZ.mjs';
+import { c as client, p as postsQuery, $ as $$BaseLayout, N as Navbar, F as FooterReflect } from '../chunks/sanity_CjR0Lk4I.mjs';
 import { Clock, ArrowLeft, Calendar, ChevronLeft } from 'lucide-react';
 /* empty css                                 */
 export { renderers } from '../renderers.mjs';
