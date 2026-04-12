@@ -13,7 +13,7 @@ export default defineConfig({
     tailwind(),
     sitemap(),
   ],
-  output: 'static',
+  output: 'hybrid',
   adapter: vercel(),
   markdown: {
     shikiConfig: {

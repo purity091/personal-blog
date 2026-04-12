@@ -26,21 +26,24 @@ const getSystemTheme = (): 'light' | 'dark' => {
 };
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window !== 'undefined') {
-      return (localStorage.getItem('theme') as Theme) || 'system';
-    }
-    return 'system';
-  });
-
-  const [actualTheme, setActualTheme] = useState<'light' | 'dark'>(() => {
-    if (theme === 'system') {
-      return getSystemTheme();
-    }
-    return theme as 'light' | 'dark';
-  });
+  const [theme, setTheme] = useState<Theme>('system');
+  const [actualTheme, setActualTheme] = useState<'light' | 'dark'>('light');
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+    const storedTheme = (localStorage.getItem('theme') as Theme) || 'system';
+    setTheme(storedTheme);
+    
+    if (storedTheme === 'system') {
+      setActualTheme(getSystemTheme());
+    } else {
+      setActualTheme(storedTheme as 'light' | 'dark');
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
     const handleChange = () => {
@@ -54,6 +57,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   }, [theme]);
 
   useEffect(() => {
+    if (!mounted) return;
     localStorage.setItem('theme', theme);
 
     if (theme === 'system') {
@@ -64,6 +68,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   }, [theme]);
 
   useEffect(() => {
+    if (!mounted) return;
     const root = document.documentElement;
     root.classList.remove('light', 'dark');
     root.classList.add(actualTheme);
