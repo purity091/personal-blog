@@ -1,0 +1,12 @@
+---
+export const prerender = false;
+const { slug } = Astro.params;
+---
+<html>
+<head><title>Debug Page</title></head>
+<body>
+  <h1>Debug Mode</h1>
+  <p>Slug: {slug}</p>
+  <p>Time: {new Date().toISOString()}</p>
+</body>
+</html>
