@@ -79,7 +79,7 @@ const publishedPosts: SanityPost[] = await client.fetch(postsQuery);
                   </div>
 
                   <h2 class="text-lg md:text-xl font-black text-[var(--text-primary)] mb-3 leading-snug group-hover:text-[var(--accent-purple)] transition-colors">
-                    <a href={`/blog/${post.slug.current}`}>
+                    <a href={`/blog/${post.slug.current}`} class="before:absolute before:inset-0 before:z-10">
                       {post.title}
                     </a>
                   </h2>

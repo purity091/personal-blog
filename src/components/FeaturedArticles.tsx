@@ -86,8 +86,7 @@ const FeaturedArticles = ({ articles = [] }: { articles?: Article[] }) => {
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 viewport={{ once: true }}
                 key={isSanity ? post._id : post.slug}
-                onClick={() => window.location.href = `/blog/${slug}`}
-                className="glass-card flex flex-col group cursor-pointer border-[var(--border-subtle)] hover:border-[var(--accent-purple)]/40 overflow-hidden relative rounded-2xl md:min-h-[260px]"
+                className="glass-card flex flex-col group border-[var(--border-subtle)] hover:border-[var(--accent-purple)]/40 overflow-hidden relative rounded-2xl md:min-h-[260px]"
               >
                 {/* Subtle Gradient background matching category */}
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -106,7 +105,9 @@ const FeaturedArticles = ({ articles = [] }: { articles?: Article[] }) => {
                   </div>
 
                   <h3 className="text-lg md:text-xl font-black text-[var(--text-primary)] mb-3 leading-snug group-hover:text-[var(--accent-purple)] transition-colors">
-                    {title}
+                    <a href={`/blog/${slug}`} className="before:absolute before:inset-0 before:z-10">
+                      {title}
+                    </a>
                   </h3>
 
                   <p className="text-[var(--text-secondary)] text-xs md:text-sm leading-relaxed mb-6 flex-1 font-medium line-clamp-3">
