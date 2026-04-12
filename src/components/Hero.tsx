@@ -1,7 +1,5 @@
-
-import type { MouseEvent } from .react.;
+import { type MouseEvent } from 'react';
 import { motion, useTransform, useSpring } from 'framer-motion';
-import type { MouseEvent } from .react.;
 import {
   ArrowUpRight,
   Book as BookIcon

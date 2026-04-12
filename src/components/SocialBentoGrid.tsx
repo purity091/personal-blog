@@ -1,6 +1,6 @@
 
 import { motion } from 'framer-motion';
-import { Youtube, Twitter, Linkedin, Play, ExternalLink, ArrowUpLeft, BookOpen, Users, TrendingUp, Target } from 'lucide-react';
+import { Play, ExternalLink, ArrowUpLeft, BookOpen, Users, TrendingUp, Target } from 'lucide-react';
 
 const SocialBentoGrid = () => {
   const stats = [
@@ -83,7 +83,7 @@ const SocialBentoGrid = () => {
             <div className="relative z-10">
               <div className="flex items-start justify-between mb-8">
                 <div className="w-14 h-14 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white shadow-lg shadow-red-500/20 group-hover:scale-110 transition-transform duration-300">
-                  <Youtube size={28} className="md:w-10 md:h-10" />
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="md:w-10 md:h-10"><path d="m22 8-6 4 6 4V8Z" /><rect width="14" height="12" x="2" y="6" rx="2" ry="2" /></svg>
                 </div>
                 <div className="px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20 text-red-500 text-[10px] font-black uppercase tracking-wider">
                   المنصة الرئيسية
@@ -128,7 +128,7 @@ const SocialBentoGrid = () => {
 
             <div className="relative z-10">
               <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br from-blue-400 to-blue-500 flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-blue-400/20">
-                <Twitter size={24} className="md:w-8 md:h-8" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="md:w-8 md:h-8"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" /></svg>
               </div>
 
               <h3 className="text-xl md:text-2xl font-black mb-4 text-[var(--text-primary)] tracking-tight">
@@ -168,7 +168,7 @@ const SocialBentoGrid = () => {
 
             <div className="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8 text-center md:text-start flex-1 relative z-10">
               <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center text-white shadow-lg shadow-blue-600/20 group-hover:scale-110 transition-transform duration-300 shrink-0">
-                <Linkedin size={32} className="md:w-10 md:h-10" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="md:w-10 md:h-10"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" /></svg>
               </div>
 
               <div>

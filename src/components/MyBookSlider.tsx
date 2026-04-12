@@ -1,31 +1,33 @@
-import { useState } from .react.;
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Brain, Network, ChevronRight, ChevronLeft, CheckCircle2 } from 'lucide-react';
+import { ChevronRight, ChevronLeft, CheckCircle2 } from 'lucide-react';
 
 const MyBookSlider = () => {
   const [index, setIndex] = useState(0);
+
   const books = [
     {
-      title: "مدخل إلى الذكاء الاصطناعي وتعلم الآلة",
-      subtitle: "النماذج اللغوية الضخمة",
-      desc: "دليل مبسط لفهم أسرار الذكاء الاصطناعي من الصفر إلى الاحتراف.",
-      image: "/image/AI-ML-Full-cover.png",
-      accent: "from-purple-900 to-black",
-      icon: <Brain className="text-purple-400" />
+      title: "عقل الآلة: رحلة في أعماق الذكاء الاصطناعي",
+      subtitle: "دليلك الشامل من الصفر إلى الاحتراف",
+      description: "هذا ليس مجرد كتاب تقني، بل هو خريطة طريق لفهم كيف تفكر الآلات وكيف يمكنك توظيفها لبناء مستقبلك. أشارك فيه خبرتي العملية بأسلوب مبسط وعميق في آن واحد.",
+      tags: ["أساسيات", "متقدم", "تطبيقات عملية"],
+      features: ["شروحات مرئية مبتكرة", "أمثلة حقيقية من السوق", "تحديثات مستمرة أونلاين"],
+      color: "from-purple-600 to-blue-600",
+      image: "/book-mock.png"
     },
     {
-      title: "عشرة مشاريع عملية عن الذكاء الاصطناعي",
-      subtitle: "غوص عميق في المحولات",
-      desc: "اكتشف كيف غيرت بنية الـ Attention وجه العالم البرمجي واللغوي.",
-      image: "/image/10-Artificial-Intelligence-Projects-Cover.png",
-      accent: "from-blue-900 to-black",
-      icon: <Network className="text-blue-400" />
-    },
-  
+      title: "سيمياء البيانات: استخراج الذهب من الأرقام",
+      subtitle: "فن وعلم تحليل البيانات في العصر الرقمي",
+      description: "تعلم كيف تحول البيانات الخام إلى قرارات ذكية. نستعرض في هذا الجزء كيفية قراءة الأنماط الخفية وبناء نماذج تنبؤية دقيقة.",
+      tags: ["Data Science", "Analytics", "Big Data"],
+      features: ["دراسات حالة واقعية", "أدوات التحليل الحديثة", "منهجية علمية مبسطة"],
+      color: "from-emerald-600 to-teal-600",
+      image: "/book-mock-2.png"
+    }
   ];
 
-  const next = () => setIndex((prev) => (prev + 1) % books.length);
-  const prev = () => setIndex((prev) => (prev - 1 + books.length) % books.length);
+  const next = () => setIndex((prev: number) => (prev + 1) % books.length);
+  const prev = () => setIndex((prev: number) => (prev - 1 + books.length) % books.length);
 
   return (
     <section id="book" className="py-20 md:py-40 px-6 relative overflow-hidden bg-[var(--bg-primary)] transition-colors duration-300">
@@ -73,7 +75,7 @@ const MyBookSlider = () => {
 
               <div className="text-center">
                 <h3 className="text-base md:text-lg font-bold mb-2 text-[var(--text-primary)] min-h-[3rem] flex items-center justify-center">{book.title}</h3>
-                <p className="text-[var(--text-secondary)] text-[10px] md:text-xs leading-relaxed mb-4 line-clamp-2">{book.desc}</p>
+                <p className="text-[var(--text-secondary)] text-[10px] md:text-xs leading-relaxed mb-4 line-clamp-2">{book.description}</p>
                 <div className="space-y-1 mb-6">
                   <div className="flex items-center justify-center gap-2 text-[9px] md:text-[10px] text-[var(--text-muted)]">
                     <CheckCircle2 size={10} className="text-[var(--accent-purple)]" /> أفضل الممارسات العملية
