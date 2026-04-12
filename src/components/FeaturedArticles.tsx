@@ -1,4 +1,4 @@
-
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpLeft, Calendar, Clock, BookOpen, ChevronLeft } from 'lucide-react';
 
@@ -30,6 +30,12 @@ interface AstroArticle {
 type Article = SanityArticle | AstroArticle;
 
 const FeaturedArticles = ({ articles = [] }: { articles?: Article[] }) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const displayArticles = articles.length > 0 ? articles : [];
 
   // Detect if article is from Sanity or Astro content collection
@@ -73,11 +79,9 @@ const FeaturedArticles = ({ articles = [] }: { articles?: Article[] }) => {
             const readingTime = isSanity ? post.readingTime : post.data.readingTime;
             const slug = isSanity ? post.slug.current : post.slug;
 
-            const formattedDate = date.toLocaleDateString('ar-EG', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric'
-            });
+            const formattedDate = mounted 
+              ? date.toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' })
+              : '';
 
             return (
               <motion.a
