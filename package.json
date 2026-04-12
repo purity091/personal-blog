@@ -4,11 +4,12 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "astro dev",
-    "dev:cms": "cd studio && npm run dev",
+    "dev:cms": "sanity dev",
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "sanity": "sanity"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.0.0",

@@ -1,4 +1,4 @@
-# 📝 دليل إعداد Sanity CMS - كامل
+# 📝 دليل إعداد Sanity CMS
 
 ## 🎯 لماذا Sanity.io؟
 
@@ -23,48 +23,22 @@
 
 ### 1.2 أنشئ مشروع جديد
 
-```bash
-cd "c:\xampp\htdocs\personal brand\studio"
-npm install
-```
-
-ثم:
-
 1. اذهب إلى [sanity.io/manage](https://www.sanity.io/manage)
 2. اضغط **+ New Project**
 3. اسم المشروع: `Lahlah AI CMS`
 4. اختر **Create new project**
 5. اختر **production** dataset
+6. انسخ **Project ID**
 
 ---
 
-## 🔑 الخطوة 2: الحصول على Project ID
-
-1. اذهب إلى [sanity.io/manage](https://www.sanity.io/manage)
-2. اختر مشروع `Lahlah AI CMS`
-3. انسخ **Project ID** (مثل: `abc123xyz`)
-
----
-
-## ⚙️ الخطوة 3: إعداد المتغيرات
-
-### أنشئ ملف `.env.local` في مجلد `studio`:
-
-```bash
-cd "c:\xampp\htdocs\personal brand\studio"
-```
-
-أنشئ ملف `.env.local`:
-
-```env
-SANITY_STUDIO_PROJECT_ID=abc123xyz
-SANITY_STUDIO_DATASET=production
-```
+## ⚙️ الخطوة 2: إعداد المتغيرات
 
 ### أنشئ ملف `.env.local` في المجلد الرئيسي:
 
 ```env
 SANITY_STUDIO_PROJECT_ID=abc123xyz
+SANITY_STUDIO_DATASET=production
 ```
 
 ### أضف المتغيرات لـ Vercel:
@@ -78,25 +52,21 @@ SANITY_STUDIO_PROJECT_ID=abc123xyz
 
 ---
 
-## 🎯 الخطوة 4: تشغيل لوحة التحكم
+## 🎯 الخطوة 3: تشغيل لوحة التحكم
 
 ### محلياً:
 
 ```bash
-cd "c:\xampp\htdocs\personal brand\studio"
+cd "c:\xampp\htdocs\personal brand"
 npm install
-npm run dev
+npm run dev:cms
 ```
 
 افتح: **http://localhost:3333**
 
-### على Vercel:
-
-سننشر لوحة التحكم كـ **Sanity Studio** منفصل.
-
 ---
 
-## 📝 الخطوة 5: نشر مقال
+## 📝 الخطوة 4: نشر مقال
 
 ### عبر لوحة التحكم:
 
@@ -122,40 +92,6 @@ npm run dev
 
 ---
 
-## 🔗 الخطوة 6: ربط Sanity مع Astro
-
-### عرض المقالات على الموقع:
-
-أنشئ ملف: `src/pages/blog/index.astro`
-
-```astro
----
-import { client } from '../../lib/sanity'
-
-const posts = await client.fetch(`
-  *[_type == "blogPost" && draft == false] | order(publishDate desc)
-`)
----
-
-<html>
-  <head>
-    <title>المدونة | محمد لحلح</title>
-  </head>
-  <body>
-    <h1>المدونة</h1>
-    {posts.map(post => (
-      <article>
-        <h2>{post.title}</h2>
-        <p>{post.description}</p>
-        <a href={`/blog/${post.slug.current}`}>اقرأ المزيد</a>
-      </article>
-    ))}
-  </body>
-</html>
-```
-
----
-
 ## 📊 هيكل المشروع
 
 ```
@@ -164,21 +100,22 @@ personal brand/
 │   ├── lib/
 │   │   └── sanity.ts          ← عميل Sanity
 │   └── pages/
+│       ├── admin.tsx          ← لوحة التحكم
 │       └── blog/              ← صفحات المدونة
-├── studio/                     ← لوحة تحكم Sanity
-│   ├── sanity.config.ts       ← الإعدادات
-│   ├── sanity.cli.ts          ← CLI
+├── sanity/                     ← إعدادات Sanity
+│   ├── config.ts              ← الإعدادات الرئيسية
+│   ├── cli.ts                 ← CLI
 │   ├── blogPost.ts            ← Schema المقالات
-│   ├── schemaTypes.ts         ← أنواع البيانات
-│   └── package.json           ← اعتماديات Sanity
-└── package.json                ← اعتماديات Astro
+│   └── schemaTypes.ts         ← أنواع البيانات
+├── .env.local                  ← المتغيرات
+└── package.json
 ```
 
 ---
 
 ## 🌐 النشر على Vercel
 
-### نشر الموقع الرئيسي:
+### نشر الموقع:
 
 ```bash
 cd "c:\xampp\htdocs\personal brand"
@@ -192,8 +129,7 @@ Vercel سينشر تلقائياً!
 ### نشر لوحة التحكم:
 
 ```bash
-cd "c:\xampp\htdocs\personal brand\studio"
-npm run deploy
+npm run sanity deploy
 ```
 
 سيُطلب منك:
@@ -238,13 +174,13 @@ https://lahlah-ai-cms.sanity.studio
 ج: ✅ نعم! 500K طلب/شهر مجاني (كافي لموقع شخصي)
 
 ### س: كيف أنشر لوحة التحكم؟
-ج: `cd studio && npm run deploy`
+ج: `npm run sanity deploy`
 
 ### س: كيف أضيف صور؟
 ج: اسحب وأفلت مباشرة في المحرر
 
 ### س: كيف أغيّر التصنيفات؟
-ج: عدّل `studio/blogPost.ts` → `category` → `list`
+ج: عدّل `sanity/blogPost.ts` → `category` → `list`
 
 ---
 
@@ -253,7 +189,7 @@ https://lahlah-ai-cms.sanity.studio
 | الخدمة | الرابط |
 |--------|--------|
 | **لوحة التحكم (محلي)** | `http://localhost:3333` |
-| **لوحة التحكم (Vercel)** | `https://lahlah-ai-cms.sanity.studio` |
+| **لوحة التحكم (Vercel)** | `https://mlahlah.vercel.app/admin` |
 | **Sanity Dashboard** | `https://www.sanity.io/manage` |
 | **الموقع** | `https://mlahlah.vercel.app` |
 
