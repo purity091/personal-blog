@@ -4,12 +4,12 @@ export const client = createClient({
   projectId: import.meta.env.PUBLIC_SANITY_PROJECT_ID || 'uih0wtzn',
   dataset: import.meta.env.PUBLIC_SANITY_DATASET || 'production',
   apiVersion: '2024-01-01',
-  useCdn: true,
+  useCdn: false,
 })
 
 // GROQ queries
 export const postsQuery = `
-  *[_type == "blogPost" && draft != true] | order(publishDate desc) {
+  *[_type == "blogPost" && !(_id in path("drafts.**"))] | order(publishDate desc) {
     _id,
     title,
     slug,
@@ -40,7 +40,7 @@ export const postBySlugQuery = `
 `
 
 export const featuredPostsQuery = `
-  *[_type == "blogPost" && draft != true] | order(publishDate desc)[0...3] {
+  *[_type == "blogPost" && !(_id in path("drafts.**"))] | order(publishDate desc)[0...3] {
     _id,
     title,
     slug,
