@@ -8,12 +8,14 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const projectId = process.env.SANITY_PROJECT_ID || 'uih0wtzn';
 const dataset = process.env.SANITY_DATASET || 'production';
+const token = process.env.SANITY_TOKEN;
 
 const client = createClient({
   projectId,
   dataset,
+  token,
   apiVersion: '2024-01-01',
-  useCdn: true,
+  useCdn: false,
 });
 
 const BLOG_DIR = join(__dirname, '..', 'src', 'content', 'blog');
