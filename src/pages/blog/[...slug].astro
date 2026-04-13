@@ -1,7 +1,7 @@
 ---
 export const prerender = false;
 import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
-import { client, postBySlugQuery, portableTextToHtml, markdownToHtml } from '../../lib/sanity';
+import { client, postBySlugQuery, markdownToHtml } from '../../lib/sanity';
 
 const { slug } = Astro.params;
 
@@ -12,12 +12,10 @@ try {
   fullPost = await client.fetch(postBySlugQuery, { slug });
 
   if (fullPost) {
-    // Handle BOTH Portable Text (new) and Markdown string (old articles)
-    if (Array.isArray(fullPost.content)) {
-      contentHtml = portableTextToHtml(fullPost.content);
-    } else if (typeof fullPost.content === 'string') {
-      contentHtml = await markdownToHtml(fullPost.content);
-    }
+    // Content is Markdown string from Sanity
+    contentHtml = typeof fullPost.content === 'string'
+      ? await markdownToHtml(fullPost.content)
+      : '';
   } else {
     return Astro.redirect('/404');
   }

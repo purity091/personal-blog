@@ -100,49 +100,7 @@ export const blogPost: DocumentDefinition = {
     {
       name: 'content',
       title: 'محتوى المقال',
-      type: 'array',
-      of: [
-        {
-          type: 'block',
-          styles: [
-            { title: 'عادي', value: 'normal' },
-            { title: 'عنوان H2', value: 'h2' },
-            { title: 'عنوان H3', value: 'h3' },
-            { title: 'اقتباس', value: 'blockquote' },
-          ],
-          lists: [
-            { title: 'نقاط', value: 'bullet' },
-            { title: 'ترقيم', value: 'number' },
-          ],
-          marks: {
-            decorators: [
-              { title: 'عريض', value: 'bold' },
-              { title: 'مائل', value: 'italic' },
-              { title: 'كود', value: 'code' },
-            ],
-          },
-        },
-        {
-          type: 'image',
-          title: 'صورة',
-          options: { hotspot: true },
-          fields: [
-            {
-              name: 'alt',
-              title: 'الوصف البديل',
-              type: 'string',
-            },
-            {
-              name: 'caption',
-              title: 'التسمية التوضيحية',
-              type: 'string',
-            },
-          ],
-        },
-        {
-          type: 'code',
-        },
-      ],
+      type: 'markdown',
       validation: (Rule) => Rule.required(),
     },
   ],

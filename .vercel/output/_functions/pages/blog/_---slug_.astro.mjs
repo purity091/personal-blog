@@ -1,7 +1,7 @@
 /* empty css                                    */
 import { e as createAstro, f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead, n as renderSlot, h as addAttribute, u as unescapeHTML, o as Fragment } from '../../chunks/astro/server_C4rLuex4.mjs';
 import 'piccolore';
-import { $ as $$BaseLayout, N as Navbar, F as FooterReflect, c as client, a as postBySlugQuery, b as portableTextToHtml, m as markdownToHtml } from '../../chunks/sanity_D7KarUgV.mjs';
+import { $ as $$BaseLayout, N as Navbar, F as FooterReflect, c as client, a as postBySlugQuery, m as markdownToHtml } from '../../chunks/sanity_et7OqZEr.mjs';
 export { renderers } from '../../renderers.mjs';
 
 const $$Astro$1 = createAstro("https://lahlah.ai");
@@ -43,11 +43,7 @@ const $$ = createComponent(async ($$result, $$props, $$slots) => {
   try {
     fullPost = await client.fetch(postBySlugQuery, { slug });
     if (fullPost) {
-      if (Array.isArray(fullPost.content)) {
-        contentHtml = portableTextToHtml(fullPost.content);
-      } else if (typeof fullPost.content === "string") {
-        contentHtml = await markdownToHtml(fullPost.content);
-      }
+      contentHtml = typeof fullPost.content === "string" ? await markdownToHtml(fullPost.content) : "";
     } else {
       return Astro2.redirect("/404");
     }

@@ -1,7 +1,6 @@
 import { createClient } from '@sanity/client'
 
 // Hardcoded public values — safe to commit (visible in browser dev tools anyway)
-// For local override, use .env.local
 const PROJECT_ID = 'uih0wtzn'
 const DATASET = 'production'
 
@@ -62,7 +61,7 @@ export const featuredPostsQuery = `
 import { marked } from 'marked';
 
 /**
- * Convert Markdown string to HTML string (legacy support for old articles)
+ * Convert Markdown string to HTML string
  */
 export async function markdownToHtml(markdown: string): Promise<string> {
   if (!markdown) return '';
@@ -75,121 +74,4 @@ export async function markdownToHtml(markdown: string): Promise<string> {
     console.error('Error parsing markdown:', err);
     return markdown;
   }
-}
-
-/**
- * Convert Sanity Portable Text (blocks array) to HTML string
- * Handles: blocks (headings, paragraphs, lists, blockquotes), images, code blocks
- */
-export function portableTextToHtml(blocks: any[], imageUrlMap?: Record<string, string>): string {
-  if (!Array.isArray(blocks) || blocks.length === 0) return ''
-
-  return blocks
-    .map((block: any) => {
-      try {
-        // Handle code blocks
-        if (block._type === 'code') {
-          const lang = block.language || 'text'
-          const filename = block.filename ? `<div class="code-filename">${block.filename}</div>` : ''
-          const escapedCode = (block.code || '')
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-          return `${filename}<pre><code class="language-${lang}">${escapedCode}</code></pre>`
-        }
-
-        // Handle images
-        if (block._type === 'image') {
-          const assetUrl = block.asset?.url || ''
-          const url = imageUrlMap?.[block.asset?._ref] || assetUrl
-          const alt = block.alt || block.caption || ''
-          const caption = block.caption ? `<figcaption class="text-center text-sm text-gray-500 mt-2">${block.caption}</figcaption>` : ''
-          return `<figure class="my-6">${url ? `<img src="${url}" alt="${alt}" class="rounded-lg mx-auto max-w-full" loading="lazy" />` : ''}${caption}</figure>`
-        }
-
-        // Handle text blocks
-        if (block._type !== 'block' || !block.children) return ''
-
-        // Handle lists
-        if (block.listItem) {
-          const text = block.children
-            .map((child: any) => formatSpan(child))
-            .join('')
-          return `<li>${text}</li>`
-        }
-
-        // Handle blockquotes
-        if (block.style === 'blockquote') {
-          const text = block.children
-            .map((child: any) => formatSpan(child))
-            .join('')
-          return `<blockquote class="border-r-4 border-[var(--accent-purple)] pr-4 my-4 text-[var(--text-secondary)] italic">${text}</blockquote>`
-        }
-
-        // Handle headings and paragraphs
-        const text = block.children
-          .map((child: any) => formatSpan(child))
-          .join('')
-
-        const styleMap: Record<string, string> = {
-          h1: 'h1',
-          h2: 'h2',
-          h3: 'h3',
-          h4: 'h4',
-          normal: 'p',
-        }
-        const tag = styleMap[block.style] || 'p'
-        return `<${tag}>${text}</${tag}>`
-      } catch (err) {
-        console.warn('Failed to render block:', err)
-        return ''
-      }
-    })
-    .join('\n')
-}
-
-/**
- * Format a single inline span (child of a block)
- */
-function formatSpan(child: any): string {
-  if (!child) return ''
-  let text = child.text || ''
-
-  // Escape HTML to prevent XSS
-  text = text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-
-  // Apply marks
-  if (child.marks && child.marks.length > 0) {
-    const marks = [...child.marks].reverse()
-    for (const mark of marks) {
-      switch (mark) {
-        case 'strong':
-        case 'b':
-          text = `<strong>${text}</strong>`
-          break
-        case 'em':
-        case 'i':
-          text = `<em>${text}</em>`
-          break
-        case 'code':
-          text = `<code class="bg-[var(--bg-tertiary)] px-1.5 py-0.5 rounded text-sm font-mono">${text}</code>`
-          break
-        case 'underline':
-          text = `<u>${text}</u>`
-          break
-        case 'strike-through':
-          text = `<s>${text}</s>`
-          break
-      }
-    }
-  } else {
-    if (child.bold) text = `<strong>${text}</strong>`
-    if (child.italic) text = `<em>${text}</em>`
-    if (child.code) text = `<code class="bg-[var(--bg-tertiary)] px-1.5 py-0.5 rounded text-sm font-mono">${text}</code>`
-  }
-
-  return text
 }
