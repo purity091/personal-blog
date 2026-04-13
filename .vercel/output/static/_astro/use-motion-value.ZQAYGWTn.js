@@ -1,1 +1,0 @@
-import{r as t}from"./index.CONV0Pwp.js";import{u as a,a as u,M as r}from"./proxy.BHIXyGWT.js";function i(o){const e=a(()=>u(o)),{isStatic:s}=t.useContext(r);if(s){const[,n]=t.useState(o);t.useEffect(()=>e.on("change",n),[])}return e}export{i as u};
