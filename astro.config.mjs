@@ -15,6 +15,7 @@ export default defineConfig({
   ],
   output: 'server',
   adapter: vercel(),
+  trailingSlash: 'never',
   markdown: {
     shikiConfig: {
       theme: 'github-dark',
