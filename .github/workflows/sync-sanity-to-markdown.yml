@@ -26,6 +26,7 @@ jobs:
         env:
           SANITY_PROJECT_ID: ${{ secrets.SANITY_PROJECT_ID }}
           SANITY_DATASET: ${{ secrets.SANITY_DATASET }}
+          SANITY_TOKEN: ${{ secrets.SANITY_TOKEN }}
         run: |
           npm install @sanity/client gray-matter
           node scripts/sync-sanity-to-markdown.mjs
