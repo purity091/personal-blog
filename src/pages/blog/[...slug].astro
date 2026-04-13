@@ -1,27 +1,52 @@
 ---
-export const prerender = false;
 import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
-import { client, postBySlugQuery, markdownToHtml } from '../../lib/sanity';
+import { client, postBySlugQuery, postsQuery, markdownToHtml } from '../../lib/sanity';
 
-const { slug } = Astro.params;
+interface SanityPost {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  description: string;
+  publishDate: string;
+  imageUrl?: string;
+  category: string;
+  tags?: string[];
+  readingTime?: number;
+  featured?: boolean;
+  content?: string;
+}
 
-let fullPost;
+// Generate all blog post pages at BUILD time
+export async function getStaticPaths() {
+  let allPosts: SanityPost[] = [];
+  try {
+    allPosts = await client.fetch(postsQuery);
+  } catch (err) {
+    console.error('Failed to fetch post slugs for static generation:', err);
+  }
+
+  return allPosts.map((post: SanityPost) => ({
+    params: { slug: post.slug.current },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props as { post: SanityPost };
+
+// Fetch full post content (including markdown body)
+let fullPost = post;
 let contentHtml = '';
 
 try {
-  fullPost = await client.fetch(postBySlugQuery, { slug });
-
-  if (fullPost) {
-    // Content is Markdown string from Sanity
-    contentHtml = typeof fullPost.content === 'string'
-      ? await markdownToHtml(fullPost.content)
+  const fullData = await client.fetch(postBySlugQuery, { slug: post.slug.current });
+  if (fullData) {
+    fullPost = fullData;
+    contentHtml = typeof fullData.content === 'string'
+      ? await markdownToHtml(fullData.content)
       : '';
-  } else {
-    return Astro.redirect('/404');
   }
 } catch (err) {
-  console.error('Failed to fetch blog post:', err);
-  return Astro.redirect('/404');
+  console.error('Failed to fetch full post content:', err);
 }
 ---
 
@@ -29,7 +54,7 @@ try {
   title={fullPost.title || 'بدون عنوان'}
   description={fullPost.description || ''}
   date={fullPost.publishDate ? new Date(fullPost.publishDate) : new Date()}
-  image={fullPost.imageUrl}
+  image={fullPost.imageUrl ? { src: fullPost.imageUrl, alt: fullPost.title } : undefined}
   tags={fullPost.tags || []}
   readingTime={fullPost.readingTime || 5}
 >
