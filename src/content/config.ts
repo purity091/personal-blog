@@ -2,11 +2,11 @@ import { defineCollection, z } from 'astro:content';
 
 const blog = defineCollection({
   type: 'content',
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string().max(100, 'العنوان يجب أن يكون أقل من 100 حرف'),
     description: z.string().max(200, 'الوصف يجب أن يكون أقل من 200 حرف'),
-    date: z.date(),
-    updatedDate: z.date().optional(),
+    date: z.coerce.date(),
+    updatedDate: z.coerce.date().optional(),
     image: z.object({
       src: z.string(),
       alt: z.string().default('صورة المقال'),
