@@ -1,4 +1,4 @@
-import { e as createAstro, f as createComponent, r as renderTemplate, o as renderSlot, k as renderHead, h as addAttribute } from './astro/server_BCQeV3ft.mjs';
+import { e as createAstro, f as createComponent, r as renderTemplate, n as renderSlot, k as renderHead, h as addAttribute } from './astro/server_C4rLuex4.mjs';
 import 'piccolore';
 import 'clsx';
 /* empty css                          */
@@ -429,4 +429,4 @@ function formatSpan(child) {
   return text;
 }
 
-export { $$BaseLayout as $, FooterReflect as F, Navbar as N, postsQuery as a, portableTextToHtml as b, client as c, featuredPostsQuery as f, markdownToHtml as m, postBySlugQuery as p };
+export { $$BaseLayout as $, FooterReflect as F, Navbar as N, postBySlugQuery as a, portableTextToHtml as b, client as c, featuredPostsQuery as f, markdownToHtml as m, postsQuery as p };

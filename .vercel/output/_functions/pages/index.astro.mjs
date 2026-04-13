@@ -1,7 +1,7 @@
 /* empty css                                 */
-import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_BCQeV3ft.mjs';
+import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_C4rLuex4.mjs';
 import 'piccolore';
-import { c as client, f as featuredPostsQuery, $ as $$BaseLayout, N as Navbar, F as FooterReflect } from '../chunks/sanity_NO97n-5x.mjs';
+import { c as client, f as featuredPostsQuery, $ as $$BaseLayout, N as Navbar, F as FooterReflect } from '../chunks/sanity_D7KarUgV.mjs';
 import { jsxs, jsx } from 'react/jsx-runtime';
 import { useState, useEffect } from 'react';
 import { useSpring, motion, useTransform } from 'framer-motion';
