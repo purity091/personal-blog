@@ -1,44 +1,57 @@
 import { StrictMode, useEffect } from 'react'
 import { Studio } from 'sanity'
+import { ThemeProvider, studioTheme } from '@sanity/ui'
 import config from '../../sanity.config'
 import { createGlobalStyle } from 'styled-components'
 
 const RTLStyle = createGlobalStyle`
-  /* Root Studio Layout */
-  [data-testid="studio-layout"],
-  [data-testid="document-panel"],
-  [data-testid="document-pane"],
-  [data-testid="field"] {
-    direction: rtl !important;
+  /* Global RTL Fixes */
+  body {
+    direction: rtl;
   }
 
-  /* Force alignment */
-  [data-testid="field"] label,
-  [data-testid="field"] p,
-  [data-testid="string-input"],
-  [data-testid="text-input"],
+  /* Specific fix for the Markdown Editor's visual layer */
   .sanity-markdown-editor,
-  .CodeMirror {
-    text-align: right !important;
+  .CodeMirror,
+  .CodeMirror-lines,
+  .CodeMirror-code,
+  .CodeMirror-scroll {
     direction: rtl !important;
+    text-align: right !important;
   }
 
-  /* Specific CodeMirror fix for arrow keys */
+  /* Fix for the hidden textarea that handles input */
   .CodeMirror textarea {
     direction: rtl !important;
     unicode-bidi: plaintext !important;
   }
 `
 
-export default function AdminStudio() {
+export const AdminStudio = () => {
   useEffect(() => {
-    // Hacky but effective: Force dir="rtl" on all inputs and textareas
-    // Sanity Studio v3 dynamic loading makes this necessary
+    // Ensuring the root body and html have the correct attributes
+    document.documentElement.setAttribute('dir', 'rtl');
+    document.body.setAttribute('dir', 'rtl');
+
+    // Force dir="rtl" on all dynamically loaded inputs and fix CodeMirror logic
     const interval = setInterval(() => {
-      const inputs = document.querySelectorAll('input, textarea, .CodeMirror');
-      inputs.forEach(el => {
+      // 1. Force DOM attribute for standard inputs
+      const elements = document.querySelectorAll('input, textarea, [role="textbox"], .CodeMirror');
+      elements.forEach(el => {
         if (el.getAttribute('dir') !== 'rtl') {
           el.setAttribute('dir', 'rtl');
+        }
+        
+        // 2. DEEP FIX: Target CodeMirror's internal logic
+        // EasyMDE/CodeMirror often attaches the instance to the DOM element
+        // @ts-ignore
+        const cm = el.CodeMirror || (el.querySelector('.CodeMirror') as any)?.CodeMirror;
+        if (cm && typeof cm.setOption === 'function') {
+          if (cm.getOption('direction') !== 'rtl') {
+            cm.setOption('direction', 'rtl');
+            // Refresh to apply the change visually
+            cm.refresh();
+          }
         }
       });
     }, 1000);
@@ -48,9 +61,13 @@ export default function AdminStudio() {
 
   return (
     <StrictMode>
-      <RTLStyle />
-      <Studio config={config} />
+      <ThemeProvider theme={studioTheme}>
+        <RTLStyle />
+        <Studio config={config} />
+      </ThemeProvider>
     </StrictMode>
   )
 }
+
+export default AdminStudio;
 
