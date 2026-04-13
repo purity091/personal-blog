@@ -4,27 +4,45 @@ import config from '../../sanity.config'
 import { createGlobalStyle } from 'styled-components'
 
 const RTLStyle = createGlobalStyle`
-  /* Target the whole studio layout */
-  [data-testid="studio-layout"],
+  /* Root Studio Layout */
+  [data-testid="studio-layout"] {
+    direction: rtl !important;
+  }
+
+  /* Document Editing Pane */
   [data-testid="document-panel"],
   [data-testid="document-pane"],
+  [data-testid="field"] {
+    direction: rtl !important;
+    text-align: right !important;
+  }
+
+  /* Specific fix for Markdown Editor (EasyMDE/CodeMirror) */
+  /* This targets the actual writing area where the cursor lives */
   .sanity-markdown-editor,
-  [role="dialog"] {
+  .sanity-markdown-editor textarea,
+  .CodeMirror,
+  .CodeMirror-code,
+  .CodeMirror-lines,
+  .editor-preview-rtl,
+  .editor-toolbar {
     direction: rtl !important;
     text-align: right !important;
   }
 
-  /* Reset for LTR specific fields if needed, like code or slugs */
-  [data-testid="string-input"], 
-  [data-testid="text-input"],
-  .sanity-markdown-editor textarea {
+  /* Force the cursor logic to follow RTL */
+  .CodeMirror textarea {
+    unicode-bidi: bidi-override !important;
     direction: rtl !important;
   }
 
-  /* Make sure labels and descriptions are also RTL */
+  /* Ensure labels and descriptions stay right-aligned */
   [data-testid="field"] label,
-  [data-testid="field"] p {
+  [data-testid="field"] p,
+  [data-testid="string-input"],
+  [data-testid="text-input"] {
     text-align: right !important;
+    direction: rtl !important;
   }
 `
 
