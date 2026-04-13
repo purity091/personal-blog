@@ -23,7 +23,7 @@ interface AstroArticle {
     date: Date;
     category: string;
     tags: string[];
-    readingTime: number;
+    readingTime?: number;
   };
 }
 
@@ -79,7 +79,7 @@ const FeaturedArticles = ({ articles = [] }: { articles?: Article[] }) => {
             const readingTime = isSanity ? post.readingTime : post.data.readingTime;
             const slug = isSanity ? post.slug.current : post.slug;
 
-            const formattedDate = mounted 
+            const formattedDate = mounted
               ? date.toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' })
               : '';
 
@@ -128,7 +128,7 @@ const FeaturedArticles = ({ articles = [] }: { articles?: Article[] }) => {
                     {/* Reading Time & Arrow */}
                     <div className="flex items-center justify-between">
                       <span className="text-[10px] font-bold flex items-center gap-1.5 text-[var(--text-muted)]">
-                        <Clock size={12} /> وقت القراءة: {readingTime} دقائق
+                        <Clock size={12} /> وقت القراءة: {readingTime || 5} دقائق
                       </span>
                       <div className="w-8 h-8 rounded-full bg-[var(--bg-tertiary)] group-hover:bg-[var(--accent-purple)] flex items-center justify-center text-[var(--text-secondary)] group-hover:text-white transition-all shadow-sm">
                         <ChevronLeft size={14} />

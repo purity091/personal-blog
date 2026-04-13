@@ -1,71 +1,37 @@
 ---
-// Static page — built at build time from Sanity data
+// Static page — reads from local markdown files (synced from Sanity via GitHub Action)
 export const prerender = true;
 
+import { getCollection } from 'astro:content';
 import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
-import { client, postBySlugQuery, postsQuery, markdownToHtml } from '../../lib/sanity';
 
-interface SanityPost {
-  _id: string;
-  title: string;
-  slug: { current: string };
-  description: string;
-  publishDate: string;
-  imageUrl?: string;
-  category: string;
-  tags?: string[];
-  readingTime?: number;
-  featured?: boolean;
-  content?: string;
-}
-
-// Generate all blog post pages at BUILD time
+// Generate all blog post pages from local markdown files
 export async function getStaticPaths() {
-  let allPosts: SanityPost[] = [];
-  try {
-    allPosts = await client.fetch(postsQuery);
-  } catch (err) {
-    console.error('Failed to fetch post slugs for static generation:', err);
-  }
-
-  return allPosts.map((post: SanityPost) => ({
-    params: { slug: post.slug.current },
-    props: { post },
-  }));
+  const blogPosts = await getCollection('blog');
+  return blogPosts
+    .filter(post => !post.data.draft)
+    .map((post) => ({
+      params: { slug: post.slug },
+      props: { post },
+    }));
 }
 
-const { post } = Astro.props as { post: SanityPost };
-
-// Fetch full post content (including markdown body)
-let fullPost = post;
-let contentHtml = '';
-
-try {
-  const fullData = await client.fetch(postBySlugQuery, { slug: post.slug.current });
-  if (fullData) {
-    fullPost = fullData;
-    contentHtml = typeof fullData.content === 'string'
-      ? await markdownToHtml(fullData.content)
-      : '';
-  }
-} catch (err) {
-  console.error('Failed to fetch full post content:', err);
-}
+const { post } = Astro.props;
+const { Content } = await post.render();
 ---
 
 <BlogPostLayout
-  title={fullPost.title || 'بدون عنوان'}
-  description={fullPost.description || ''}
-  date={fullPost.publishDate ? new Date(fullPost.publishDate) : new Date()}
-  image={fullPost.imageUrl ? { src: fullPost.imageUrl, alt: fullPost.title } : undefined}
-  tags={fullPost.tags || []}
-  readingTime={fullPost.readingTime || 5}
+  title={post.data.title}
+  description={post.data.description}
+  date={post.data.date}
+  tags={post.data.tags || []}
+  readingTime={post.data.readingTime || 5}
 >
   <Fragment slot="category">
     <span class="inline-block px-3 py-1 rounded-full bg-[var(--accent-purple)]/10 text-[var(--accent-purple)] text-xs font-bold border border-[var(--accent-purple)]/20">
-      {fullPost.category}
+      {post.data.category}
     </span>
   </Fragment>
 
-  <article class="prose prose-lg max-w-none rtl" set:html={contentHtml} />
+  <Content />
 </BlogPostLayout>

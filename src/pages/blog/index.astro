@@ -1,33 +1,20 @@
 ---
-// Static page — built at build time from Sanity data
+// Static page — reads from local markdown files (synced from Sanity via GitHub Action)
 export const prerender = true;
 
+import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Navbar from '../../components/Navbar.tsx';
 import FooterReflect from '../../components/FooterReflect.tsx';
-import { client, postsQuery } from '../../lib/sanity';
 import { Calendar, Clock, ChevronLeft, ArrowLeft } from 'lucide-react';
 
-interface SanityPost {
-  _id: string;
-  title: string;
-  slug: { current: string };
-  description: string;
-  publishDate: string;
-  imageUrl?: string;
-  category: string;
-  tags?: string[];
-  readingTime?: number;
-  featured?: boolean;
-}
+// Read from local markdown files in src/content/blog/
+const blogPosts = await getCollection('blog');
 
-// Fetch all published posts from Sanity CMS at BUILD time
-let publishedPosts: SanityPost[] = [];
-try {
-  publishedPosts = await client.fetch(postsQuery);
-} catch (err) {
-  console.error('Failed to fetch posts from Sanity:', err);
-}
+// Filter out drafts and sort by date
+const publishedPosts = blogPosts
+  .filter(post => !post.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
 <BaseLayout title="المدونة | محمد لحلح - مقالات الذكاء الاصطناعي" description="مقالات متعمقة حول الذكاء الاصطناعي، التعلم العميق، والشبكات العصبية">
@@ -62,39 +49,39 @@ try {
         ) : (
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {publishedPosts.map((post) => (
-              <a href={`/blog/${post.slug.current}`} class="group glass-card flex flex-col rounded-2xl md:min-h-[260px] overflow-hidden cursor-pointer border border-[var(--border-subtle)] hover:border-[var(--accent-purple)]/40 hover:scale-[1.01] transition-all duration-300 relative">
+              <a href={`/blog/${post.slug}`} class="group glass-card flex flex-col rounded-2xl md:min-h-[260px] overflow-hidden cursor-pointer border border-[var(--border-subtle)] hover:border-[var(--accent-purple)]/40 hover:scale-[1.01] transition-all duration-300 relative">
                 <div class="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 <div class="p-6 md:p-8 flex flex-col flex-1 relative z-10">
                   <div class="flex items-center justify-between mb-4">
                     <span class="px-2.5 py-1 rounded-md bg-[var(--accent-purple)]/10 border border-[var(--accent-purple)]/20 text-[9px] md:text-[10px] font-black text-[var(--accent-purple)] shadow-sm">
-                      {post.category}
+                      {post.data.category}
                     </span>
 
                     <div class="flex items-center gap-1.5 text-[9px] md:text-[10px] font-medium text-[var(--text-muted)]">
                       <Calendar size={12} />
-                      <time datetime={new Date(post.publishDate).toISOString()}>
+                      <time datetime={post.data.date.toISOString()}>
                         {new Intl.DateTimeFormat('ar-EG', {
                           year: 'numeric',
                           month: 'long',
                           day: 'numeric',
-                        }).format(new Date(post.publishDate))}
+                        }).format(post.data.date)}
                       </time>
                     </div>
                   </div>
 
                   <h2 class="text-lg md:text-xl font-black text-[var(--text-primary)] mb-3 leading-snug group-hover:text-[var(--accent-purple)] transition-colors">
-                    {post.title}
+                    {post.data.title}
                   </h2>
 
                   <p class="text-[var(--text-secondary)] text-xs md:text-sm leading-relaxed mb-6 font-medium line-clamp-3">
-                    {post.description}
+                    {post.data.description}
                   </p>
 
                   <div class="mt-auto pt-4 border-t border-[var(--border-subtle)] group-hover:border-[var(--accent-purple)]/20 transition-colors flex flex-col gap-4">
-                    {post.tags && post.tags.length > 0 && (
+                    {post.data.tags && post.data.tags.length > 0 && (
                       <div class="flex flex-wrap gap-2">
-                        {post.tags.slice(0, 3).map((tag: string) => (
+                        {post.data.tags.slice(0, 3).map((tag: string) => (
                           <span class="text-[9px] font-bold text-[var(--text-muted)] group-hover:text-[var(--accent-purple)] bg-[var(--bg-tertiary)] border border-[var(--border-subtle)] px-2 py-0.5 rounded-md transition-colors">
                             #{tag}
                           </span>
@@ -104,7 +91,7 @@ try {
 
                     <div class="flex items-center justify-between">
                       <span class="text-[10px] font-bold flex items-center gap-1.5 text-[var(--text-muted)]">
-                        <Clock size={12} /> وقت القراءة: {post.readingTime} دقائق
+                        <Clock size={12} /> وقت القراءة: {post.data.readingTime} دقائق
                       </span>
                       <div class="w-8 h-8 rounded-full bg-[var(--bg-tertiary)] group-hover:bg-[var(--accent-purple)] flex items-center justify-center text-[var(--text-secondary)] group-hover:text-white transition-all shadow-sm">
                         <ChevronLeft size={14} />
@@ -120,7 +107,7 @@ try {
     </section>
   </main>
 
-  <FooterReflect client:load />
+  <FooterReflect client:visible />
 </BaseLayout>
 
 <style>
