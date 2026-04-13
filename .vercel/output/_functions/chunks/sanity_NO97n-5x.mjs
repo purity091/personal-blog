@@ -291,16 +291,14 @@ const FooterReflect = () => {
   ] });
 };
 
+const PROJECT_ID = "uih0wtzn";
+const DATASET = "production";
 const client = createClient({
-  projectId: "uih0wtzn",
-  dataset: "production",
+  projectId: PROJECT_ID,
+  dataset: DATASET,
   apiVersion: "2024-01-01",
-  useCdn: false
-  // Set to false for fresh data on SSR
+  useCdn: true
 });
-{
-  console.log("Sanity Client Initialized with Project ID:", "uih0wtzn");
-}
 const postsQuery = `
   *[_type == "blogPost" && !(_id in path("drafts.**")) && draft == false] | order(publishDate desc) {
     _id,
@@ -373,9 +371,8 @@ function portableTextToHtml(blocks, imageUrlMap) {
       }
       if (block._type !== "block" || !block.children) return "";
       if (block.listItem) {
-        const tag2 = block.listItem === "number" ? "li" : "li";
         const text2 = block.children.map((child) => formatSpan(child)).join("");
-        return `<${tag2}>${text2}</${tag2}>`;
+        return `<li>${text2}</li>`;
       }
       if (block.style === "blockquote") {
         const text2 = block.children.map((child) => formatSpan(child)).join("");

@@ -1,6 +1,6 @@
 import { e as createAstro, f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead, o as renderSlot, h as addAttribute } from './astro/server_BCQeV3ft.mjs';
 import 'piccolore';
-import { $ as $$BaseLayout, N as Navbar, F as FooterReflect } from './sanity_Dans-sfQ.mjs';
+import { $ as $$BaseLayout, N as Navbar, F as FooterReflect } from './sanity_NO97n-5x.mjs';
 
 const $$Astro = createAstro("https://lahlah.ai");
 const $$BlogPostLayout = createComponent(($$result, $$props, $$slots) => {

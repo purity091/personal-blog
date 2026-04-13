@@ -1,20 +1,16 @@
 import { createClient } from '@sanity/client'
 
-// Hardcoded values — these are PUBLIC identifiers (not secrets)
-// They are visible in browser dev tools anyway
+// Hardcoded public values — safe to commit (visible in browser dev tools anyway)
 // For local override, use .env.local
+const PROJECT_ID = 'uih0wtzn'
+const DATASET = 'production'
 
 export const client = createClient({
-  projectId: import.meta.env.PUBLIC_SANITY_PROJECT_ID || 'uih0wtzn',
-  dataset: import.meta.env.PUBLIC_SANITY_DATASET || 'production',
+  projectId: PROJECT_ID,
+  dataset: DATASET,
   apiVersion: '2024-01-01',
-  useCdn: false, // Set to false for fresh data on SSR
+  useCdn: true,
 })
-
-// Diagnostic: Log projectId on server startup (only in SSR mode)
-if (import.meta.env.SSR) {
-  console.log('Sanity Client Initialized with Project ID:', import.meta.env.PUBLIC_SANITY_PROJECT_ID || 'uih0wtzn (fallback)');
-}
 
 // GROQ queries
 export const postsQuery = `
@@ -62,10 +58,11 @@ export const featuredPostsQuery = `
     featured
   }
 `
+
 import { marked } from 'marked';
 
 /**
- * Convert Markdown string to HTML string (legacy support)
+ * Convert Markdown string to HTML string (legacy support for old articles)
  */
 export async function markdownToHtml(markdown: string): Promise<string> {
   if (!markdown) return '';
@@ -115,11 +112,10 @@ export function portableTextToHtml(blocks: any[], imageUrlMap?: Record<string, s
 
         // Handle lists
         if (block.listItem) {
-          const tag = block.listItem === 'number' ? 'li' : 'li'
           const text = block.children
             .map((child: any) => formatSpan(child))
             .join('')
-          return `<${tag}>${text}</${tag}>`
+          return `<li>${text}</li>`
         }
 
         // Handle blockquotes
@@ -165,9 +161,8 @@ function formatSpan(child: any): string {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
 
-  // Apply marks (bold, italic, code, underline, strike-through)
+  // Apply marks
   if (child.marks && child.marks.length > 0) {
-    // Wrap in reverse order so inner marks are applied first
     const marks = [...child.marks].reverse()
     for (const mark of marks) {
       switch (mark) {
@@ -191,7 +186,6 @@ function formatSpan(child: any): string {
       }
     }
   } else {
-    // Check legacy boolean flags
     if (child.bold) text = `<strong>${text}</strong>`
     if (child.italic) text = `<em>${text}</em>`
     if (child.code) text = `<code class="bg-[var(--bg-tertiary)] px-1.5 py-0.5 rounded text-sm font-mono">${text}</code>`
