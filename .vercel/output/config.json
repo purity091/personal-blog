@@ -19,8 +19,32 @@
 			"continue": true
 		},
 		{
+			"src": "^/_server-islands/([^/]+?)$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/_image$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/404$",
+			"dest": "/_isr?x_astro_path=$0"
+		},
+		{
+			"src": "^/admin$",
+			"dest": "/_isr?x_astro_path=$0"
+		},
+		{
+			"src": "^/blog$",
+			"dest": "/_isr?x_astro_path=$0"
+		},
+		{
+			"src": "^/$",
+			"dest": "/_isr?x_astro_path=$0"
+		},
+		{
 			"src": "^/.*$",
-			"dest": "/404.html",
+			"dest": "_render",
 			"status": 404
 		}
 	]

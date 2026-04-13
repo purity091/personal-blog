@@ -13,7 +13,12 @@ export default defineConfig({
     tailwind(),
     sitemap(),
   ],
-  adapter: vercel(),
+  output: 'server',
+  adapter: vercel({
+    isr: {
+      expiration: 60, // Revalidate every 60 seconds
+    },
+  }),
   trailingSlash: 'never',
   markdown: {
     shikiConfig: {
