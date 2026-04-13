@@ -13,7 +13,6 @@ export default defineConfig({
     tailwind(),
     sitemap(),
   ],
-  output: 'server',
   adapter: vercel(),
   trailingSlash: 'never',
   markdown: {
