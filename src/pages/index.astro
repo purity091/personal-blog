@@ -19,13 +19,13 @@ const featuredPosts = await client.fetch(featuredPostsQuery);
   <Navbar client:load />
   <main>
     <Hero client:load />
-    <FeaturedArticles client:load articles={featuredPosts} />
-    <DeepLearningTensors client:load />
-    <AITermsExplorer client:load />
-    <MyBookSlider client:load />
-    <SocialBentoGrid client:load />
-    <LLMEcosystem client:load />
+    <FeaturedArticles client:visible articles={featuredPosts} />
+    <DeepLearningTensors client:visible />
+    <AITermsExplorer client:visible />
+    <MyBookSlider client:visible />
+    <SocialBentoGrid client:visible />
+    <LLMEcosystem client:visible />
   </main>
-  <FooterReflect client:load />
+  <FooterReflect client:visible />
 </BaseLayout>
 

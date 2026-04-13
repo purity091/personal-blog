@@ -1,4 +1,6 @@
 import { createClient } from '@sanity/client'
+import sanitizeHtml from 'sanitize-html'
+import { marked } from 'marked'
 
 // Hardcoded public values — safe to commit (visible in browser dev tools anyway)
 const PROJECT_ID = 'uih0wtzn'
@@ -58,18 +60,40 @@ export const featuredPostsQuery = `
   }
 `
 
-import { marked } from 'marked';
-
 /**
- * Convert Markdown string to HTML string
+ * Convert Markdown string to sanitized HTML string
+ * XSS protection via sanitize-html
  */
 export async function markdownToHtml(markdown: string): Promise<string> {
   if (!markdown) return '';
   try {
-    const html = typeof marked.parse === 'function'
+    const rawHtml = typeof marked.parse === 'function'
       ? await marked.parse(markdown)
       : await (marked as any)(markdown);
-    return html;
+
+    // Sanitize HTML to prevent XSS
+    const cleanHtml = sanitizeHtml(rawHtml as string, {
+      allowedTags: sanitizeHtml.defaults.allowedTags.concat([
+        'img', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+        'blockquote', 'pre', 'code', 'hr', 'br',
+        'table', 'thead', 'tbody', 'tr', 'th', 'td',
+        'span', 'div', 'p', 'ul', 'ol', 'li',
+        'a', 'strong', 'em', 'u', 's',
+      ]),
+      allowedAttributes: {
+        ...sanitizeHtml.defaults.allowedAttributes,
+        img: ['src', 'alt', 'title', 'width', 'height', 'loading', 'class'],
+        a: ['href', 'title', 'target', 'rel', 'class'],
+        code: ['class'],
+        '*': ['class'],
+      },
+      allowedSchemes: ['http', 'https', 'mailto', 'tel'],
+      allowedSchemesByTag: {},
+      allowedSchemesAppliedToAttributes: ['href', 'src'],
+      allowProtocolRelative: false,
+    });
+
+    return cleanHtml;
   } catch (err) {
     console.error('Error parsing markdown:', err);
     return markdown;
