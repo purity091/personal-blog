@@ -1,7 +1,6 @@
 ---
-// Prerender at build time, then ISR revalidates every 60 seconds
+// Static page — built at build time from Sanity data
 export const prerender = true;
-export const revalidate = 60;
 
 import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
 import { client, postBySlugQuery, postsQuery, markdownToHtml } from '../../lib/sanity';
