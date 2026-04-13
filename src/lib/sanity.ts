@@ -14,8 +14,9 @@ export const client = createClient({
 })
 
 // GROQ queries
+// Note: `!defined(draft) || draft == false` handles both explicit false AND missing field
 export const postsQuery = `
-  *[_type == "blogPost" && !(_id in path("drafts.**")) && draft == false] | order(publishDate desc) {
+  *[_type == "blogPost" && !(_id in path("drafts.**")) && (!defined(draft) || draft == false)] | order(publishDate desc) {
     _id,
     title,
     slug,
@@ -46,7 +47,7 @@ export const postBySlugQuery = `
 `
 
 export const featuredPostsQuery = `
-  *[_type == "blogPost" && !(_id in path("drafts.**")) && draft == false] | order(publishDate desc)[0...3] {
+  *[_type == "blogPost" && !(_id in path("drafts.**")) && (!defined(draft) || draft == false)] | order(publishDate desc)[0...3] {
     _id,
     title,
     slug,
