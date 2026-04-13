@@ -2,9 +2,8 @@ name: Sync Sanity CMS to Markdown
 
 on:
   schedule:
-    # Run every 15 minutes (GitHub Actions free tier may delay short intervals)
     - cron: '*/15 * * * *'
-  workflow_dispatch: # Allow manual trigger
+  workflow_dispatch:
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -13,7 +12,7 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GH_PAT }}
@@ -23,22 +22,18 @@ jobs:
         with:
           node-version: 24
 
-      - name: Fetch posts from Sanity and create markdown files
+      - name: Sync Sanity posts to markdown
         env:
           SANITY_PROJECT_ID: ${{ secrets.SANITY_PROJECT_ID }}
           SANITY_DATASET: ${{ secrets.SANITY_DATASET }}
-          GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
-          # Install minimal deps
           npm install @sanity/client gray-matter
-
-          # Run sync script
           node scripts/sync-sanity-to-markdown.mjs
 
-      - name: Commit and push changes
+      - name: Commit and push
         run: |
-          git config --global user.name "Sanity Sync Bot"
-          git config --global user.email "bot@lahlah.ai"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add src/content/blog/
           git diff --staged --quiet || git commit -m "chore: sync articles from Sanity CMS [skip ci]"
           git push
