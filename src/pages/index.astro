@@ -15,21 +15,24 @@ import LLMEcosystem from '../components/LLMEcosystem.tsx';
 import FooterReflect from '../components/FooterReflect.tsx';
 
 // Read from local markdown files in src/content/blog/
-const allPosts = await getCollection('blog', ({ data }) => {
-  return data.draft !== true;
-});
+const allPosts = await getCollection('blog');
 
-// Sort by date and take the latest 3
-const featuredPosts = allPosts
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 3);
+// Filter out drafts and sort by date (newest first)
+const publishedPosts = allPosts
+  .filter(post => !post.data.draft)
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+// Get the latest 3 posts for featured section
+const featuredPosts = publishedPosts.slice(0, 3);
+
+console.log('📝 Total posts:', allPosts.length, '| Published:', publishedPosts.length, '| Featured:', featuredPosts.length);
 ---
 
 <BaseLayout title="محمد لحلح | خبير الذكاء الاصطناعي - تعلم AI والشبكات العصبية">
   <Navbar client:load />
   <main>
     <Hero client:load />
-    <FeaturedArticles client:visible articles={featuredPosts} />
+    <FeaturedArticles articles={featuredPosts} />
     <DeepLearningTensors client:visible />
     <AITermsExplorer client:visible />
     <MyBookSlider client:visible />
