@@ -1,19 +1,5 @@
-import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpLeft, Calendar, Clock, BookOpen, ChevronLeft } from 'lucide-react';
-
-interface SanityArticle {
-  _id: string;
-  title: string;
-  slug: { current: string };
-  description: string;
-  publishDate: string;
-  imageUrl?: string;
-  category: string;
-  tags?: string[];
-  readingTime?: number;
-  featured?: boolean;
-}
 
 interface AstroArticle {
   slug: string;
@@ -27,21 +13,8 @@ interface AstroArticle {
   };
 }
 
-type Article = SanityArticle | AstroArticle;
-
-const FeaturedArticles = ({ articles = [] }: { articles?: Article[] }) => {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
+const FeaturedArticles = ({ articles = [] }: { articles?: AstroArticle[] }) => {
   const displayArticles = articles.length > 0 ? articles : [];
-
-  // Detect if article is from Sanity or Astro content collection
-  const isSanityArticle = (article: Article): article is SanityArticle => {
-    return 'slug' in article && typeof article.slug === 'object' && 'current' in article.slug;
-  };
 
   return (
     <section className="py-12 md:py-20 px-6 relative bg-[var(--bg-primary)] border-t border-[var(--border-subtle)] transition-colors duration-500">
@@ -70,28 +43,21 @@ const FeaturedArticles = ({ articles = [] }: { articles?: Article[] }) => {
         {/* Articles Grid (Compact 3 Columns) */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {displayArticles.map((post, i) => {
-            const isSanity = isSanityArticle(post);
-            const title = isSanity ? post.title : post.data.title;
-            const description = isSanity ? post.description : post.data.description;
-            const date = isSanity ? new Date(post.publishDate) : post.data.date;
-            const category = isSanity ? post.category : post.data.category;
-            const tags = isSanity ? post.tags : post.data.tags;
-            const readingTime = isSanity ? post.readingTime : post.data.readingTime;
-            const slug = isSanity ? post.slug.current : post.slug;
-
-            const formattedDate = mounted
-              ? date.toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' })
-              : '';
+            const formattedDate = post.data.date.toLocaleDateString('ar-EG', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            });
 
             return (
-              <motion.a
-                href={`/blog/${slug}`}
+              <motion.article
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 viewport={{ once: true }}
-                key={isSanity ? post._id : post.slug}
-                className="glass-card flex flex-col group border-[var(--border-subtle)] hover:border-[var(--accent-purple)]/40 overflow-hidden relative rounded-2xl md:min-h-[260px] cursor-pointer"
+                key={post.slug}
+                onClick={() => window.location.href = `/blog/${post.slug}`}
+                className="glass-card flex flex-col group cursor-pointer border-[var(--border-subtle)] hover:border-[var(--accent-purple)]/40 overflow-hidden relative rounded-2xl md:min-h-[260px]"
               >
                 {/* Subtle Gradient background matching category */}
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -99,7 +65,7 @@ const FeaturedArticles = ({ articles = [] }: { articles?: Article[] }) => {
                 <div className="p-6 md:p-8 flex flex-col flex-1 relative z-10">
                   <div className="flex items-center justify-between mb-4">
                     <span className="px-2.5 py-1 rounded-md bg-[var(--accent-purple)]/10 border border-[var(--accent-purple)]/20 text-[9px] md:text-[10px] font-black text-[var(--accent-purple)] shadow-sm">
-                      {category}
+                      {post.data.category}
                     </span>
 
                     <div className="flex items-center gap-3 text-[9px] md:text-[10px] font-medium text-[var(--text-muted)]">
@@ -110,16 +76,16 @@ const FeaturedArticles = ({ articles = [] }: { articles?: Article[] }) => {
                   </div>
 
                   <h3 className="text-lg md:text-xl font-black text-[var(--text-primary)] mb-3 leading-snug group-hover:text-[var(--accent-purple)] transition-colors">
-                    {title}
+                    {post.data.title}
                   </h3>
 
                   <p className="text-[var(--text-secondary)] text-xs md:text-sm leading-relaxed mb-6 flex-1 font-medium line-clamp-3">
-                    {description}
+                    {post.data.description}
                   </p>
 
                   <div className="mt-auto pt-4 border-t border-[var(--border-subtle)] group-hover:border-[var(--accent-purple)]/20 transition-colors flex flex-col gap-4">
                     {/* Tags */}
-                    {tags && tags.length > 0 && tags.slice(0, 3).map((tag: string, tagIndex: number) => (
+                    {post.data.tags && post.data.tags.length > 0 && post.data.tags.slice(0, 3).map((tag: string, tagIndex: number) => (
                       <span key={tagIndex} className="text-[9px] font-bold text-[var(--text-muted)] group-hover:text-[var(--accent-purple)] bg-[var(--bg-tertiary)] border border-[var(--border-subtle)] px-2 py-0.5 rounded-md transition-colors">
                         #{tag}
                       </span>
@@ -128,7 +94,7 @@ const FeaturedArticles = ({ articles = [] }: { articles?: Article[] }) => {
                     {/* Reading Time & Arrow */}
                     <div className="flex items-center justify-between">
                       <span className="text-[10px] font-bold flex items-center gap-1.5 text-[var(--text-muted)]">
-                        <Clock size={12} /> وقت القراءة: {readingTime || 5} دقائق
+                        <Clock size={12} /> وقت القراءة: {post.data.readingTime || 5} دقائق
                       </span>
                       <div className="w-8 h-8 rounded-full bg-[var(--bg-tertiary)] group-hover:bg-[var(--accent-purple)] flex items-center justify-center text-[var(--text-secondary)] group-hover:text-white transition-all shadow-sm">
                         <ChevronLeft size={14} />
@@ -136,7 +102,7 @@ const FeaturedArticles = ({ articles = [] }: { articles?: Article[] }) => {
                     </div>
                   </div>
                 </div>
-              </motion.a>
+              </motion.article>
             );
           })}
         </div>
@@ -147,4 +113,3 @@ const FeaturedArticles = ({ articles = [] }: { articles?: Article[] }) => {
 };
 
 export default FeaturedArticles;
-

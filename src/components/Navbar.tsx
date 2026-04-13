@@ -1,15 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const navLinks = [
     { label: 'الرئيسية', href: '/#home' },
@@ -19,27 +14,19 @@ const Navbar = () => {
     { label: 'يوتيوب', href: '/#youtube' }
   ];
 
-  // Helper to handle links dynamically
-  const getHref = (href: string) => {
-    if (mounted && typeof window !== 'undefined' && window.location.pathname === '/' && href.startsWith('/#')) {
-      return href.substring(1);
-    }
-    return href;
-  };
-
   return (
     <nav className="fixed top-0 left-0 right-0 z-[10000] bg-[var(--navbar-bg)] backdrop-blur-lg border-b border-[var(--border-subtle)] h-16" role="navigation" aria-label="القائمة الرئيسية">
       <div className="max-w-6xl mx-auto px-6 h-full flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center font-bold text-white shadow-lg" aria-hidden="true">م</div>
-          <a href={getHref('/#home')} className="font-bold text-lg text-[var(--text-primary)] hover:opacity-80 transition-opacity" aria-label="محمد لحلح - الصفحة الرئيسية">
+          <a href="/#home" className="font-bold text-lg text-[var(--text-primary)] hover:opacity-80 transition-opacity" aria-label="محمد لحلح - الصفحة الرئيسية">
             محمد لحلح
           </a>
         </div>
 
         <div className="hidden lg:flex items-center gap-8 text-xs font-bold text-[var(--text-secondary)]" role="menubar">
           {navLinks.map((link, i) => (
-            <a key={i} href={getHref(link.href)} className="hover:text-[var(--text-primary)] transition-colors" role="menuitem">
+            <a key={i} href={link.href} className="hover:text-[var(--text-primary)] transition-colors" role="menuitem">
               {link.label}
             </a>
           ))}
@@ -50,7 +37,7 @@ const Navbar = () => {
             النشرة البريدية
           </button>
           <ThemeToggle />
-          <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden text-[var(--text-primary)] p-2">
+          <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden text-[var(--text-primary)] p-2" aria-label="القائمة">
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
@@ -67,7 +54,7 @@ const Navbar = () => {
             {navLinks.map((link, i) => (
               <a
                 key={i}
-                href={getHref(link.href)}
+                href={link.href}
                 onClick={() => setIsOpen(false)}
                 className="text-lg font-bold text-[var(--text-secondary)] hover:text-purple-500"
               >
