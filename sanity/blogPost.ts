@@ -1,4 +1,4 @@
-import {type DocumentDefinition} from 'sanity'
+import { type DocumentDefinition } from 'sanity'
 
 export const blogPost: DocumentDefinition = {
   name: 'blogPost',
@@ -55,16 +55,16 @@ export const blogPost: DocumentDefinition = {
       type: 'string',
       options: {
         list: [
-          {title: '🤖 الذكاء الاصطناعي', value: 'الذكاء الاصطناعي'},
-          {title: '🧠 التعلم العميق', value: 'التعلم العميق'},
-          {title: '💬 معالجة اللغات الطبيعية', value: 'معالجة اللغات الطبيعية'},
-          {title: '👁️ الرؤية الحاسوبية', value: 'الرؤية الحاسوبية'},
-          {title: '🕸️ الشبكات العصبية', value: 'الشبكات العصبية'},
-          {title: '⚡ Transformers', value: 'Transformers'},
-          {title: '💡 ChatGPT', value: 'ChatGPT'},
-          {title: '🐍 Python', value: 'Python'},
-          {title: '🛠️ أدوات وتقنيات', value: 'أدوات وتقنيات'},
-          {title: '🚀 مشاريع عملية', value: 'مشاريع عملية'},
+          { title: '🤖 الذكاء الاصطناعي', value: 'الذكاء الاصطناعي' },
+          { title: '🧠 التعلم العميق', value: 'التعلم العميق' },
+          { title: '💬 معالجة اللغات الطبيعية', value: 'معالجة اللغات الطبيعية' },
+          { title: '👁️ الرؤية الحاسوبية', value: 'الرؤية الحاسوبية' },
+          { title: '🕸️ الشبكات العصبية', value: 'الشبكات العصبية' },
+          { title: '⚡ Transformers', value: 'Transformers' },
+          { title: '💡 ChatGPT', value: 'ChatGPT' },
+          { title: '🐍 Python', value: 'Python' },
+          { title: '🛠️ أدوات وتقنيات', value: 'أدوات وتقنيات' },
+          { title: '🚀 مشاريع عملية', value: 'مشاريع عملية' },
         ],
       },
       validation: (Rule) => Rule.required(),
@@ -73,7 +73,7 @@ export const blogPost: DocumentDefinition = {
       name: 'tags',
       title: 'الوسوم',
       type: 'array',
-      of: [{type: 'string'}],
+      of: [{ type: 'string' }],
       options: {
         layout: 'tags',
       },
@@ -100,7 +100,49 @@ export const blogPost: DocumentDefinition = {
     {
       name: 'content',
       title: 'محتوى المقال',
-      type: 'markdown',
+      type: 'array',
+      of: [
+        {
+          type: 'block',
+          styles: [
+            { title: 'عادي', value: 'normal' },
+            { title: 'عنوان H2', value: 'h2' },
+            { title: 'عنوان H3', value: 'h3' },
+            { title: 'اقتباس', value: 'blockquote' },
+          ],
+          lists: [
+            { title: 'نقاط', value: 'bullet' },
+            { title: 'ترقيم', value: 'number' },
+          ],
+          marks: {
+            decorators: [
+              { title: 'عريض', value: 'bold' },
+              { title: 'مائل', value: 'italic' },
+              { title: 'كود', value: 'code' },
+            ],
+          },
+        },
+        {
+          type: 'image',
+          title: 'صورة',
+          options: { hotspot: true },
+          fields: [
+            {
+              name: 'alt',
+              title: 'الوصف البديل',
+              type: 'string',
+            },
+            {
+              name: 'caption',
+              title: 'التسمية التوضيحية',
+              type: 'string',
+            },
+          ],
+        },
+        {
+          type: 'code',
+        },
+      ],
       validation: (Rule) => Rule.required(),
     },
   ],
@@ -111,7 +153,7 @@ export const blogPost: DocumentDefinition = {
       isDraft: 'draft',
     },
     prepare(selection) {
-      const {title, media, isDraft} = selection
+      const { title, media, isDraft } = selection
       return {
         title,
         media,
@@ -124,7 +166,7 @@ export const blogPost: DocumentDefinition = {
       title: 'تاريخ النشر',
       name: 'publishDateDesc',
       by: [
-        {field: 'publishDate', direction: 'desc'},
+        { field: 'publishDate', direction: 'desc' },
       ],
     },
   ],
