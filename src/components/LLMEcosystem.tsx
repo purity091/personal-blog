@@ -12,14 +12,14 @@ import {
 import { useState, useEffect, useRef } from 'react';
 
 const LLMEcosystem = () => {
-  const [isMobile, setIsMobile] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
     setMounted(true);
+    setIsMobile(window.innerWidth < 768);
 
     const update = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener('resize', update);
@@ -27,15 +27,18 @@ const LLMEcosystem = () => {
   }, []);
 
   // Use CSS custom property for radius — no hydration mismatch
-  const radius = isMobile ? 140 : 220;
+  // Use responsive CSS classes instead of JS-based mobile detection
+  const radius = mounted ? (isMobile ? 140 : 220) : 220; // Only change after mount
+
+  const iconSize = mounted ? (isMobile ? 14 : 18) : 18;
 
   const items = [
-    { icon: <MessageSquare size={isMobile ? 14 : 18} />, label: "أتمتة المحتوى" },
-    { icon: <Shield size={isMobile ? 14 : 18} />, label: "الامتثال" },
-    { icon: <BarChart size={isMobile ? 14 : 18} />, label: "المخاطر" },
-    { icon: <Users size={isMobile ? 14 : 18} />, label: "المواهب" },
-    { icon: <Globe size={isMobile ? 14 : 18} />, label: "الإمداد" },
-    { icon: <Zap size={isMobile ? 14 : 18} />, label: "أتمتة العمل" },
+    { icon: <MessageSquare size={iconSize} />, label: "أتمتة المحتوى" },
+    { icon: <Shield size={iconSize} />, label: "الامتثال" },
+    { icon: <BarChart size={iconSize} />, label: "المخاطر" },
+    { icon: <Users size={iconSize} />, label: "المواهب" },
+    { icon: <Globe size={iconSize} />, label: "الإمداد" },
+    { icon: <Zap size={iconSize} />, label: "أتمتة العمل" },
   ];
 
   return (

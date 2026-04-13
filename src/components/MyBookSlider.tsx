@@ -76,7 +76,9 @@ const MyBookSlider = () => {
 
   // Initialize position
   useEffect(() => {
-    goTo(0);
+    // Delay to avoid hydration mismatch
+    const timer = setTimeout(() => goTo(0), 0);
+    return () => clearTimeout(timer);
   }, []);
 
   return (

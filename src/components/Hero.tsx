@@ -88,13 +88,16 @@ const NeuralMesh = () => (
 
 const Hero = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
-    const update = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener('resize', update);
-    return () => window.removeEventListener('resize', update);
+    // Only check mobile on client to avoid hydration mismatch
+    setMounted(true);
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   const mouseX = useSpring(0, { stiffness: 500, damping: 50 });
@@ -112,7 +115,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      onMouseMove={!isMobile ? handleMouseMove : undefined}
+      onMouseMove={mounted && !isMobile ? handleMouseMove : undefined}
       className="relative pt-28 md:pt-32 pb-12 md:pb-16 px-4 md:px-6 overflow-hidden flex flex-col items-center bg-[var(--bg-primary)] transition-colors duration-500"
       aria-label="القسم الرئيسي - مقدمة الذكاء الاصطناعي"
     >
@@ -120,7 +123,7 @@ const Hero = () => {
       <HeroVisualDecorations />
 
       {/* Dynamic Glows — disabled on mobile for performance */}
-      {!isMobile && !shouldReduceMotion && (
+      {mounted && !isMobile && !shouldReduceMotion && (
         <>
           <motion.div
             style={{ x: mouseX, y: mouseY, top: '5%', insetInlineStart: '25%', filter: 'blur(140px)' }}
