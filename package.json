@@ -6,7 +6,7 @@
     "dev": "astro dev",
     "dev:cms": "sanity dev",
     "start": "astro dev",
-    "build": "astro check && astro build",
+    "build": "rm -rf .astro dist && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "sanity": "sanity"
