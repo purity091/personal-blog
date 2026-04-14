@@ -14,6 +14,16 @@ import DeepLearningTensors from '../components/DeepLearningTensors.tsx';
 import LLMEcosystem from '../components/LLMEcosystem.tsx';
 import FooterReflect from '../components/FooterReflect.tsx';
 
+const buildTime = new Date().toLocaleString('ar-EG', { 
+  timeZone: 'Asia/Riyadh',
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
+  day: '2-digit',
+  month: '2-digit',
+  year: 'numeric'
+});
+
 // Read from local markdown files in src/content/blog/ (synced from Sanity)
 const allPosts = await getCollection('blog');
 
@@ -49,4 +59,5 @@ console.log('------------------');
     <LLMEcosystem client:visible />
   </main>
   <FooterReflect client:visible />
+  <div class="hidden">Build Time: {buildTime}</div>
 </BaseLayout>
