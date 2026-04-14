@@ -6,17 +6,11 @@
       "properties": {
         "title": {
           "type": "string",
-          "maxLength": 100,
-          "errorMessage": {
-            "maxLength": "العنوان يجب أن يكون أقل من 100 حرف"
-          }
+          "default": "بدون عنوان"
         },
         "description": {
           "type": "string",
-          "maxLength": 200,
-          "errorMessage": {
-            "maxLength": "الوصف يجب أن يكون أقل من 200 حرف"
-          }
+          "default": ""
         },
         "date": {
           "anyOf": [
@@ -32,7 +26,8 @@
               "type": "integer",
               "format": "unix-time"
             }
-          ]
+          ],
+          "default": "2026-04-14T08:01:51.567Z"
         },
         "updatedDate": {
           "anyOf": [
@@ -81,23 +76,11 @@
         },
         "category": {
           "type": "string",
-          "enum": [
-            "الذكاء الاصطناعي",
-            "التعلم العميق",
-            "معالجة اللغات الطبيعية",
-            "الرؤية الحاسوبية",
-            "الشبكات العصبية",
-            "Transformers",
-            "ChatGPT",
-            "Python",
-            "أدوات وتقنيات",
-            "مشاريع عملية"
-          ],
           "default": "الذكاء الاصطناعي"
         },
         "readingTime": {
           "type": "number",
-          "minimum": 1
+          "default": 5
         },
         "featured": {
           "type": "boolean",
@@ -106,16 +89,8 @@
         "draft": {
           "type": "boolean",
           "default": false
-        },
-        "$schema": {
-          "type": "string"
         }
       },
-      "required": [
-        "title",
-        "description",
-        "date"
-      ],
       "additionalProperties": false
     }
   },

@@ -2,10 +2,10 @@ import { defineCollection, z } from 'astro:content';
 
 const blog = defineCollection({
   type: 'content',
-  schema: ({ image }) => z.object({
-    title: z.string().max(100, 'العنوان يجب أن يكون أقل من 100 حرف'),
-    description: z.string().max(200, 'الوصف يجب أن يكون أقل من 200 حرف'),
-    date: z.coerce.date(),
+  schema: z.object({
+    title: z.string().default('بدون عنوان'),
+    description: z.string().default(''),
+    date: z.coerce.date().default(new Date()),
     updatedDate: z.coerce.date().optional(),
     image: z.object({
       src: z.string(),
@@ -14,19 +14,8 @@ const blog = defineCollection({
       height: z.number().optional(),
     }).optional(),
     tags: z.array(z.string()).default([]),
-    category: z.enum([
-      'الذكاء الاصطناعي',
-      'التعلم العميق',
-      'معالجة اللغات الطبيعية',
-      'الرؤية الحاسوبية',
-      'الشبكات العصبية',
-      'Transformers',
-      'ChatGPT',
-      'Python',
-      'أدوات وتقنيات',
-      'مشاريع عملية',
-    ]).default('الذكاء الاصطناعي'),
-    readingTime: z.number().min(1).optional(),
+    category: z.string().default('الذكاء الاصطناعي'),
+    readingTime: z.number().default(5),
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
   }),
