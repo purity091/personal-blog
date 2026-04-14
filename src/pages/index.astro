@@ -27,10 +27,14 @@ const publishedPosts = allPosts
     return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
   });
 
-// Get the latest 3-4 posts for the home page
-const featuredPosts = publishedPosts.slice(0, 3);
+// Get the latest 6-9 posts for the home page (increased from 3)
+const featuredPosts = publishedPosts.slice(0, 9);
 
-console.log('📝 Total posts:', allPosts.length, '| Published:', publishedPosts.length, '| Featured:', featuredPosts.length);
+console.log('--- BUILD INFO ---');
+console.log('Total files found in src/content/blog:', allPosts.length);
+console.log('Total published articles:', publishedPosts.length);
+console.log('Post slugs:', publishedPosts.map(p => p.slug).join(', '));
+console.log('------------------');
 ---
 
 <BaseLayout title="محمد لحلح | خبير الذكاء الاصطناعي - تعلم AI والشبكات العصبية">

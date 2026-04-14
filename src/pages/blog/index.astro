@@ -20,6 +20,11 @@ const publishedPosts = blogPosts
     }
     return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
   });
+
+console.log('--- BLOG PAGE INFO ---');
+console.log('Total articles found:', blogPosts.length);
+console.log('Published articles:', publishedPosts.length);
+console.log('----------------------');
 ---
 
 <BaseLayout title="المدونة | محمد لحلح - مقالات الذكاء الاصطناعي" description="مقالات متعمقة حول الذكاء الاصطناعي والتعلم العميق">
