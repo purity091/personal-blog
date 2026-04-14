@@ -8,6 +8,7 @@ const Navbar = () => {
 
   const navLinks = [
     { label: 'الرئيسية', href: '/#home' },
+    { label: 'المدونة', href: '/blog' },
     { label: 'كتابي', href: '/#book' },
     { label: 'تواصل', href: '/#social' },
     { label: 'العلوم', href: '/#deep-learning' },

@@ -10,6 +10,11 @@ interface AstroArticle {
     category: string;
     tags: string[];
     readingTime?: number;
+    featured?: boolean;
+    image?: {
+      src: string;
+      alt: string;
+    };
   };
 }
 
@@ -59,6 +64,16 @@ const FeaturedArticles = ({ articles = [] }: { articles?: AstroArticle[] }) => {
                     </time>
                   </div>
                 </div>
+
+                {post.data.image && (
+                  <div className="mb-4 overflow-hidden rounded-xl border border-[var(--border-subtle)] aspect-video">
+                    <img 
+                      src={post.data.image.src} 
+                      alt={post.data.image.alt || post.data.title} 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                )}
 
                 <h3 className="text-lg md:text-xl font-black text-[var(--text-primary)] mb-3 leading-snug group-hover:text-[var(--accent-purple)] transition-colors">
                   {post.data.title}

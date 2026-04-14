@@ -14,15 +14,20 @@ import DeepLearningTensors from '../components/DeepLearningTensors.tsx';
 import LLMEcosystem from '../components/LLMEcosystem.tsx';
 import FooterReflect from '../components/FooterReflect.tsx';
 
-// Read from local markdown files in src/content/blog/
+// Read from local markdown files in src/content/blog/ (synced from Sanity)
 const allPosts = await getCollection('blog');
 
-// Filter out drafts and sort by date (newest first)
+// Filter and sort: Featured first, then by date (newest first), excluding drafts
 const publishedPosts = allPosts
   .filter(post => !post.data.draft)
-  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+  .sort((a, b) => {
+    if (a.data.featured !== b.data.featured) {
+      return a.data.featured ? -1 : 1;
+    }
+    return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+  });
 
-// Get the latest 3 posts for featured section
+// Get the latest 3-4 posts for the home page
 const featuredPosts = publishedPosts.slice(0, 3);
 
 console.log('📝 Total posts:', allPosts.length, '| Published:', publishedPosts.length, '| Featured:', featuredPosts.length);
