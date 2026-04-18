@@ -17,7 +17,6 @@ const FooterReflect = () => {
   const quickLinks = [
     { name: "الرئيسية", href: "/#home" },
     { name: "أحدث الكتب", href: "/#book" },
-    { name: "تجارب AI", href: "/#ecosystem" },
     { name: "قناة اليوتيوب", href: "/#youtube" },
   ];
 
@@ -27,23 +26,23 @@ const FooterReflect = () => {
   ];
 
   return (
-    <footer className="pt-20 pb-10 px-6 bg-[var(--bg-primary)] border-t border-[var(--border-subtle)] relative overflow-hidden transition-colors duration-500">
+    <footer dir="rtl" className="footer-reflect-section pt-20 pb-10 px-6 bg-[var(--bg-primary)] border-t border-[var(--border-subtle)] relative overflow-hidden transition-colors duration-500">
       {/* Background Decoration */}
       <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-[var(--accent-purple)]/5 to-transparent pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="max-w-6xl mx-auto  relative z-10">
         {/* Main Footer Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 text-right pb-16">
+        <div className="footer-main-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 pb-16">
           {/* Brand Column */}
-          <div className="lg:col-span-5">
-            <div className="flex items-center justify-end gap-3 mb-6">
-              <span className="font-bold text-2xl text-[var(--text-primary)]">محمد لحلح</span>
+          <div className="footer-column-brand lg:col-span-5">
+            <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center font-bold text-white shadow-lg text-xl">م</div>
+              <span className="font-bold text-2xl text-[var(--text-primary)]">محمد لحلح</span>
             </div>
-            <p className="text-[var(--text-secondary)] text-sm md:text-base leading-relaxed font-medium max-w-sm ml-auto mb-8">
+            <p className="text-[var(--text-secondary)] text-sm md:text-base leading-relaxed font-medium max-w-sm mb-8">
               أبسط أعقد مفاهيم الذكاء الاصطناعي، لأبني جيلاً يفهم التكنولوجيا ولا يكتفي بمجرد استهلاكها.
             </p>
-            <div className="flex gap-3 justify-end">
+            <div className="flex gap-3">
               {socialLinks.map((social, i) => (
                 <motion.a
                   key={i}
@@ -59,12 +58,12 @@ const FooterReflect = () => {
           </div>
 
           {/* Quick Links Column */}
-          <div className="lg:col-span-3 lg:pr-12">
+          <div className="footer-column-links lg:col-span-3 lg:pr-12">
             <h4 className="text-[var(--text-primary)] font-black text-sm uppercase tracking-widest mb-6">روابط سريعة</h4>
             <ul className="space-y-4">
               {quickLinks.map((link, i) => (
                 <li key={i}>
-                  <a href={link.href} className="text-[var(--text-secondary)] text-sm font-bold hover:text-[var(--accent-purple)] transition-colors flex items-center justify-end gap-2 group">
+                  <a href={link.href} className="text-[var(--text-secondary)] text-sm font-bold hover:text-[var(--accent-purple)] transition-colors flex items-center gap-2 group">
                     {link.name} <ExternalLink size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                   </a>
                 </li>
@@ -73,24 +72,24 @@ const FooterReflect = () => {
           </div>
 
           {/* Contact Column */}
-          <div className="lg:col-span-4">
+          <div className="footer-column-contact lg:col-span-4">
             <h4 className="text-[var(--text-primary)] font-black text-sm uppercase tracking-widest mb-6">تواصل مباشر</h4>
             <p className="text-[var(--text-secondary)] text-sm font-medium mb-6">لديك استشارة أو عرض تعاون؟ الباب مفتوح دائماً.</p>
-            <a href="mailto:hello@lahlah.ai" className="flex items-center justify-end gap-3 bg-[var(--bg-tertiary)] border border-[var(--border-subtle)] p-4 rounded-2xl group hover:border-[var(--accent-purple)]/50 transition-all">
-              <div className="text-right">
-                <div className="text-[10px] font-black text-[var(--text-muted)] uppercase">راسلني عبر</div>
-                <div className="text-sm font-bold text-[var(--text-primary)]">hello@lahlah.ai</div>
-              </div>
+            <a href="mailto:hello@lahlah.ai" className="flex items-center gap-3 bg-[var(--bg-tertiary)] border border-[var(--border-subtle)] p-4 rounded-2xl group hover:border-[var(--accent-purple)]/50 transition-all">
               <div className="w-10 h-10 rounded-full bg-[var(--accent-purple)]/10 flex items-center justify-center text-[var(--accent-purple)] group-hover:bg-[var(--accent-purple)] group-hover:text-white transition-all">
                 <Mail size={18} />
+              </div>
+              <div>
+                <div className="text-[10px] font-black text-[var(--text-muted)] uppercase">راسلني عبر</div>
+                <div className="text-sm font-bold text-[var(--text-primary)]">hello@lahlah.ai</div>
               </div>
             </a>
           </div>
         </div>
 
         {/* Copyright Line */}
-        <div className="pt-8 border-t border-[var(--border-subtle)] flex flex-col md:flex-row-reverse justify-between items-center gap-6">
-          <div className="text-[var(--text-muted)] text-[10px] md:text-xs font-mono tracking-wider text-right">
+        <div className="footer-copyright-bar pt-8 border-t border-[var(--border-subtle)] flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="text-[var(--text-muted)] text-[10px] md:text-xs font-mono tracking-wider">
             © {currentYear} جميع الحقوق محفوظة • تم التطوير بكلات وشغف بالذكاء الاصطناعي
           </div>
           <div className="flex gap-6">
