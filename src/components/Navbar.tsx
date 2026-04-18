@@ -19,7 +19,7 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-[10000] bg-[var(--navbar-bg)] backdrop-blur-lg border-b border-[var(--border-subtle)] h-16" role="navigation" aria-label="القائمة الرئيسية">
       <div className="max-w-6xl mx-auto px-6 h-full flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center font-bold text-white shadow-lg" aria-hidden="true">م</div>
+          <img src="/logo.png" alt="Logo" className="w-10 h-10 object-contain" />
           <a href="/#home" className="font-bold text-lg text-[var(--text-primary)] hover:opacity-80 transition-opacity" aria-label="محمد لحلح - الصفحة الرئيسية">
             محمد لحلح
           </a>
