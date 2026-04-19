@@ -109,7 +109,7 @@ body::before {
   inset: 0;
   width: 100vw;
   height: 100vh;
-  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  background-image: url("/noise.svg");
   opacity: 0.04;
   pointer-events: none;
   z-index: 9999;
