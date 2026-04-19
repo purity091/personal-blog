@@ -36,7 +36,7 @@ const FooterReflect = () => {
           {/* Brand Column */}
           <div className="footer-column-brand lg:col-span-5">
             <div className="flex items-center gap-3 mb-6">
-              <img src="/logo.png" alt="Logo" className="w-12 h-12 object-contain" />
+              <img src="/logo1.png" alt="Logo" className="w-12 h-12 object-contain" />
               <span className="font-bold text-2xl text-[var(--text-primary)]">محمد لحلح</span>
             </div>
             <p className="text-[var(--text-secondary)] text-sm md:text-base leading-relaxed font-medium max-w-sm mb-8">

@@ -7,6 +7,10 @@ interface Props {
   image?: string;
 }
 
+import Navbar from '../components/Navbar.tsx';
+import MobileNav from '../components/MobileNav.tsx';
+import ScrollToTop from '../components/ScrollToTop.tsx';
+
 const {
   title,
   description = 'محمد لحلح | خبير الذكاء الاصطناعي - تعلم AI والشبكات العصبية',
@@ -54,7 +58,7 @@ const siteUrl = 'https://lahlah.ai';
     <meta name="twitter:image" content={`${siteUrl}${image}`} />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/logo1.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#a855f7" />
 
@@ -104,5 +108,7 @@ const siteUrl = 'https://lahlah.ai';
   </head>
   <body>
     <slot />
+    <MobileNav client:load />
+    <ScrollToTop client:load />
   </body>
 </html>
