@@ -1,214 +1,133 @@
-
 import { motion } from 'framer-motion';
-import { Play, ExternalLink, ArrowUpLeft, BookOpen, Users, TrendingUp, Target } from 'lucide-react';
+import { Play, ExternalLink, ArrowUpLeft, BookOpen, Users, TrendingUp, Target, Twitter, Youtube, Linkedin } from 'lucide-react';
 
 const SocialBentoGrid = () => {
   const stats = [
-    { icon: <Users size={18} />, value: "150K+", label: "متابع" },
-    { icon: <TrendingUp size={18} />, value: "500+", label: "فيديو" },
-    { icon: <Target size={18} />, value: "10K+", label: "طالب" },
+    { icon: <Users size={14} />, value: "150K+", label: "متابع" },
+    { icon: <TrendingUp size={14} />, value: "500+", label: "فيديو" },
+    { icon: <Target size={14} />, value: "10K+", label: "طالب" },
   ];
 
   return (
-    <section id="social" className="py-16 md:py-32 px-6 relative bg-[var(--bg-secondary)] overflow-hidden transition-colors duration-500">
-      {/* Subtle background decoration */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-purple-500/5 to-blue-500/5 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gradient-to-tr from-blue-500/5 to-purple-500/5 blur-[100px] rounded-full pointer-events-none" />
+    <section id="social" className="py-16 md:py-24 px-6 relative bg-[var(--bg-secondary)] overflow-hidden transition-colors duration-500" dir="rtl">
+      
+      {/* Dynamic Background Elements */}
+      <div className="absolute top-0 end-0 w-[400px] h-[400px] bg-[var(--accent-purple)]/5 blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 start-0 w-[300px] h-[300px] bg-blue-500/5 blur-[100px] rounded-full pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative z-10">
-        {/* Section Header with Strong Value Proposition */}
-        <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
+        
+        {/* Compact Modern Header */}
+        <div className="flex flex-col md:flex-row items-end justify-between mb-12 gap-8 border-b border-white/5 pb-10">
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="max-w-2xl text-start"
+          >
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--accent-purple)]/10 text-[var(--accent-purple)] font-black text-[9px] tracking-widest uppercase mb-4 border border-[var(--accent-purple)]/20">
+              <BookOpen size={12} /> المجتمع الرقمي
+            </div>
+            <h2 className="text-2xl md:text-4xl font-black text-[var(--text-primary)] leading-tight tracking-tight">
+              أبني جسراً بينك وبين <span className="text-[var(--accent-purple)]">مستقبل الذكاء الاصطناعي</span>
+            </h2>
+          </motion.div>
+
+          {/* Integrated Stats Bar */}
+          <div className="flex gap-6 md:gap-10">
+            {stats.map((stat, i) => (
+              <div key={i} className="text-center">
+                <div className="text-xl md:text-2xl font-black text-[var(--text-primary)]">{stat.value}</div>
+                <div className="text-[9px] font-bold text-[var(--text-muted)] uppercase tracking-wider">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Professional Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+          
+          {/* YouTube - Primary Channel */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
+            className="md:col-span-7 group relative p-8 rounded-[2.5rem] bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all duration-500 overflow-hidden min-h-[300px] flex flex-col justify-between"
           >
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--accent-purple)]/10 text-[var(--accent-purple)] font-bold text-[10px] tracking-widest uppercase mb-6 border border-[var(--accent-purple)]/20">
-              <BookOpen size={12} /> من المحتوى إلى المجتمع
-            </span>
-
-            <h2 className="text-3xl md:text-5xl font-black text-[var(--text-primary)] mb-6 tracking-tight leading-[1.2]">
-              أبني جسراً بينك وبين
-              <span className="block bg-gradient-to-r from-[var(--accent-purple)] to-[var(--accent-blue)] bg-clip-text text-transparent">
-                مستقبل الذكاء الاصطناعي
-              </span>
-            </h2>
-
-            <p className="text-[var(--text-secondary)] text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-medium">
-              لست مجرد صانع محتوى. أنا مرشدك التقني في رحلة فهم أعقد التقنيات،
-              من خلال محتوى مرئي مدروس يبني الفكرة فكرة.
-            </p>
-          </motion.div>
-        </div>
-
-        {/* Stats Bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="grid grid-cols-3 gap-4 md:gap-8 mb-16 md:mb-20 p-6 md:p-8 glass-card rounded-2xl md:rounded-3xl border-[var(--border-subtle)]"
-        >
-          {stats.map((stat, i) => (
-            <div key={i} className="text-center">
-              <div className="flex items-center justify-center mb-2 text-[var(--accent-purple)]">
-                {stat.icon}
-              </div>
-              <div className="text-2xl md:text-4xl font-black text-[var(--text-primary)] mb-1">
-                {stat.value}
-              </div>
-              <div className="text-[10px] md:text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider">
-                {stat.label}
-              </div>
-            </div>
-          ))}
-        </motion.div>
-
-        {/* Main Content Grid - Ali Abdaal Style */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
-          {/* YouTube - Main Platform Card */}
-          <motion.div
-            id="youtube"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            viewport={{ once: true }}
-            whileHover={{ y: -5 }}
-            className="md:col-span-8 glass-card rounded-2xl md:rounded-3xl p-8 md:p-12 flex flex-col justify-between group overflow-hidden relative min-h-[320px] md:min-h-[400px] border-[var(--border-subtle)] shadow-xl"
-          >
-            {/* Gradient overlay on hover */}
-            <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700" />
-            <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-red-600/10 blur-[80px] pointer-events-none" />
-
+            <div className="absolute inset-0 bg-gradient-to-br from-red-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            
             <div className="relative z-10">
-              <div className="flex items-start justify-between mb-8">
-                <div className="w-14 h-14 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white shadow-lg shadow-red-500/20 group-hover:scale-110 transition-transform duration-300">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="md:w-10 md:h-10"><path d="m22 8-6 4 6 4V8Z" /><rect width="14" height="12" x="2" y="6" rx="2" ry="2" /></svg>
+              <div className="flex items-center justify-between mb-6">
+                <div className="w-12 h-12 rounded-2xl bg-red-600 flex items-center justify-center text-white shadow-lg shadow-red-600/20">
+                  <Youtube size={24} />
                 </div>
-                <div className="px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20 text-red-500 text-[10px] font-black uppercase tracking-wider">
-                  المنصة الرئيسية
-                </div>
+                <span className="text-[10px] font-black text-red-500 uppercase tracking-widest">Youtube Channel</span>
               </div>
-
-              <div className="relative z-10">
-                <h3 className="text-2xl md:text-4xl font-black mb-4 text-[var(--text-primary)] tracking-tight leading-tight">
-                  قناة اليوتيوب التعليمية
-                </h3>
-                <p className="text-[var(--text-secondary)] text-sm md:text-lg max-w-xl mb-8 leading-relaxed font-medium">
-                  أكثر من 500 فيديو يشرح الخوارزميات كأنك تراها. محتوى مرئي يعتمد على
-                  التفكيك البصري، من أبسط المفاهيم إلى أعقد التطبيقات العملية.
-                </p>
-
-                <div className="flex flex-wrap gap-3 mb-8">
-                  {['شبكات عصبية', 'تعلم عميق', 'محاكاة بصرية', 'Python'].map((tag, i) => (
-                    <span key={i} className="px-3 py-1 rounded-full bg-[var(--bg-tertiary)] border border-[var(--border-subtle)] text-[10px] font-bold text-[var(--text-muted)]">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                <a href="https://www.youtube.com/@MohLahlah" target="_blank" rel="noopener noreferrer" className="group/btn bg-gradient-to-r from-red-600 to-red-700 text-white px-8 py-4 rounded-full font-black text-sm flex items-center justify-center gap-3 hover:shadow-xl hover:shadow-red-600/20 transition-all hover:scale-105 active:scale-95 w-fit">
-                  استكشف القناة
-                  <Play size={16} fill="currentColor" className="group-hover/btn:scale-110 transition-transform" />
-                </a>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Twitter/X Card - Quick Insights */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            viewport={{ once: true }}
-            whileHover={{ y: -5 }}
-            className="md:col-span-4 glass-card rounded-2xl md:rounded-3xl p-8 flex flex-col justify-between group relative overflow-hidden min-h-[320px] md:min-h-[400px] shadow-xl"
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-400/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700" />
-
-            <div className="relative z-10">
-              <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br from-blue-400 to-blue-500 flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-blue-400/20">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="md:w-8 md:h-8"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" /></svg>
-              </div>
-
-              <h3 className="text-xl md:text-2xl font-black mb-4 text-[var(--text-primary)] tracking-tight">
-                تأملات يومية
-              </h3>
-              <p className="text-[var(--text-secondary)] text-sm md:text-base leading-relaxed font-medium mb-6">
-                خواطر سريعة وتحديثات لحظية حول أحدث نماذج الذكاء الاصطناعي،
-                نصائح تقنية، ورؤى مستقبلية.
-              </p>
-
-              <div className="space-y-3 mb-6">
-                {['أخبار AI يومية', 'نصائح تقنية', 'مناقشات تفاعلية'].map((item, i) => (
-                  <div key={i} className="flex items-center gap-2 text-[var(--text-muted)] text-xs font-bold">
-                    <div className="w-1.5 h-1.5 rounded-full bg-blue-400" />
-                    {item}
-                  </div>
-                ))}
-              </div>
+              <h3 className="text-xl md:text-2xl font-black mb-3 text-[var(--text-primary)]">المحتوى المرئي التعليمي</h3>
+              <p className="text-[var(--text-secondary)] text-sm leading-relaxed max-w-sm font-medium">أكثر من 500 فيديو يشرح الخوارزميات والذكاء الاصطناعي بأسلوب تفكيك بصري فريد.</p>
             </div>
 
-            <a href="https://twitter.com/MohLahlah" target="_blank" rel="noopener noreferrer" className="group/btn w-full bg-[var(--bg-tertiary)] border border-[var(--border-medium)] text-[var(--text-primary)] py-3.5 rounded-xl font-bold text-sm hover:bg-blue-400 hover:text-white hover:border-blue-400 transition-all flex items-center justify-center gap-2">
-              تابع @MohLahlah
-              <ArrowUpLeft size={12} className="group-hover/btn:-translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
+            <a href="https://www.youtube.com/@MohLahlah" target="_blank" className="relative z-10 w-fit flex items-center gap-3 text-sm font-black text-white bg-red-600 px-6 py-3 rounded-full hover:scale-105 transition-transform active:scale-95">
+              اشترك الآن <Play size={14} fill="currentColor" />
             </a>
           </motion.div>
 
-          {/* LinkedIn Card - Professional Network */}
+          {/* Twitter/X - Quick Insights */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
             viewport={{ once: true }}
-            whileHover={{ y: -5 }}
-            className="md:col-span-12 glass-card rounded-2xl md:rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between group relative overflow-hidden gap-8 shadow-xl"
+            className="md:col-span-5 group relative p-8 rounded-[2.5rem] bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all duration-500 overflow-hidden flex flex-col justify-between"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10 opacity-0 group-hover:opacity-100 transition-all duration-700" />
-
-            <div className="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8 text-center md:text-start flex-1 relative z-10">
-              <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center text-white shadow-lg shadow-blue-600/20 group-hover:scale-110 transition-transform duration-300 shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="md:w-10 md:h-10"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" /></svg>
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            
+            <div className="relative z-10">
+              <div className="flex items-center justify-between mb-6">
+                <div className="w-12 h-12 rounded-2xl bg-blue-500 flex items-center justify-center text-white shadow-lg shadow-blue-400/20">
+                  <Twitter size={24} />
+                </div>
+                <span className="text-[10px] font-black text-blue-400 uppercase tracking-widest">X / Twitter</span>
               </div>
+              <h3 className="text-xl font-black mb-3 text-[var(--text-primary)]">تأملات يومية</h3>
+              <p className="text-[var(--text-secondary)] text-sm leading-relaxed font-medium">خواطر سريعة وتحديثات لحظية حول أحدث نماذج الذكاء الاصطناعي.</p>
+            </div>
 
+            <a href="https://twitter.com/MohLahlah" target="_blank" className="relative z-10 w-full flex items-center justify-center gap-2 text-xs font-black text-[var(--text-primary)] bg-white/5 border border-white/5 py-3 rounded-2xl hover:bg-blue-400 hover:text-white hover:border-blue-400 transition-all">
+              تابع @MohLahlah <ArrowUpLeft size={14} />
+            </a>
+          </motion.div>
+
+          {/* LinkedIn - Professional Bar Style */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="md:col-span-12 group relative p-6 md:p-8 rounded-[2.5rem] bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all duration-500 overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            
+            <div className="flex items-center gap-6 relative z-10 flex-1">
+              <div className="w-14 h-14 rounded-2xl bg-blue-700 flex items-center justify-center text-white shadow-lg shadow-blue-600/20 shrink-0">
+                <Linkedin size={28} />
+              </div>
               <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-600/10 text-blue-500 text-[9px] font-black uppercase tracking-wider mb-4 border border-blue-600/20">
-                  للشركات والمؤسسات
-                </div>
-                <h3 className="text-xl md:text-3xl font-black text-[var(--text-primary)] mb-3 tracking-tight">
-                  شبكة العلاقات المهنية
-                </h3>
-                <p className="text-[var(--text-secondary)] text-sm md:text-base max-w-2xl font-medium leading-relaxed">
-                  مساحة احترافية لبناء الشراكات التقنية، استكشاف فرص التعاون في المشاريع،
-                  وتقديم استشارات متخصصة للشركات الناشئة في مجال الذكاء الاصطناعي.
-                </p>
+                <h3 className="text-lg md:text-xl font-black text-[var(--text-primary)]">شبكة العلاقات المهنية</h3>
+                <p className="text-[var(--text-secondary)] text-xs md:text-sm font-medium">مساحة احترافية لبناء الشراكات التقنية واستكشاف فرص التعاون.</p>
               </div>
             </div>
 
-            <a href="https://www.linkedin.com/in/MohLahlah" target="_blank" rel="noopener noreferrer" className="w-full md:w-auto bg-gradient-to-r from-blue-600 to-blue-700 text-white px-10 py-4 rounded-full font-black text-sm hover:shadow-xl hover:shadow-blue-600/20 transition-all active:scale-95 shrink-0 flex items-center justify-center gap-3 relative z-10 hover:scale-105">
+            <a href="https://www.linkedin.com/in/MohLahlah" target="_blank" className="relative z-10 px-8 py-3.5 rounded-full bg-blue-700 text-white text-xs font-black hover:scale-105 transition-transform active:scale-95 shrink-0">
               تواصل للتعاون
-              <ExternalLink size={16} />
             </a>
           </motion.div>
         </div>
 
-        {/* Call to Action - Bottom */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          viewport={{ once: true }}
-          className="mt-16 text-center"
-        >
-          <p className="text-[var(--text-muted)] text-sm md:text-base font-medium mb-4">
-            انضم إلى مجتمع يتعلم وينمو معاً
-          </p>
-          <div className="flex items-center justify-center gap-2 text-[var(--text-secondary)] text-xs">
-            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            <span>نشاط مستمر يومياً عبر جميع المنصات</span>
-          </div>
-        </motion.div>
+        {/* Minimal Footer Info */}
+        <div className="mt-10 flex items-center justify-center gap-3 text-[var(--text-muted)] text-[10px] font-black uppercase tracking-[0.2em]">
+          <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+          نشاط مستمر يومياً عبر جميع المنصات
+        </div>
+
       </div>
     </section>
   );

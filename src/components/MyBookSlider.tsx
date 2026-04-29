@@ -1,10 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { ChevronRight, ChevronLeft, ArrowLeft } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronRight, ChevronLeft, ArrowLeft, ArrowRight, Download, BookOpen } from 'lucide-react';
 import { books } from '../data/books';
 
 const MyBookSlider = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [mounted, setMounted] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const handleScroll = () => {
@@ -20,7 +21,7 @@ const MyBookSlider = () => {
   const scrollTo = (index: number) => {
     if (!scrollRef.current) return;
     const width = scrollRef.current.offsetWidth;
-    const isRTL = document.dir === 'rtl' || window.getComputedStyle(scrollRef.current).direction === 'rtl';
+    const isRTL = typeof document !== 'undefined' && (document.dir === 'rtl' || window.getComputedStyle(scrollRef.current).direction === 'rtl');
     const scrollAmount = isRTL ? -(index * width) : index * width;
     
     scrollRef.current.scrollTo({
@@ -30,165 +31,181 @@ const MyBookSlider = () => {
   };
 
   useEffect(() => {
+    setMounted(true);
     const el = scrollRef.current;
     if (el) {
-      el.addEventListener('scroll', handleScroll);
+      el.addEventListener('scroll', handleScroll, { passive: true });
       return () => el.removeEventListener('scroll', handleScroll);
     }
   }, [activeIndex]);
 
   return (
-    <section id="book" className="py-24 md:py-48 px-4 md:px-8 relative bg-[var(--bg-primary)] overflow-hidden text-right" dir="rtl">
-      {/* Decorative Background Elements */}
-      <div className="absolute top-0 right-0 w-full h-full opacity-30 pointer-events-none">
-        <div className="absolute top-[10%] right-[10%] w-64 h-64 bg-[var(--accent-purple)]/10 blur-[100px] rounded-full animate-pulse"></div>
-        <div className="absolute bottom-[10%] left-[10%] w-96 h-96 bg-blue-500/5 blur-[120px] rounded-full"></div>
+    <section id="book" className="relative py-24 md:py-32 bg-[var(--bg-primary)] overflow-hidden text-right" dir="rtl">
+      
+      {/* Dynamic Background System */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-[-10%] start-[-10%] w-[40%] h-[40%] bg-[var(--accent-purple)]/5 blur-[120px] animate-pulse"></div>
+        <div className="absolute bottom-[-10%] end-[-10%] w-[40%] h-[40%] bg-blue-500/5 blur-[120px]"></div>
+        <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-[0.03]"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10">
         
-        {/* Header Section */}
-        <div className="flex flex-col md:flex-row items-end justify-between gap-8 mb-16 md:mb-24 px-4">
-          <div className="text-right">
-            <motion.span 
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              className="inline-block px-4 py-1.5 rounded-full bg-[var(--accent-purple)]/10 text-[var(--accent-purple)] text-[10px] font-black uppercase tracking-[0.3em] mb-4 border border-[var(--accent-purple)]/20"
-            >
-              The AI Collection
-            </motion.span>
-            <h2 className="text-4xl md:text-7xl font-black text-[var(--text-primary)] leading-tight tracking-tighter">
-              انطلق نحو <span className="text-[var(--accent-purple)]">المستقبل</span>
+        {/* Cinematic Header */}
+        <div className="flex flex-col md:flex-row items-end justify-between gap-8 mb-12 md:mb-16">
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="space-y-3"
+          >
+            <div className="inline-flex items-center gap-3 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
+              <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-purple)] animate-pulse"></span>
+              <span className="text-[10px] font-black uppercase tracking-widest text-[var(--text-secondary)]">The Masterclass Library</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-[var(--text-primary)] leading-[1.1] tracking-tighter">
+              المكتبة <span className="text-[var(--accent-purple)]">الذكية</span>
             </h2>
-          </div>
+            <p className="text-base md:text-lg text-[var(--text-secondary)] font-medium max-w-xl">إصدارات حصرية تجمع بين الخبرة العملية والذكاء الاصطناعي</p>
+          </motion.div>
 
+          {/* Navigation Controls */}
           <div className="flex items-center gap-6">
-            <a href="/books" className="hidden md:flex items-center gap-3 text-lg font-bold text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-all group">
-              المكتبة الشاملة
-              <ArrowLeft size={20} className="transition-transform group-hover:translate-x-[-6px]" />
-            </a>
-            <div className="flex gap-4">
+            <div className="hidden lg:flex items-center gap-8 me-8">
+              <div className="flex flex-col items-end">
+                <span className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest mb-1">المرحلة الحالية</span>
+                <span className="text-xl font-black text-[var(--text-primary)]">{mounted ? activeIndex + 1 : 1} / {books.length}</span>
+              </div>
+            </div>
+            <div className="flex gap-2">
               <button 
                 onClick={() => scrollTo(activeIndex - 1)} 
-                disabled={activeIndex === 0}
-                className="nav-btn"
+                disabled={!mounted || activeIndex === 0}
+                className="group p-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur-xl hover:bg-[var(--accent-purple)] hover:border-[var(--accent-purple)] transition-all disabled:opacity-20 disabled:cursor-not-allowed"
               >
-                <ChevronRight size={24} />
+                <ChevronRight size={24} className="text-white" />
               </button>
               <button 
                 onClick={() => scrollTo(activeIndex + 1)} 
-                disabled={activeIndex === books.length - 1}
-                className="nav-btn"
+                disabled={!mounted || activeIndex === books.length - 1}
+                className="group p-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur-xl hover:bg-[var(--accent-purple)] hover:border-[var(--accent-purple)] transition-all disabled:opacity-20 disabled:cursor-not-allowed"
               >
-                <ChevronLeft size={24} />
+                <ChevronLeft size={24} className="text-white" />
               </button>
             </div>
           </div>
         </div>
 
-        {/* Native Scroll-Snap Container (Smooth on Mobile) */}
+        {/* The Carousel Engine */}
         <div 
           ref={scrollRef}
-          className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar"
+          className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar gap-5 md:gap-8 pb-16"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {books.map((book, i) => (
-            <div
+            <motion.div
               key={book.slug}
-              className="flex-shrink-0 w-full md:w-[60%] lg:w-[45%] snap-center px-4 md:px-6 group"
+              className="flex-shrink-0 w-[88%] md:w-[70%] lg:w-[60%] snap-center"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.8 }}
             >
-              <a 
-                href={`/books/${book.slug}`}
-                className="block relative p-8 md:p-12 rounded-[3.5rem] bg-white/5 border border-white/10 backdrop-blur-xl transition-all duration-700 hover:bg-white/10 hover:border-[var(--accent-purple)]/40 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.6)]"
-              >
-                <div className="flex flex-col lg:flex-row items-center gap-10 md:gap-16">
-                  {/* Premium 3D Cover */}
-                  <div className="relative shrink-0 perspective-1000">
-                    <div className="relative w-40 md:w-56 aspect-[3/4.2] transition-transform duration-1000 transform group-hover:rotate-y-[-18deg] group-hover:rotate-x-[5deg] group-hover:scale-105">
+              <div className="relative group p-6 md:p-10 rounded-[3.5rem] bg-white/[0.02] border border-white/5 hover:border-white/10 hover:bg-white/[0.04] transition-all duration-1000 h-full overflow-hidden">
+                {/* Internal Ambient Glow */}
+                <div className="absolute -top-24 -start-24 w-64 h-64 bg-[var(--accent-purple)]/10 blur-[100px] opacity-0 group-hover:opacity-100 transition-all duration-1000"></div>
+                
+                <div className="relative z-10 flex flex-col lg:flex-row items-center lg:items-center gap-10 md:gap-16 h-full">
+                  
+                  {/* Premium 3D Book Visualization with Floating Animation */}
+                  <div className="relative shrink-0 perspective-2000">
+                    <motion.div 
+                      animate={{ y: [0, -10, 0] }}
+                      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                      className="relative w-40 md:w-60 aspect-[3/4.2] transition-all duration-1000 transform group-hover:rotate-y-[-22deg] group-hover:rotate-x-[6deg] group-hover:scale-[1.03]"
+                    >
                       <img
                         src={book.image}
                         alt={book.title}
-                        className="w-full h-full object-cover rounded-xl shadow-2xl border border-white/10"
+                        className="w-full h-full object-cover rounded-xl shadow-[0_40px_80px_-20px_rgba(0,0,0,0.8)] border border-white/10"
                       />
-                      {/* Book spine effect */}
-                      <div className="absolute left-0 top-0 bottom-0 w-4 bg-black/40 backdrop-blur-sm rounded-l-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    </div>
-                    {/* Glow */}
-                    <div className="absolute -inset-10 bg-[var(--accent-purple)]/20 blur-[80px] rounded-full -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
+                      {/* Logical Start Spine Effect */}
+                      <div className="absolute inset-y-0 start-0 w-5 bg-gradient-to-l from-black/60 to-transparent backdrop-blur-[1px] rounded-s-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                      <div className="absolute inset-y-0 end-0 w-1 bg-white/10 rounded-e-2xl"></div>
+                    </motion.div>
                   </div>
 
-                  {/* Content */}
-                  <div className="text-right flex-1">
-                    <div className="flex items-center justify-end gap-3 mb-6">
-                      <span className="text-xs font-black uppercase tracking-widest text-[var(--accent-purple)]">{book.eyebrow}</span>
-                      <div className="h-1.5 w-1.5 rounded-full bg-[var(--accent-purple)] shadow-[0_0_8px_rgba(168,85,247,0.5)]"></div>
-                    </div>
-                    
-                    <h3 className="text-2xl md:text-4xl font-black text-[var(--text-primary)] mb-6 leading-tight group-hover:text-[var(--accent-purple)] transition-colors">
-                      {book.title}
-                    </h3>
-                    
-                    <p className="text-base md:text-lg text-[var(--text-secondary)] leading-relaxed line-clamp-3 mb-8 opacity-80 group-hover:opacity-100 transition-opacity">
-                      {book.description}
-                    </p>
+                  {/* Content & Intelligence Section */}
+                  <div className="flex-1 flex flex-col justify-center text-right py-4">
+                    <div className="space-y-4 md:space-y-6">
+                      <div className="flex items-center gap-4">
+                        <span className="text-[9px] md:text-[10px] font-black text-[var(--accent-purple)] uppercase tracking-[0.3em]">{book.eyebrow}</span>
+                        <div className="h-px flex-1 bg-gradient-to-l from-[var(--accent-purple)]/30 to-transparent"></div>
+                      </div>
+                      
+                      <h3 className="text-2xl md:text-4xl font-black text-[var(--text-primary)] leading-tight tracking-tight group-hover:text-[var(--accent-purple)] transition-colors duration-700">
+                        {book.title}
+                      </h3>
+                      
+                      <p className="text-base md:text-lg text-[var(--text-secondary)] leading-relaxed opacity-80 group-hover:opacity-100 transition-all duration-700 line-clamp-3 md:line-clamp-4">
+                        {book.description}
+                      </p>
 
-                    <div className="flex items-center justify-end gap-3 text-[var(--text-primary)] font-black text-lg group/link">
-                      <span className="border-b-2 border-transparent group-hover/link:border-[var(--accent-purple)] transition-all">تصفح الكتاب</span>
-                      <ArrowLeft size={24} className="transition-transform group-hover/link:translate-x-[-6px]" />
+                      <div className="flex flex-wrap gap-3 pt-4">
+                        {book.format.map((stat, s) => (
+                          <div key={s} className="px-4 py-2 rounded-xl bg-white/5 border border-white/5 backdrop-blur-md flex items-center gap-2">
+                            <span className="text-[8px] font-black text-[var(--accent-purple)] uppercase tracking-widest">{stat.label}</span>
+                            <span className="text-sm font-black text-white">{stat.value}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="mt-8 flex items-center justify-end">
+                      <a 
+                        href={`/books/${book.slug}`}
+                        className="group/btn relative inline-flex items-center justify-center gap-3 py-4 px-10 rounded-[1.5rem] bg-white text-black text-lg font-black overflow-hidden transition-all hover:scale-105 active:scale-95"
+                      >
+                        <span className="relative z-10">تصفح الكتاب</span>
+                        <ArrowLeft size={20} className="relative z-10 transition-transform group-hover/btn:-translate-x-2" />
+                      </a>
                     </div>
                   </div>
                 </div>
-              </a>
-            </div>
+              </div>
+            </motion.div>
           ))}
         </div>
 
-        {/* Indicators */}
-        <div className="flex justify-center gap-4 mt-12 md:mt-20">
-          {books.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => scrollTo(i)}
-              className={`h-2 transition-all duration-700 rounded-full ${
-                i === activeIndex 
-                ? 'w-16 bg-[var(--accent-purple)]' 
-                : 'w-2 bg-[var(--border-medium)] hover:bg-[var(--text-muted)]'
-              }`}
-            />
-          ))}
+        {/* Futuristic Scroll Progress */}
+        <div className="mt-12 flex flex-col items-center gap-6">
+          <div className="flex gap-2">
+            {books.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => scrollTo(i)}
+                className={`h-1.5 transition-all duration-700 rounded-full ${
+                  i === activeIndex 
+                  ? 'w-12 bg-[var(--accent-purple)] shadow-[0_0_15px_rgba(168,85,247,0.5)]' 
+                  : 'w-4 bg-white/10 hover:bg-white/30'
+                }`}
+              />
+            ))}
+          </div>
+          <a href="/books" className="group flex items-center gap-3 text-lg font-black text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-all">
+            استكشف المكتبة الكاملة
+            <ArrowLeft size={20} className="transition-transform group-hover:-translate-x-2" />
+          </a>
         </div>
+
       </div>
 
       <style>{`
         .no-scrollbar::-webkit-scrollbar {
           display: none;
         }
-        .nav-btn {
-          width: 60px;
-          height: 60px;
-          border-radius: 20px;
-          background: var(--bg-secondary);
-          border: 1px solid var(--border-medium);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: var(--text-primary);
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          backdrop-filter: blur(10px);
-        }
-        .nav-btn:hover:not(:disabled) {
-          border-color: var(--accent-purple);
-          background: var(--accent-purple);
-          color: white;
-          transform: translateY(-4px);
-          box-shadow: 0 15px 30px -10px rgba(168,85,247,0.4);
-        }
-        .nav-btn:disabled {
-          opacity: 0.15;
-          cursor: not-allowed;
-        }
-        .perspective-1000 {
-          perspective: 1000px;
+        .perspective-2000 {
+          perspective: 2000px;
         }
       `}</style>
     </section>

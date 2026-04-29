@@ -10,7 +10,6 @@ import FeaturedArticles from '../components/FeaturedArticles.tsx';
 import AITermsExplorer from '../components/AITermsExplorer.tsx';
 import MyBookSlider from '../components/MyBookSlider.tsx';
 import SocialBentoGrid from '../components/SocialBentoGrid.tsx';
-import DeepLearningTensors from '../components/DeepLearningTensors.tsx';
 import FooterReflect from '../components/FooterReflect.tsx';
 
 const buildTime = new Date().toLocaleString('ar-EG', { 
@@ -20,7 +19,8 @@ const buildTime = new Date().toLocaleString('ar-EG', {
   second: '2-digit',
   day: '2-digit',
   month: '2-digit',
-  year: 'numeric'
+  year: 'numeric',
+  numberingSystem: 'latn'
 });
 
 // Read from local markdown files in src/content/blog/ (synced from Sanity)
@@ -50,8 +50,7 @@ console.log('------------------');
   <Navbar client:load />
   <main>
     <Hero client:load />
-    <FeaturedArticles articles={featuredPosts} />
-    <DeepLearningTensors client:visible />
+    <FeaturedArticles articles={featuredPosts} client:visible />
     <AITermsExplorer client:visible />
     <MyBookSlider client:visible />
     <SocialBentoGrid client:visible />

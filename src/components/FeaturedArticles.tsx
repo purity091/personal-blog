@@ -1,5 +1,4 @@
-import { motion } from 'framer-motion';
-import { ArrowUpLeft, Calendar, Clock, BookOpen, ChevronLeft } from 'lucide-react';
+import { ArrowUpLeft, Calendar, Clock, BookOpen, ChevronLeft, ArrowRight } from 'lucide-react';
 
 interface AstroArticle {
   slug: string;
@@ -19,90 +18,62 @@ interface AstroArticle {
 }
 
 const FeaturedArticles = ({ articles = [] }: { articles?: AstroArticle[] }) => {
-  const displayArticles = articles.length > 0 ? articles : [];
+  const displayArticles = (articles || []).slice(0, 6);
 
   return (
-    <section className="py-12 md:py-20 px-6 relative bg-[var(--bg-primary)] border-t border-[var(--border-subtle)] transition-colors duration-500">
-      <div className="absolute top-0 start-1/4 w-[300px] h-[300px] bg-[var(--accent-purple)]/5 blur-[120px] rounded-full pointer-events-none" />
-
+    <section className="py-12 md:py-16 px-6 relative bg-[var(--bg-primary)]" dir="rtl">
       <div className="max-w-6xl mx-auto relative z-10">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
-          <div className="text-start">
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--accent-purple)]/10 border border-[var(--accent-purple)]/20 text-[var(--accent-purple)] text-[10px] font-bold tracking-widest uppercase mb-4 shadow-sm">
-              <BookOpen size={12} /> أحدث التدوينات
-            </span>
-            <h2 className="text-2xl md:text-4xl font-black text-[var(--text-primary)] tracking-tight">
-              مقالات وشروحات <span className="text-[var(--text-muted)]">مكتوبة.</span>
-            </h2>
+        
+        {/* Streamlined Header */}
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-3">
+            <div className="w-1.5 h-6 bg-[var(--accent-purple)] rounded-full"></div>
+            <h2 className="text-xl md:text-2xl font-black text-[var(--text-primary)]">المقالات المختارة</h2>
           </div>
-
-          <a href="/blog" className="group flex items-center justify-center gap-2 text-sm font-bold text-[var(--text-primary)] bg-[var(--bg-tertiary)] border border-[var(--border-medium)] px-6 py-2.5 rounded-full hover:bg-[var(--accent-purple)] hover:text-white hover:border-[var(--accent-purple)] transition-all shadow-sm w-fit shrink-0">
-            تصفح كل المقالات
-            <ArrowUpLeft size={16} className="group-hover:-translate-x-1 group-hover:-translate-y-1 transition-transform" />
+          <a href="/blog" className="text-xs font-black text-[var(--text-muted)] hover:text-[var(--accent-purple)] transition-colors flex items-center gap-2">
+            الأرشيف الكامل
+            <ChevronLeft size={14} />
           </a>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        {/* Magazine Feed Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-2">
           {displayArticles.map((post, i) => (
-            <a
-              key={post.slug}
-              href={`/blog/${post.slug}`}
-              className="glass-card flex flex-col group border-[var(--border-subtle)] hover:border-[var(--accent-purple)]/40 overflow-hidden relative rounded-2xl md:min-h-[260px] transition-all duration-300"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-              <div className="p-6 md:p-8 flex flex-col flex-1 relative z-10">
-                <div className="flex items-center justify-between mb-4">
-                  <span className="px-2.5 py-1 rounded-md bg-[var(--accent-purple)]/10 border border-[var(--accent-purple)]/20 text-[9px] md:text-[10px] font-black text-[var(--accent-purple)] shadow-sm">
-                    {post.data.category}
-                  </span>
-
-                  <div className="flex items-center gap-1.5 text-[9px] md:text-[10px] font-medium text-[var(--text-muted)]">
-                    <Calendar size={12} />
-                    <time dateTime={post.data.date.toISOString()}>
-                      {post.data.date.toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' })}
-                    </time>
-                  </div>
+            <div key={post.slug}>
+              <a
+                href={`/blog/${post.slug}`}
+                className="group flex items-center gap-4 p-2 rounded-xl hover:bg-white/[0.03] transition-all duration-300 border-b border-white/5 last:border-0 lg:border-b-0 lg:py-3"
+              >
+                {/* Compact Thumbnail */}
+                <div className="relative shrink-0 w-14 h-14 md:w-16 md:h-16 rounded-xl overflow-hidden border border-white/10 group-hover:border-[var(--accent-purple)]/50 transition-colors">
+                   <img 
+                    src={post.data.image?.src || 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=200'} 
+                    alt={post.data.title} 
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-80 group-hover:opacity-100"
+                  />
                 </div>
 
-                {post.data.image && (
-                  <div className="mb-4 overflow-hidden rounded-xl border border-[var(--border-subtle)] aspect-video">
-                    <img 
-                      src={post.data.image.src} 
-                      alt={post.data.image.alt || post.data.title} 
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                )}
-
-                <h3 className="text-lg md:text-xl font-black text-[var(--text-primary)] mb-3 leading-snug group-hover:text-[var(--accent-purple)] transition-colors">
-                  {post.data.title}
-                </h3>
-
-                <p className="text-[var(--text-secondary)] text-xs md:text-sm leading-relaxed mb-6 flex-1 font-medium line-clamp-3">
-                  {post.data.description}
-                </p>
-
-                <div className="mt-auto pt-4 border-t border-[var(--border-subtle)] group-hover:border-[var(--accent-purple)]/20 transition-colors flex flex-col gap-4">
-                  {post.data.tags && post.data.tags.length > 0 && post.data.tags.slice(0, 3).map((tag: string, tagIndex: number) => (
-                    <span key={tagIndex} className="text-[9px] font-bold text-[var(--text-muted)] group-hover:text-[var(--accent-purple)] bg-[var(--bg-tertiary)] border border-[var(--border-subtle)] px-2 py-0.5 rounded-md transition-colors">
-                      #{tag}
+                <div className="flex-1 min-w-0 space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[8px] font-black text-[var(--accent-purple)] uppercase tracking-widest">{post.data.category}</span>
+                    <span className="w-0.5 h-0.5 rounded-full bg-white/20"></span>
+                    <span className="text-[8px] font-medium text-[var(--text-muted)] uppercase tracking-tighter">
+                       {new Date(post.data.date).toLocaleDateString('ar-EG-u-nu-latn', { month: 'short', day: 'numeric' })}
                     </span>
-                  ))}
-
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-bold flex items-center gap-1.5 text-[var(--text-muted)]">
-                      <Clock size={12} /> وقت القراءة: {post.data.readingTime || 5} دقائق
-                    </span>
-                    <div className="w-8 h-8 rounded-full bg-[var(--bg-tertiary)] group-hover:bg-[var(--accent-purple)] flex items-center justify-center text-[var(--text-secondary)] group-hover:text-white transition-all shadow-sm">
-                      <ChevronLeft size={14} />
-                    </div>
                   </div>
+                  <h3 className="text-sm md:text-base font-black text-[var(--text-primary)] leading-tight group-hover:text-[var(--accent-purple)] transition-colors truncate">
+                    {post.data.title}
+                  </h3>
                 </div>
-              </div>
-            </a>
+
+                <div className="hidden sm:flex w-8 h-8 rounded-full bg-white/5 items-center justify-center opacity-0 group-hover:opacity-100 transition-all -translate-x-4 group-hover:translate-x-0">
+                  <ArrowUpLeft size={14} className="text-[var(--accent-purple)]" />
+                </div>
+              </a>
+            </div>
           ))}
         </div>
+
       </div>
     </section>
   );
