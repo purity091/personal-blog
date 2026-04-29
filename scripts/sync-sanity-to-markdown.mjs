@@ -20,6 +20,15 @@ const client = createClient({
 
 const BLOG_DIR = join(__dirname, '..', 'src', 'content', 'blog');
 
+function normalizeSlug(value) {
+  return String(value || '')
+    .trim()
+    .replace(/[<>:"/\\|?*\u0000-\u001F]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
 // Ensure blog directory exists
 if (!existsSync(BLOG_DIR)) {
   mkdirSync(BLOG_DIR, { recursive: true });
@@ -35,6 +44,8 @@ async function sync() {
       slug,
       description,
       publishDate,
+      "imageUrl": image.asset->url,
+      "imageAlt": image.alt,
       category,
       tags,
       readingTime,
@@ -59,14 +70,23 @@ async function sync() {
       continue;
     }
 
-    const slug = post.slug.current;
-    syncedSlugs.add(slug);
+    const slug = normalizeSlug(post.slug.current);
+    if (!slug) {
+      console.warn(`⚠️  Skipping post with invalid slug: ${post.title}`);
+      continue;
+    }
+
+    if (slug !== post.slug.current) {
+      console.warn(`⚠️  Normalized slug "${post.slug.current}" -> "${slug}"`);
+    }
 
     // Skip drafts — don't create markdown files for them
     if (post.draft === true) {
       console.log(`📝 Skipping draft: ${slug}`);
       continue;
     }
+
+    syncedSlugs.add(slug);
 
     const frontmatter = {
       title: post.title,
@@ -78,6 +98,13 @@ async function sync() {
       featured: post.featured || false,
       draft: false,
     };
+
+    if (post.imageUrl) {
+      frontmatter.image = {
+        src: post.imageUrl,
+        alt: post.imageAlt || post.title || 'Post image',
+      };
+    }
 
     // Content is markdown string from sanity-plugin-markdown
     const content = typeof post.content === 'string' ? post.content : '';
