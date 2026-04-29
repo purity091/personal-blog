@@ -13,8 +13,7 @@ const RTLStyle = createGlobalStyle`
   /* Keep LTR for code/technical elements */
   code, pre, [data-ui="CodeInput"], .sanity-code-input,
   .CodeMirror-code, .CodeMirror-lines {
-    direction: ltr !important;
-    text-align: left !important;
+    
   }
 
   /* Markdown editor text area - RTL for Arabic writing */
