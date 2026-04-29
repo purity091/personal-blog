@@ -1,6 +1,9 @@
 ---
 title: 'مقارنة بين أطر الواجهات الأمامية: Angular و React و Vue'
-description: sadasdasd
+description: >-
+  اختيار إطار الواجهة الأمامية قد يحدد سرعة التطوير وسهولة الصيانة وتجربة
+  المستخدم هذه المقالة تقارن بين Angular و React و Vue بطريقة تساعدك على فهم
+  نقاط القوة والاختيار الأنسب لمشروعك
 date: '2026-04-13'
 category: التعلم العميق
 tags: []
@@ -204,6 +207,3 @@ draft: false
 -    تقرير موقع httparchive [Report: Page Weight](https://httparchive.org/reports/page-weight?start=2020_01_01&end=latest&view=list).
 
 -    [تقرير](https://insights.stackoverflow.com/survey/2021) موقع Stackoverflow.
-
-
-[https://academy.hsoub.com/programming/javascript/%D9%85%D9%82%D8%A7%D8%B1%D9%86%D8%A9-%D8%A8%D9%8A%D9%86-%D8%A3%D8%B7%D8%B1-%D8%A7%D9%84%D9%88%D8%A7%D8%AC%D9%87%D8%A7%D8%AA-%D8%A7%D9%84%D8%A3%D9%85%D8%A7%D9%85%D9%8A%D8%A9-angular-%D9%88-react-%D9%88-vue-r1596/](https://academy.hsoub.com/programming/javascript/%D9%85%D9%82%D8%A7%D8%B1%D9%86%D8%A9-%D8%A8%D9%8A%D9%86-%D8%A3%D8%B7%D8%B1-%D8%A7%D9%84%D9%88%D8%A7%D8%AC%D9%87%D8%A7%D8%AA-%D8%A7%D9%84%D8%A3%D9%85%D8%A7%D9%85%D9%8A%D8%A9-angular-%D9%88-react-%D9%88-vue-r1596/)
