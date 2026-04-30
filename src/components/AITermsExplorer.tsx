@@ -34,15 +34,13 @@ const AITermsExplorer = () => {
   ];
 
   return (
-    <section className="py-2  bg-[var(--bg-primary)] border-y border-[var(--border-subtle)] relative overflow-hidden transition-colors duration-300">
-      <div className="absolute top-0 right-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-[var(--accent-purple)]/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2 opacity-50" />
+    <section className="py-2  bg-[var(--bg-primary)] ] relative overflow-hidden transition-colors duration-300">
+      <div className="absolute right-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-[var(--accent-purple)]/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2 opacity-50" />
 
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-16 gap-6">
           <div className="text-right">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--glass-bg)] border border-[var(--border-subtle)] text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-4">
-              <Terminal size={12} /> مختبر المعرفة الرقمية
-            </div>
+
             <h2 className="text-3xl md:text-5xl font-bold text-[var(--text-primary)] mb-4 leading-tight">قاموس المفاهيم <br /><span className="text-[var(--accent-purple)]">الذكية التفاعلي</span></h2>
             <p className="text-[var(--text-secondary)] text-sm md:text-base max-w-md ml-auto">استكشف المصطلحات الجوهرية التي تبني مستقبل الذكاء الاصطناعي بضغطة واحدة.</p>
           </div>
@@ -65,8 +63,8 @@ const AITermsExplorer = () => {
                 whileTap={{ scale: 0.98 }}
                 onClick={() => setSelectedTerm(i)}
                 className={`p-4 md:p-5 rounded-2xl md:rounded-[2rem] border transition-all text-right flex items-center justify-between group shadow-sm ${selectedTerm === i
-                    ? 'bg-[var(--accent-purple)]/10 border-[var(--accent-purple)]/40 shadow-[var(--shadow-md)]'
-                    : 'bg-[var(--card-bg)] border-[var(--border-subtle)] hover:border-[var(--accent-purple)]/50'
+                  ? 'bg-[var(--accent-purple)]/10 border-[var(--accent-purple)]/40 shadow-[var(--shadow-md)]'
+                  : 'bg-[var(--card-bg)] border-[var(--border-subtle)] hover:border-[var(--accent-purple)]/50'
                   }`}
               >
                 <div className={`p-2 rounded-lg transition-colors ${selectedTerm === i ? 'bg-[var(--accent-purple)] text-white' : 'bg-[var(--bg-tertiary)] text-[var(--text-muted)]'}`}>

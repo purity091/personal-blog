@@ -1,11 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, ChevronLeft, ArrowLeft, ArrowRight, Download, BookOpen } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ChevronRight, ChevronLeft, ArrowLeft } from 'lucide-react';
 import { books } from '../data/books';
 
 const MyBookSlider = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [mounted, setMounted] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const handleScroll = () => {
@@ -23,7 +22,7 @@ const MyBookSlider = () => {
     const width = scrollRef.current.offsetWidth;
     const isRTL = typeof document !== 'undefined' && (document.dir === 'rtl' || window.getComputedStyle(scrollRef.current).direction === 'rtl');
     const scrollAmount = isRTL ? -(index * width) : index * width;
-    
+
     scrollRef.current.scrollTo({
       left: scrollAmount,
       behavior: 'smooth'
@@ -31,17 +30,16 @@ const MyBookSlider = () => {
   };
 
   useEffect(() => {
-    setMounted(true);
     const el = scrollRef.current;
     if (el) {
       el.addEventListener('scroll', handleScroll, { passive: true });
       return () => el.removeEventListener('scroll', handleScroll);
     }
-  }, [activeIndex]);
+  }, []);
 
   return (
     <section id="book" className="relative py-24 md:py-32 bg-[var(--bg-primary)] overflow-hidden text-right" dir="rtl">
-      
+
       {/* Dynamic Background System */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-[-10%] start-[-10%] w-[40%] h-[40%] bg-[var(--accent-purple)]/5 blur-[120px] animate-pulse"></div>
@@ -50,19 +48,16 @@ const MyBookSlider = () => {
       </div>
 
       <div className="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10">
-        
+
         {/* Cinematic Header */}
         <div className="flex flex-col md:flex-row items-end justify-between gap-8 mb-12 md:mb-16">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             className="space-y-3"
           >
-            <div className="inline-flex items-center gap-3 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
-              <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-purple)] animate-pulse"></span>
-              <span className="text-[10px] font-black uppercase tracking-widest text-[var(--text-secondary)]">The Masterclass Library</span>
-            </div>
+
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-[var(--text-primary)] leading-[1.1] tracking-tighter">
               المكتبة <span className="text-[var(--accent-purple)]">الذكية</span>
             </h2>
@@ -74,20 +69,20 @@ const MyBookSlider = () => {
             <div className="hidden lg:flex items-center gap-8 me-8">
               <div className="flex flex-col items-end">
                 <span className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest mb-1">المرحلة الحالية</span>
-                <span className="text-xl font-black text-[var(--text-primary)]">{mounted ? activeIndex + 1 : 1} / {books.length}</span>
+                <span className="text-xl font-black text-[var(--text-primary)]">{activeIndex + 1} / {books.length}</span>
               </div>
             </div>
             <div className="flex gap-2">
-              <button 
-                onClick={() => scrollTo(activeIndex - 1)} 
-                disabled={!mounted || activeIndex === 0}
+              <button
+                onClick={() => scrollTo(activeIndex - 1)}
+                disabled={activeIndex === 0}
                 className="group p-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur-xl hover:bg-[var(--accent-purple)] hover:border-[var(--accent-purple)] transition-all disabled:opacity-20 disabled:cursor-not-allowed"
               >
                 <ChevronRight size={24} className="text-white" />
               </button>
-              <button 
-                onClick={() => scrollTo(activeIndex + 1)} 
-                disabled={!mounted || activeIndex === books.length - 1}
+              <button
+                onClick={() => scrollTo(activeIndex + 1)}
+                disabled={activeIndex === books.length - 1}
                 className="group p-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur-xl hover:bg-[var(--accent-purple)] hover:border-[var(--accent-purple)] transition-all disabled:opacity-20 disabled:cursor-not-allowed"
               >
                 <ChevronLeft size={24} className="text-white" />
@@ -97,7 +92,7 @@ const MyBookSlider = () => {
         </div>
 
         {/* The Carousel Engine */}
-        <div 
+        <div
           ref={scrollRef}
           className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar gap-5 md:gap-8 pb-16"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
@@ -114,12 +109,12 @@ const MyBookSlider = () => {
               <div className="relative group p-6 md:p-10 rounded-[3.5rem] bg-white/[0.02] border border-white/5 hover:border-white/10 hover:bg-white/[0.04] transition-all duration-1000 h-full overflow-hidden">
                 {/* Internal Ambient Glow */}
                 <div className="absolute -top-24 -start-24 w-64 h-64 bg-[var(--accent-purple)]/10 blur-[100px] opacity-0 group-hover:opacity-100 transition-all duration-1000"></div>
-                
+
                 <div className="relative z-10 flex flex-col lg:flex-row items-center lg:items-center gap-10 md:gap-16 h-full">
-                  
+
                   {/* Premium 3D Book Visualization with Floating Animation */}
                   <div className="relative shrink-0 perspective-2000">
-                    <motion.div 
+                    <motion.div
                       animate={{ y: [0, -10, 0] }}
                       transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                       className="relative w-40 md:w-60 aspect-[3/4.2] transition-all duration-1000 transform group-hover:rotate-y-[-22deg] group-hover:rotate-x-[6deg] group-hover:scale-[1.03]"
@@ -142,11 +137,11 @@ const MyBookSlider = () => {
                         <span className="text-[9px] md:text-[10px] font-black text-[var(--accent-purple)] uppercase tracking-[0.3em]">{book.eyebrow}</span>
                         <div className="h-px flex-1 bg-gradient-to-l from-[var(--accent-purple)]/30 to-transparent"></div>
                       </div>
-                      
+
                       <h3 className="text-2xl md:text-4xl font-black text-[var(--text-primary)] leading-tight tracking-tight group-hover:text-[var(--accent-purple)] transition-colors duration-700">
                         {book.title}
                       </h3>
-                      
+
                       <p className="text-base md:text-lg text-[var(--text-secondary)] leading-relaxed opacity-80 group-hover:opacity-100 transition-all duration-700 line-clamp-3 md:line-clamp-4">
                         {book.description}
                       </p>
@@ -162,7 +157,7 @@ const MyBookSlider = () => {
                     </div>
 
                     <div className="mt-8 flex items-center justify-end">
-                      <a 
+                      <a
                         href={`/books/${book.slug}`}
                         className="group/btn relative inline-flex items-center justify-center gap-3 py-4 px-10 rounded-[1.5rem] bg-white text-black text-lg font-black overflow-hidden transition-all hover:scale-105 active:scale-95"
                       >
@@ -184,11 +179,10 @@ const MyBookSlider = () => {
               <button
                 key={i}
                 onClick={() => scrollTo(i)}
-                className={`h-1.5 transition-all duration-700 rounded-full ${
-                  i === activeIndex 
-                  ? 'w-12 bg-[var(--accent-purple)] shadow-[0_0_15px_rgba(168,85,247,0.5)]' 
-                  : 'w-4 bg-white/10 hover:bg-white/30'
-                }`}
+                className={`h-1.5 transition-all duration-700 rounded-full ${i === activeIndex
+                    ? 'w-12 bg-[var(--accent-purple)] shadow-[0_0_15px_rgba(168,85,247,0.5)]'
+                    : 'w-4 bg-white/10 hover:bg-white/30'
+                  }`}
               />
             ))}
           </div>

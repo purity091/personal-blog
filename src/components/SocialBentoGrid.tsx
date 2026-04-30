@@ -10,13 +10,13 @@ const SocialBentoGrid = () => {
 
   return (
     <section id="social" className="py-16 md:py-24 px-6 relative bg-[var(--bg-secondary)] overflow-hidden transition-colors duration-500" dir="rtl">
-      
+
       {/* Dynamic Background Elements */}
       <div className="absolute top-0 end-0 w-[400px] h-[400px] bg-[var(--accent-purple)]/5 blur-[100px] rounded-full pointer-events-none" />
       <div className="absolute bottom-0 start-0 w-[300px] h-[300px] bg-blue-500/5 blur-[100px] rounded-full pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative z-10">
-        
+
         {/* Compact Modern Header */}
         <div className="flex flex-col md:flex-row items-end justify-between mb-12 gap-8 border-b border-white/5 pb-10">
           <motion.div
@@ -34,19 +34,12 @@ const SocialBentoGrid = () => {
           </motion.div>
 
           {/* Integrated Stats Bar */}
-          <div className="flex gap-6 md:gap-10">
-            {stats.map((stat, i) => (
-              <div key={i} className="text-center">
-                <div className="text-xl md:text-2xl font-black text-[var(--text-primary)]">{stat.value}</div>
-                <div className="text-[9px] font-bold text-[var(--text-muted)] uppercase tracking-wider">{stat.label}</div>
-              </div>
-            ))}
-          </div>
+
         </div>
 
         {/* Professional Bento Grid */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-          
+
           {/* YouTube - Primary Channel */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -55,16 +48,16 @@ const SocialBentoGrid = () => {
             className="md:col-span-7 group relative p-8 rounded-[2.5rem] bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all duration-500 overflow-hidden min-h-[300px] flex flex-col justify-between"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-red-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-            
+
             <div className="relative z-10">
               <div className="flex items-center justify-between mb-6">
                 <div className="w-12 h-12 rounded-2xl bg-red-600 flex items-center justify-center text-white shadow-lg shadow-red-600/20">
                   <Youtube size={24} />
                 </div>
-                <span className="text-[10px] font-black text-red-500 uppercase tracking-widest">Youtube Channel</span>
+                <span className="text-[10px] font-black text-red-500 uppercase tracking-widest">قناة اليوتيوب</span>
               </div>
               <h3 className="text-xl md:text-2xl font-black mb-3 text-[var(--text-primary)]">المحتوى المرئي التعليمي</h3>
-              <p className="text-[var(--text-secondary)] text-sm leading-relaxed max-w-sm font-medium">أكثر من 500 فيديو يشرح الخوارزميات والذكاء الاصطناعي بأسلوب تفكيك بصري فريد.</p>
+              <p className="text-[var(--text-secondary)] text-sm leading-relaxed max-w-sm font-medium">فيديوهات تشرح الخوارزميات والذكاء الاصطناعي بأسلوب بسيط ومميز.</p>
             </div>
 
             <a href="https://www.youtube.com/@MohLahlah" target="_blank" className="relative z-10 w-fit flex items-center gap-3 text-sm font-black text-white bg-red-600 px-6 py-3 rounded-full hover:scale-105 transition-transform active:scale-95">
@@ -80,13 +73,13 @@ const SocialBentoGrid = () => {
             className="md:col-span-5 group relative p-8 rounded-[2.5rem] bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all duration-500 overflow-hidden flex flex-col justify-between"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-blue-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-            
+
             <div className="relative z-10">
               <div className="flex items-center justify-between mb-6">
                 <div className="w-12 h-12 rounded-2xl bg-blue-500 flex items-center justify-center text-white shadow-lg shadow-blue-400/20">
                   <Twitter size={24} />
                 </div>
-                <span className="text-[10px] font-black text-blue-400 uppercase tracking-widest">X / Twitter</span>
+                <span className="text-[10px] font-black text-blue-400 uppercase tracking-widest">منصة إكس / تويتر</span>
               </div>
               <h3 className="text-xl font-black mb-3 text-[var(--text-primary)]">تأملات يومية</h3>
               <p className="text-[var(--text-secondary)] text-sm leading-relaxed font-medium">خواطر سريعة وتحديثات لحظية حول أحدث نماذج الذكاء الاصطناعي.</p>
@@ -105,7 +98,7 @@ const SocialBentoGrid = () => {
             className="md:col-span-12 group relative p-6 md:p-8 rounded-[2.5rem] bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all duration-500 overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-            
+
             <div className="flex items-center gap-6 relative z-10 flex-1">
               <div className="w-14 h-14 rounded-2xl bg-blue-700 flex items-center justify-center text-white shadow-lg shadow-blue-600/20 shrink-0">
                 <Linkedin size={28} />
@@ -122,11 +115,7 @@ const SocialBentoGrid = () => {
           </motion.div>
         </div>
 
-        {/* Minimal Footer Info */}
-        <div className="mt-10 flex items-center justify-center gap-3 text-[var(--text-muted)] text-[10px] font-black uppercase tracking-[0.2em]">
-          <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
-          نشاط مستمر يومياً عبر جميع المنصات
-        </div>
+
 
       </div>
     </section>
