@@ -9,6 +9,7 @@ interface Props {
 
 import Navbar from '../components/Navbar.tsx';
 import MobileNav from '../components/MobileNav.tsx';
+import WhatsAppFloat from '../components/WhatsAppFloat.tsx';
 import ScrollToTop from '../components/ScrollToTop.tsx';
 
 const {
@@ -109,6 +110,7 @@ const siteUrl = 'https://lahlah.ai';
   <body>
     <slot />
     <MobileNav client:load />
+    <WhatsAppFloat client:load />
     <ScrollToTop client:load />
   </body>
 </html>

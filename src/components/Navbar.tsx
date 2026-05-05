@@ -17,15 +17,17 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-[10000] bg-[var(--navbar-bg)] backdrop-blur-lg border-b border-[var(--border-subtle)] h-16" role="navigation" aria-label="القائمة الرئيسية">
-      <div className="max-w-6xl mx-auto px-6 h-full flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-6 h-full grid grid-cols-2 lg:grid-cols-3 items-center">
+        {/* Logo and Name - Right Side */}
         <div className="flex items-center gap-3">
           <img src="/logo1.png" alt="Logo" className="w-10 h-10 object-contain" />
-          <a href="/#home" className="font-bold text-lg text-[var(--text-primary)] hover:opacity-80 transition-opacity" aria-label="محمد لحلح - الصفحة الرئيسية">
+          <a href="/#home" className="font-bold text-lg text-[var(--text-primary)] hover:opacity-80 transition-opacity whitespace-nowrap" aria-label="محمد لحلح - الصفحة الرئيسية">
             محمد لحلح
           </a>
         </div>
 
-        <div className="hidden lg:flex items-center gap-8 text-xs font-bold text-[var(--text-secondary)]" role="menubar">
+        {/* Navigation Links - Centered on Desktop */}
+        <div className="hidden lg:flex items-center justify-center gap-8 text-xs font-bold text-[var(--text-secondary)]" role="menubar">
           {navLinks.map((link, i) => (
             <a key={i} href={link.href} className="hover:text-[var(--text-primary)] transition-colors" role="menuitem">
               {link.label}
@@ -33,7 +35,8 @@ const Navbar = () => {
           ))}
         </div>
 
-        <div className="flex items-center gap-4">
+        {/* Actions - Left Side */}
+        <div className="flex items-center justify-end gap-4">
           <button className="hidden sm:block bg-[var(--text-primary)] text-[var(--bg-primary)] px-5 py-2 rounded-full text-[10px] font-bold hover:bg-[var(--accent-purple)] hover:text-white transition-all shadow-sm">
             النشرة البريدية
           </button>
