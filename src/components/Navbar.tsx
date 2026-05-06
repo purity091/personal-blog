@@ -37,9 +37,6 @@ const Navbar = () => {
 
         {/* Actions - Left Side */}
         <div className="flex items-center justify-end gap-4">
-          <button className="hidden sm:block bg-[var(--text-primary)] text-[var(--bg-primary)] px-5 py-2 rounded-full text-[10px] font-bold hover:bg-[var(--accent-purple)] hover:text-white transition-all shadow-sm">
-            النشرة البريدية
-          </button>
           <ThemeToggle />
           <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden text-[var(--text-primary)] p-2" aria-label="القائمة">
             {isOpen ? <X size={24} /> : <Menu size={24} />}
