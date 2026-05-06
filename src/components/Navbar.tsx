@@ -11,8 +11,6 @@ const Navbar = () => {
     { label: 'المدونة', href: '/blog' },
     { label: 'الكتب', href: '/books' },
     { label: 'تواصل', href: '/#social' },
-    { label: 'العلوم', href: '/#deep-learning' },
-    { label: 'يوتيوب', href: '/#youtube' }
   ];
 
   return (

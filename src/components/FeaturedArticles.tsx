@@ -45,11 +45,11 @@ const FeaturedArticles = ({ articles = [] }: { articles?: AstroArticle[] }) => {
                 className="group flex items-center gap-4 p-2 rounded-xl hover:bg-white/[0.03] transition-all duration-300 border-b border-white/5 last:border-0 lg:border-b-0 lg:py-3"
               >
                 {/* Compact Thumbnail */}
-                <div className="relative shrink-0 w-14 h-14 md:w-16 md:h-16 rounded-xl overflow-hidden border border-white/10 group-hover:border-[var(--accent-purple)]/50 transition-colors">
+                <div className="relative shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-2xl overflow-hidden border border-white/10 group-hover:border-[var(--accent-purple)]/50 transition-all duration-500 shadow-lg">
                    <img 
                     src={post.data.image?.src || 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=200'} 
                     alt={post.data.title} 
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-80 group-hover:opacity-100"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                 </div>
 
