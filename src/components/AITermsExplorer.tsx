@@ -10,7 +10,8 @@ import {
   MessageSquare,
   Globe,
   Terminal,
-  ArrowUpRight
+  ArrowUpRight,
+  ChevronDown
 } from 'lucide-react';
 
 const AITermsExplorer = () => {
@@ -57,30 +58,59 @@ const AITermsExplorer = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 order-2 lg:order-1">
             {terms.map((term, i) => (
-              <motion.button
-                key={i}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => setSelectedTerm(i)}
-                className={`p-4 md:p-5 rounded-2xl md:rounded-[2rem] border transition-all text-right flex items-center justify-between group shadow-sm ${selectedTerm === i
-                  ? 'bg-[var(--accent-purple)]/10 border-[var(--accent-purple)]/40 shadow-[var(--shadow-md)]'
-                  : 'bg-[var(--card-bg)] border-[var(--border-subtle)] hover:border-[var(--accent-purple)]/50'
-                  }`}
-              >
-                <div className={`p-2 rounded-lg transition-colors ${selectedTerm === i ? 'bg-[var(--accent-purple)] text-white' : 'bg-[var(--bg-tertiary)] text-[var(--text-muted)]'}`}>
-                  {term.icon}
-                </div>
-                <div className="flex-1 mr-4">
-                  <span className={`block text-xs md:text-sm font-bold transition-colors ${selectedTerm === i ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)] group-hover:text-[var(--text-primary)]'}`}>
-                    {term.name}
-                  </span>
-                </div>
-                {selectedTerm === i && <motion.div layoutId="dot" className="w-1.5 h-1.5 rounded-full bg-[var(--accent-purple)] shadow-[0_0_10px_var(--accent-purple)]" />}
-              </motion.button>
+              <div key={i} className="flex flex-col gap-2">
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setSelectedTerm(selectedTerm === i ? -1 : i)}
+                  className={`p-4 md:p-5 rounded-2xl md:rounded-[2rem] border transition-all text-right flex items-center justify-between group shadow-sm w-full ${selectedTerm === i
+                    ? 'bg-[var(--accent-purple)]/10 border-[var(--accent-purple)]/40 shadow-[var(--shadow-md)]'
+                    : 'bg-[var(--card-bg)] border-[var(--border-subtle)] hover:border-[var(--accent-purple)]/50'
+                    }`}
+                >
+                  <div className={`p-2 rounded-lg transition-colors ${selectedTerm === i ? 'bg-[var(--accent-purple)] text-white' : 'bg-[var(--bg-tertiary)] text-[var(--text-muted)]'}`}>
+                    {term.icon}
+                  </div>
+                  <div className="flex-1 mr-4 text-right">
+                    <span className={`block text-xs md:text-sm font-bold transition-colors ${selectedTerm === i ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)] group-hover:text-[var(--text-primary)]'}`}>
+                      {term.name}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {selectedTerm === i && <motion.div layoutId="dot" className="w-1.5 h-1.5 rounded-full bg-[var(--accent-purple)] shadow-[0_0_10px_var(--accent-purple)]" />}
+                    <motion.div
+                      animate={{ rotate: selectedTerm === i ? 180 : 0 }}
+                      className="lg:hidden text-[var(--text-muted)]"
+                    >
+                      <ChevronDown size={14} />
+                    </motion.div>
+                  </div>
+                </motion.button>
+
+                {/* Mobile Expansion Content */}
+                <motion.div
+                  initial={false}
+                  animate={{
+                    height: selectedTerm === i ? 'auto' : 0,
+                    opacity: selectedTerm === i ? 1 : 0,
+                    marginBottom: selectedTerm === i ? 12 : 0
+                  }}
+                  className="lg:hidden overflow-hidden px-4"
+                >
+                  <div className="pt-2 pb-4 text-right border-r-2 border-[var(--accent-purple)]/30 pr-4 mr-2">
+                    <div className="inline-block px-2 py-0.5 rounded-md bg-[var(--accent-purple)]/10 text-[var(--accent-purple)] text-[8px] font-bold mb-2">
+                      {categories.find(c => c.id === term.cat)?.name}
+                    </div>
+                    <p className="text-[var(--text-secondary)] text-sm leading-relaxed font-medium">
+                      {term.def}
+                    </p>
+                  </div>
+                </motion.div>
+              </div>
             ))}
           </div>
 
-          <div className="lg:col-span-5 lg:sticky lg:top-24 order-1 lg:order-2">
+          <div className="lg:col-span-5 lg:sticky lg:top-24 order-1 lg:order-2 hidden lg:block">
             <motion.div
               key={selectedTerm}
               initial={{ opacity: 0, y: 10 }}
@@ -94,25 +124,30 @@ const AITermsExplorer = () => {
                   <div className="w-2 h-2 rounded-full bg-emerald-500/20" />
                 </div>
                 <div className="flex-1 text-center text-[8px] md:text-[10px] font-mono text-[var(--text-muted)] flex items-center justify-center gap-2">
-                  <Terminal size={10} /> مستكشف_المفاهيم.exe
+                  <Terminal size={10} /> مستكشف مفاهيم الذكاء الصنعي
                 </div>
               </div>
 
               <div className="text-right">
-                <div className="inline-block px-2 py-0.5 rounded-md bg-[var(--accent-purple)]/10 text-[var(--accent-purple)] text-[9px] font-bold mb-4">
-                  {categories.find(c => c.id === terms[selectedTerm].cat)?.name}
-                </div>
-                <h3 className="text-xl md:text-3xl font-black text-[var(--text-primary)] mb-4 leading-tight">
-                  {terms[selectedTerm].name}
-                </h3>
-                <p className="text-[var(--text-secondary)] text-sm md:text-lg leading-relaxed mb-6 font-medium">
-                  {terms[selectedTerm].def}
-                </p>
-
-                <div className="flex items-center justify-end gap-3 p-3 rounded-xl bg-[var(--bg-tertiary)] border border-[var(--border-subtle)] group cursor-pointer hover:bg-[var(--glass-bg-hover)] transition-all">
-                  <span className="text-[10px] md:text-xs font-bold text-[var(--text-primary)]">اقرأ المقال الكامل</span>
-                  <ArrowUpRight size={14} className="text-[var(--accent-purple)] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                </div>
+                {selectedTerm !== -1 && (
+                  <>
+                    <div className="inline-block px-2 py-0.5 rounded-md bg-[var(--accent-purple)]/10 text-[var(--accent-purple)] text-[9px] font-bold mb-4">
+                      {categories.find(c => c.id === terms[selectedTerm].cat)?.name}
+                    </div>
+                    <h3 className="text-xl md:text-3xl font-black text-[var(--text-primary)] mb-4 leading-tight">
+                      {terms[selectedTerm].name}
+                    </h3>
+                    <p className="text-[var(--text-secondary)] text-sm md:text-lg leading-relaxed mb-6 font-medium">
+                      {terms[selectedTerm].def}
+                    </p>
+                  </>
+                )}
+                {selectedTerm === -1 && (
+                  <div className="flex flex-col items-center justify-center py-20 text-[var(--text-muted)] opacity-50">
+                    <Sparkles size={48} className="mb-4" />
+                    <p>اختر مصطلحاً لاستكشافه</p>
+                  </div>
+                )}
               </div>
             </motion.div>
           </div>
