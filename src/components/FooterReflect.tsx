@@ -46,8 +46,7 @@ const FooterReflect = () => {
               <span className="font-bold text-2xl text-[var(--text-primary)]">محمد لحلح</span>
             </div>
             <p className="text-[var(--text-secondary)] text-sm md:text-base leading-relaxed font-medium max-w-sm mb-8">
-              أبسط أعقد مفاهيم الذكاء الاصطناعي، لأبني جيلاً يفهم التكنولوجيا ولا يكتفي بمجرد استهلاكها.
-            </p>
+              طالب علم ومهندس برمجيات، أفكّك مفاهيم الذكاء الصنعي في محاولة لبناء الأثر وأحب مشاركة رحتلي في هذا المجال.            </p>
             <div className="flex gap-3">
               {socialLinks.map((social, i) => (
                 <motion.a
