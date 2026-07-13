@@ -61,7 +61,7 @@ const MyBookSlider = () => {
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-[var(--text-primary)] leading-[1.1] tracking-tighter">
               المكتبة <span className="text-[var(--accent-purple)]">الذكية</span>
             </h2>
-            <p className="text-base md:text-lg text-[var(--text-secondary)] font-medium max-w-xl">إصدارات حصرية تجمع بين الخبرة العملية والذكاء الاصطناعي</p>
+            <p className="text-base md:text-lg text-[var(--text-secondary)] font-medium max-w-xl">منشوراتي من الكتب التي تجمع بين الخبرة النظرية والعملية في الذكاء الاصطناعي</p>
           </motion.div>
 
           {/* Navigation Controls */}
