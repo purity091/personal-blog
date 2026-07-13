@@ -26,10 +26,10 @@ const WhatsAppFloat = () => {
         </div>
 
         {/* Tooltip */}
-        <div className="absolute left-full ml-4 px-4 py-2 bg-white dark:bg-gray-800 text-[var(--text-primary)] text-sm font-bold rounded-xl shadow-xl opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all duration-300 whitespace-nowrap pointer-events-none border border-[var(--border-subtle)]">
+        <div className="absolute left-full ml-4 px-4 py-2 bg-white text-[var(--text-primary)] text-sm font-bold rounded-xl shadow-xl opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all duration-300 whitespace-nowrap pointer-events-none border border-[var(--border-subtle)]">
           تواصل معي عبر واتساب
           {/* Arrow */}
-          <div className="absolute top-1/2 -left-2 -translate-y-1/2 border-8 border-transparent border-r-white dark:border-r-gray-800" />
+          <div className="absolute top-1/2 -left-2 -translate-y-1/2 border-8 border-transparent border-r-white" />
         </div>
       </a>
     </motion.div>
