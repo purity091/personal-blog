@@ -18,61 +18,24 @@ export const useTheme = () => {
   return context;
 };
 
-const getSystemTheme = (): 'light' | 'dark' => {
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-};
-
-// Read the theme class that the inline script already set on <html>
-// This ensures server and client hydration are in sync
-const getInitialActualTheme = (): 'light' | 'dark' => {
-  if (typeof document === 'undefined') return 'light';
-  if (document.documentElement.classList.contains('dark')) return 'dark';
-  return 'light';
-};
-
-const getInitialStoredTheme = (): Theme => {
-  if (typeof window === 'undefined') return 'light';
-  return (localStorage.getItem('theme') as Theme) || 'light';
-};
-
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [theme, setThemeState] = useState<Theme>(getInitialStoredTheme);
-  const [actualTheme, setActualTheme] = useState<'light' | 'dark'>(getInitialActualTheme);
-
-  // Sync on mount: re-read from localStorage in case SSR had stale data
   useEffect(() => {
-    const stored = (localStorage.getItem('theme') as Theme) || 'light';
-    setThemeState(stored);
-    setActualTheme(stored === 'system' ? getSystemTheme() : stored);
+    try {
+      localStorage.setItem('theme', 'light');
+    } catch (e) {}
+    const root = document.documentElement;
+    root.classList.remove('dark');
+    root.classList.add('light');
   }, []);
 
-  // Listen for system theme changes
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = () => {
-      if (theme === 'system') {
-        setActualTheme(getSystemTheme());
-      }
-    };
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
-  }, [theme]);
-
   const setTheme = (newTheme: Theme) => {
-    localStorage.setItem('theme', newTheme);
-    setThemeState(newTheme);
-    setActualTheme(newTheme === 'system' ? getSystemTheme() : newTheme);
+    try {
+      localStorage.setItem('theme', 'light');
+    } catch (e) {}
   };
 
-  // Apply theme class to <html>
-  useEffect(() => {
-    const root = document.documentElement;
-    root.classList.remove('light', 'dark');
-    root.classList.add(actualTheme);
-  }, [actualTheme]);
-
   return (
-    <ThemeContext.Provider value={{ theme, actualTheme, setTheme }}>
+    <ThemeContext.Provider value={{ theme: 'light', actualTheme: 'light', setTheme }}>
       {children}
     </ThemeContext.Provider>
   );

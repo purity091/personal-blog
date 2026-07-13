@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-import ThemeToggle from './ThemeToggle';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,7 +34,6 @@ const Navbar = () => {
 
         {/* Actions - Left Side */}
         <div className="flex items-center justify-end gap-4">
-          <ThemeToggle />
           <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden text-[var(--text-primary)] p-2" aria-label="القائمة">
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
