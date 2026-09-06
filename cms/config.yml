@@ -1,0 +1,84 @@
+backend:
+  name: github
+  repo: purity091/personal-blog
+  branch: main
+
+site_url: https://lahlah.ai
+display_url: https://lahlah.ai
+publish_mode: editorial_workflow
+
+media_folder: public/uploads
+public_folder: /uploads
+
+collections:
+  - name: blog
+    label: المقالات
+    label_singular: مقال
+    description: المقالات المنشورة في المدونة
+    folder: src/content/blog
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - { label: العنوان, name: title, widget: string }
+      - { label: الوصف, name: description, widget: text }
+      - { label: تاريخ النشر, name: date, widget: date, format: YYYY-MM-DD }
+      - { label: تاريخ التحديث, name: updatedDate, widget: date, format: YYYY-MM-DD, required: false }
+      - label: الصورة
+        name: image
+        widget: object
+        required: false
+        fields:
+          - { label: الصورة, name: src, widget: image, required: false }
+          - { label: النص البديل, name: alt, widget: string, required: false }
+      - { label: التصنيف, name: category, widget: string, default: الذكاء الاصطناعي }
+      - { label: الوسوم, name: tags, widget: list, default: [] }
+      - { label: وقت القراءة بالدقائق, name: readingTime, widget: number, value_type: int, min: 1, default: 5 }
+      - { label: مقال مميز, name: featured, widget: boolean, default: false }
+      - { label: مسودة, name: draft, widget: boolean, default: false }
+      - { label: المحتوى, name: body, widget: markdown }
+
+  - name: projects
+    label: المشاريع والخبرات
+    label_singular: مشروع
+    description: المشاريع والتجارب العملية الظاهرة في الصفحة الرئيسية وصفحة المشاريع
+    folder: src/content/projects
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - { label: اسم المشروع, name: title, widget: string }
+      - { label: الجهة أو الشركة, name: organization, widget: string }
+      - { label: الدور, name: role, widget: string }
+      - label: نوع العمل
+        name: employmentType
+        widget: select
+        required: false
+        options: [مشروع شخصي, عمل حر, وظيفة, تعاون, تطوع]
+      - { label: تاريخ البداية, name: startDate, widget: date, format: YYYY-MM-DD }
+      - { label: تاريخ النهاية, name: endDate, widget: date, format: YYYY-MM-DD, required: false }
+      - { label: مستمر حتى الآن, name: isCurrent, widget: boolean, default: false }
+      - { label: الوصف المختصر, name: description, widget: text }
+      - { label: التفاصيل, name: details, widget: text, required: false }
+      - label: المهام والإنجازات
+        name: tasks
+        widget: list
+        default: []
+        field: { label: المهمة, name: task, widget: string }
+      - label: التقنيات المستخدمة
+        name: technologies
+        widget: list
+        default: []
+      - { label: رابط المشروع, name: projectUrl, widget: string, required: false }
+      - label: صورة المشروع
+        name: image
+        widget: object
+        required: false
+        fields:
+          - { label: الصورة, name: src, widget: image, required: false }
+          - { label: النص البديل, name: alt, widget: string, required: false }
+      - { label: ترتيب الظهور, name: order, widget: number, value_type: int, default: 0 }
+      - { label: عرض في الصفحة الرئيسية, name: featured, widget: boolean, default: true }
+      - { label: مسودة, name: draft, widget: boolean, default: false }

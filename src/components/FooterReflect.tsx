@@ -22,8 +22,9 @@ const FooterReflect = () => {
 
   const quickLinks = [
     { name: "الرئيسية", href: "/#home" },
+    { name: "مشاريعي", href: "/projects" },
     { name: "أحدث الكتب", href: "/#book" },
-    { name: "قناة اليوتيوب", href: "/#youtube" },
+    { name: "قناة اليوتيوب", href: "https://www.youtube.com/@lahlah-ai" },
   ];
 
   const legalLinks = [

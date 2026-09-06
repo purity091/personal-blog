@@ -1,4 +1,4 @@
-import { ArrowUpLeft, Calendar, Clock, BookOpen, ChevronLeft, ArrowRight } from 'lucide-react';
+import { ArrowUpLeft, ChevronLeft } from 'lucide-react';
 
 interface AstroArticle {
   slug: string;
@@ -38,7 +38,7 @@ const FeaturedArticles = ({ articles = [] }: { articles?: AstroArticle[] }) => {
 
         {/* Magazine Feed Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-2">
-          {displayArticles.map((post, i) => (
+          {displayArticles.map((post) => (
             <div key={post.slug}>
               <a
                 href={`/blog/${post.slug}`}

@@ -3,10 +3,12 @@
 export const prerender = true;
 
 import { getCollection } from 'astro:content';
+import { fetchProjects } from '../lib/projects';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navbar from '../components/Navbar.tsx';
 import Hero from '../components/Hero.tsx';
 import FeaturedArticles from '../components/FeaturedArticles.tsx';
+import WorkTimeline from '../components/WorkTimeline.tsx';
 import AITermsExplorer from '../components/AITermsExplorer.tsx';
 import MyBookSlider from '../components/MyBookSlider.tsx';
 import SocialBentoGrid from '../components/SocialBentoGrid.tsx';
@@ -38,6 +40,7 @@ const publishedPosts = allPosts
 
 // Get the latest 6-9 posts for the home page (increased from 3)
 const featuredPosts = publishedPosts.slice(0, 9);
+const projects = await fetchProjects();
 
 console.log('--- BUILD INFO ---');
 console.log('Total files found in src/content/blog:', allPosts.length);
@@ -51,6 +54,7 @@ console.log('------------------');
   <main>
     <Hero client:load />
     <FeaturedArticles articles={featuredPosts} client:visible />
+    {projects.length > 0 && <WorkTimeline projects={projects.slice(0, 3)} showAllLink />}
     <AITermsExplorer client:visible />
     <MyBookSlider client:visible />
     <SocialBentoGrid client:visible />

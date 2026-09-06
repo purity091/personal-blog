@@ -1,12 +1,13 @@
 import { motion } from 'framer-motion';
-import { Home, BookOpen, Book, Youtube } from 'lucide-react';
+import { BriefcaseBusiness, Home, BookOpen, Book, Youtube } from 'lucide-react';
 
 const MobileNav = () => {
   const navItems = [
     { label: 'الرئيسية', icon: <Home size={20} />, href: '/#home' },
     { label: 'المدونة', icon: <BookOpen size={20} />, href: '/blog' },
+    { label: 'مشاريعي', icon: <BriefcaseBusiness size={20} />, href: '/projects' },
     { label: 'كتابي', icon: <Book size={20} />, href: '/#book' },
-    { label: 'يوتيوب', icon: <Youtube size={20} />, href: '/#youtube' },
+    { label: 'يوتيوب', icon: <Youtube size={20} />, href: 'https://www.youtube.com/@lahlah-ai', isExternal: true },
     { 
       label: 'واتساب', 
       icon: (
@@ -32,6 +33,8 @@ const MobileNav = () => {
             <a 
               key={index} 
               href={item.href}
+              target={(item as any).isExternal ? '_blank' : undefined}
+              rel={(item as any).isExternal ? 'noopener noreferrer' : undefined}
               className={`flex flex-col items-center gap-1 transition-colors group relative px-3 ${
                 (item as any).isWhatsApp 
                   ? 'text-[#25D366] hover:text-[#25D366]' 

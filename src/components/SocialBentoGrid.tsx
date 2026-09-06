@@ -1,13 +1,7 @@
 import { motion } from 'framer-motion';
-import { Play, ExternalLink, ArrowUpLeft, BookOpen, Users, TrendingUp, Target, Twitter, Youtube, Linkedin } from 'lucide-react';
+import { Play, ArrowUpLeft, Twitter, Youtube, Linkedin } from 'lucide-react';
 
 const SocialBentoGrid = () => {
-  const stats = [
-    { icon: <Users size={14} />, value: "150K+", label: "متابع" },
-    { icon: <TrendingUp size={14} />, value: "500+", label: "فيديو" },
-    { icon: <Target size={14} />, value: "10K+", label: "طالب" },
-  ];
-
   return (
     <section id="social" className="py-16 md:py-24 px-6 relative bg-[var(--bg-secondary)] overflow-hidden transition-colors duration-500" dir="rtl">
 

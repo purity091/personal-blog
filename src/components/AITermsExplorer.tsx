@@ -10,7 +10,6 @@ import {
   MessageSquare,
   Globe,
   Terminal,
-  ArrowUpRight,
   ChevronDown
 } from 'lucide-react';
 

@@ -32,7 +32,7 @@ const formattedDate = date instanceof Date && !isNaN(date.getTime())
   : 'تاريخ غير معروف';
 ---
 
-<BaseLayout title={`${title} | محمد لحلح`} description={description}>
+<BaseLayout title={`${title} | محمد لحلح`} description={description} image={image?.src}>
   <Navbar client:load />
 
   <article class="min-h-screen bg-[var(--bg-primary)] transition-colors duration-300">

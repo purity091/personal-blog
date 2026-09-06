@@ -27,7 +27,7 @@
               "format": "unix-time"
             }
           ],
-          "default": "2026-07-13T20:17:22.641Z"
+          "default": "2026-09-06T21:17:20.692Z"
         },
         "updatedDate": {
           "anyOf": [

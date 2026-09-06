@@ -4,7 +4,7 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://lahlah.ai/sitemap.xml
+Sitemap: https://lahlah.ai/sitemap-index.xml
 
 # Crawl-delay for polite crawling
 Crawl-delay: 1
@@ -35,5 +35,4 @@ User-agent: ia_archiver
 Allow: /
 
 # Disallow common paths (if any in future)
-# Disallow: /admin/
 # Disallow: /private/

@@ -5,4 +5,5 @@ export { default as MyBookSlider } from './MyBookSlider';
 export { default as SocialBentoGrid } from './SocialBentoGrid';
 export { default as FooterReflect } from './FooterReflect';
 export { default as FeaturedArticles } from './FeaturedArticles';
+export { default as WorkTimeline } from './WorkTimeline';
 export { default as ThemeToggle } from './ThemeToggle';
