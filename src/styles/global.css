@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* ============================================
    CSS Variables - Light Theme (Default)
    ============================================ */
@@ -207,6 +211,48 @@ p {
   background-clip: text;
   animation: shine 10s linear infinite;
 }
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  background: var(--accent-purple);
+  color: white;
+  font-weight: 900;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 20px 50px -15px rgba(168, 85, 247, 0.5);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  border-radius: 1rem;
+  background: rgb(255 255 255 / 0.05);
+  color: var(--text-primary);
+  font-weight: 700;
+  backdrop-filter: blur(12px);
+  transition: background 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: rgb(255 255 255 / 0.1);
+}
+
+@keyframes blob {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+}
+
+.animate-blob { animation: blob 7s infinite; }
+.animation-delay-2000 { animation-delay: 2s; }
 
 @keyframes shine {
   to {

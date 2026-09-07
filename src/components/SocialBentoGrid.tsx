@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from 'framer-motion';
 import { Play, ArrowUpLeft, Twitter, Youtube, Linkedin } from 'lucide-react';
 
@@ -52,7 +54,7 @@ const SocialBentoGrid = () => {
               <p className="text-[var(--text-secondary)] text-sm leading-relaxed max-w-sm font-medium">فيديوهات تشرح الخوارزميات والذكاء الاصطناعي بأسلوب بسيط ومميز.</p>
             </div>
 
-            <a href="https://www.youtube.com/@lahlah-ai" target="_blank" className="relative z-10 w-fit flex items-center gap-3 text-sm font-black text-white bg-red-600 px-6 py-3 rounded-full hover:scale-105 transition-transform active:scale-95">
+            <a href="https://www.youtube.com/@lahlah-ai" target="_blank" rel="noopener noreferrer" className="relative z-10 w-fit flex items-center gap-3 text-sm font-black text-white bg-red-600 px-6 py-3 rounded-full hover:scale-105 transition-transform active:scale-95">
               اشترك الآن <Play size={14} fill="currentColor" />
             </a>
           </motion.div>
@@ -77,7 +79,7 @@ const SocialBentoGrid = () => {
               <p className="text-[var(--text-secondary)] text-sm leading-relaxed font-medium">خواطر سريعة وتحديثات لحظية حول أحدث نماذج الذكاء الاصطناعي.</p>
             </div>
 
-            <a href="https://twitter.com/lahlahai" target="_blank" className="relative z-10 w-full flex items-center justify-center gap-2 text-xs font-black text-[var(--text-primary)] bg-white/5 border border-white/5 py-3 rounded-2xl hover:bg-blue-400 hover:text-white hover:border-blue-400 transition-all">
+            <a href="https://twitter.com/lahlahai" target="_blank" rel="noopener noreferrer" className="relative z-10 w-full flex items-center justify-center gap-2 text-xs font-black text-[var(--text-primary)] bg-white/5 border border-white/5 py-3 rounded-2xl hover:bg-blue-400 hover:text-white hover:border-blue-400 transition-all">
               تابع @lahlahai <ArrowUpLeft size={14} />
             </a>
           </motion.div>
@@ -101,7 +103,7 @@ const SocialBentoGrid = () => {
               </div>
             </div>
 
-            <a href="https://www.linkedin.com/in/mohamed-lahlah" target="_blank" className="relative z-10 px-8 py-3.5 rounded-full bg-blue-700 text-white text-xs font-black hover:scale-105 transition-transform active:scale-95 shrink-0">
+            <a href="https://www.linkedin.com/in/mohamed-lahlah" target="_blank" rel="noopener noreferrer" className="relative z-10 px-8 py-3.5 rounded-full bg-blue-700 text-white text-xs font-black hover:scale-105 transition-transform active:scale-95 shrink-0">
               تواصل للتعاون
             </a>
           </motion.div>

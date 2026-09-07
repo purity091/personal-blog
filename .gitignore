@@ -8,6 +8,9 @@ pnpm-debug.log*
 lerna-debug.log*
 
 .astro
+.next
+next-env.d.ts
+tsconfig.tsbuildinfo
 .vercel
 node_modules
 dist

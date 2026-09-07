@@ -1,3 +1,5 @@
+"use client";
+
 import { ArrowUpLeft, ChevronLeft } from 'lucide-react';
 
 interface AstroArticle {
@@ -5,7 +7,7 @@ interface AstroArticle {
   data: {
     title: string;
     description: string;
-    date: Date;
+    date: Date | string;
     category: string;
     tags: string[];
     readingTime?: number;

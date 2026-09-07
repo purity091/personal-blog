@@ -66,7 +66,6 @@ collections:
         name: tasks
         widget: list
         default: []
-        field: { label: المهمة, name: task, widget: string }
       - label: التقنيات المستخدمة
         name: technologies
         widget: list

@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from 'framer-motion';
 import { BriefcaseBusiness, Home, BookOpen, Book, Youtube } from 'lucide-react';
 

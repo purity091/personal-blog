@@ -39,9 +39,11 @@ function formatDateRange(project: WorkProject) {
 const WorkTimeline = ({
   projects = [],
   showAllLink = false,
+  headingLevel = 'h2',
 }: {
   projects?: WorkProject[];
   showAllLink?: boolean;
+  headingLevel?: 'h1' | 'h2';
 }) => {
   if (projects.length === 0) return null;
 
@@ -56,9 +58,15 @@ const WorkTimeline = ({
             <span className="h-1.5 w-10 rounded-full bg-[var(--accent-purple)]" />
             <span className="text-xs font-black uppercase tracking-[0.25em] text-[var(--accent-purple)]">المسار العملي</span>
           </div>
-          <h2 className="mb-4 text-3xl font-black tracking-tight text-[var(--text-primary)] md:text-5xl">
-            مشاريعي وتجربتي العملية
-          </h2>
+          {headingLevel === 'h1' ? (
+            <h1 className="mb-4 text-3xl font-black tracking-tight text-[var(--text-primary)] md:text-5xl">
+              مشاريعي وتجربتي العملية
+            </h1>
+          ) : (
+            <h2 className="mb-4 text-3xl font-black tracking-tight text-[var(--text-primary)] md:text-5xl">
+              مشاريعي وتجربتي العملية
+            </h2>
+          )}
           <p className="text-base font-medium leading-relaxed text-[var(--text-secondary)] md:text-lg">
             محطات جمعت بين بناء المنتجات، حل المشكلات، ومشاركة المعرفة التقنية.
           </p>
