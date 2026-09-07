@@ -2,7 +2,7 @@ backend:
   name: github
   repo: purity091/personal-blog
   branch: main
-
+  
 site_url: https://lahlah.ai
 display_url: https://lahlah.ai
 publish_mode: editorial_workflow
